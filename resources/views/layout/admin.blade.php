@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="keywords" content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design">
+    Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design">
     <script type="application/x-javascript">
     addEventListener("load", function() {
         setTimeout(hideURLbar, 0);
@@ -30,12 +30,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link href="{{asset('backend/css/font-awesome.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('backend/css/morris.css')}}" type="text/css">
     <!-- calendar -->
-    <link rel="stylesheet" href="{{asset('backend/css/monthly.css')}}"> 
+    <link rel="stylesheet" href="{{asset('backend/css/monthly.css')}}">
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+
     <!-- //calendar -->
     <!-- //font-awesome icons -->
     <script src="{{asset('backend/js/jquery2.0.3.min.js')}}"></script>
     <script src="{{asset('backend/js/raphael-min.js')}}"></script>
     <script src="{{asset('backend/js/morris.js')}}"></script>
+    <script src="{{asset('backend/js/index.js')}}"></script>
+
+
 </head>
 
 <body>
@@ -250,7 +255,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     if ($adminName) {
                                         echo  $adminName  ; 
                   }
-                  
             ?>
 
                             </span>
@@ -281,14 +285,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <span>Tổng quan</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{route('category.index')}}" class="nav-link">
-                                <p>
-                                    Danh mục sản phẩm
-
-                                </p>
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <span>Danh mục sản phẩm</span>
+                                <span class="dcjq-icon"></span>
                             </a>
+                            <ul class="sub">
+                                <li><a href="{{route('category.index')}}"> Danh sách danh mục</a></li>
+                            </ul>
                         </li>
+
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <span> Thương hiệu sản phẩm</span>
+                                <span class="dcjq-icon"></span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="{{route('brand.index')}}">Danh sách thương hiệu</a></li>
+
+                            </ul>
+                        </li>
+
                     </ul>
                 </div>
                 <!-- sidebar menu end-->
@@ -425,11 +442,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
     });
-// display alert
+    // display alert
     </script>
     @if(session('success'))
     <script>
-        alert("{{ session('success') }}");
+    alert("{{ session('success') }}");
     </script>
     @endif
 

@@ -1,10 +1,14 @@
 @extends("layout.admin")
- 
+
+@section("js")
+<script type="text/javascript" src="{{asset('backend/brand.js')}}"></script>
+@endsection
+
 @section("content")
 <div class="table-agile-info">
     <div class="panel panel-default">
         <div class="panel-heading">
-            Danh sách danh mục
+            Danh sách thương hiệu
         </div>
         <div class="row w3-res-tb">
             <div class="col-sm-5 m-b-xs">
@@ -19,8 +23,8 @@
             </div>
             <div class="col-sm-3">
                 <button class="btn btn-sm btn-info">
-                    <a href="{{route('category.add')}}" style="color:white">
-                        Thêm danh mục
+                    <a href="{{route('brand.add')}}" style="color:white">
+                        Thêm thương hiệu
                     </a>
                 </button>
             </div>
@@ -30,24 +34,24 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Tên danh mục</th>
-                        <th>Danh mục cha</th>
+                        <th>Tên thương hiệu</th>
+                        <th>Trạng thái</th>
                         <th style="text-align: center;">Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($categories as $category)
+                    @foreach($brands as $brand)
                     <tr>
-                        <td>{{$category->id}}</td>
-                        <td><span class="text-ellipsis">{{$category->category_name}}</span></td>
+                        <td>{{$brand->id}}</td>
+                        <td><span class="text-ellipsis">{{$brand->brand_name}}</span></td>
                         <td>
                             <span class="text-ellipsis">
-                                {{$category->parentCategory?$category->parentCategory->category_name :"Không có"}}
+                                {{$brand->brand_status==1?"Hoạt động":"Không hoạt động"}}
                             </span>
                         </td>
                         <td style="display: flex; justify-content: center; gap: 30px;">
-                            <a href="{{route('category.edit',['id'=>$category->id])}}" class="btn btn-default">Edit</a>
-                            <a href="{{route('category.delete',['id'=>$category->id])}}" onclick="confirmDeleteCategory()"
+                            <a href="{{route('brand.edit',['id'=>$brand->id])}}" class="btn btn-default">Edit</a>
+                            <a href="{{route('brand.delete',['id'=>$brand->id])}}" onclick="confirmDeleteBrand()"
                                 class="btn btn-danger">Remove</a>
                         </td>
                     </tr>
@@ -58,7 +62,7 @@
         </div>
         <footer class="panel-footer">
             <div class="col-md-12 custom-pagination">
-                {{ $categories->links('pagination::bootstrap-4') }}
+                {{ $brands->links('pagination::bootstrap-4') }}
             </div>
         </footer>
     </div>

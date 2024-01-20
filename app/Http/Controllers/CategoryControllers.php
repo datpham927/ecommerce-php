@@ -7,7 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class CategoryController extends Controller
+class CategoryControllers extends Controller
 {
     private $category;
     
@@ -17,6 +17,7 @@ class CategoryController extends Controller
     
     public function index(){  
         $categories=$this->category::latest()->paginate(5);
+        
         return view("admin.category.index",compact("categories"));
     }
     // với sự khác biệt là $this->model->where sử dụng một đối tượng model
@@ -42,14 +43,14 @@ class CategoryController extends Controller
                 "category_name" => 'required|unique:categories'
             ], $messages);
             
-            $slug = Str::of($request->input('name'))->slug('-');
+            $slug = Str::of($request->input('category_name'))->slug('-');
             $category = $category->create([
                 'category_name' => $request->input('category_name'),
                 'category_parent_id' => $request->input("category_parent_id")||0,
                 'category_slug' => $slug,
             ]);
             // Gửi thông báo thành công
-            session()->flash('success', 'Thêm danh mục thành công!');
+            // session()->flash('success', 'Thêm danh mục thành công!');
             return back()->with('success', 'Thêm danh mục thành công!');
         
     }
@@ -60,6 +61,7 @@ class CategoryController extends Controller
     public function edit(Request $request,$id){
         $category=$this->category::find($id);
         $htmlOption= $this->getCategories($category->category_parent_id);
+        
         return view("admin.category.edit",compact("htmlOption","category"));
     }
     public function update(Request $request,$id){
