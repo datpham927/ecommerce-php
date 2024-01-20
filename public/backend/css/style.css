@@ -13,7 +13,7 @@ html, body{
 	font-family: 'Roboto', sans-serif;
     font-size: 100%;
     overflow-x: hidden;
-    background: url(../images/bg.jpg) no-repeat 0px 0px;
+    /* background: url(../images/bg.jpg) no-repeat 0px 0px; */
 	background-size:cover;
 }
 body a{
@@ -3143,4 +3143,16 @@ div#graph1, div#graph4, div#graph5, div#graph6, div#graph7, div#graph8, div#grap
 .chart_agile_bottom {
     padding: 0;
 }
+
 }
+.w3layouts-main span {
+    width: 100%;
+    color: blue;
+    font-size: 14px;
+}
+
+.alert-danger{
+    border: none;
+    padding: 10px !important;
+    margin-bottom: 0 !important;
+} 
