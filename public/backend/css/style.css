@@ -3155,4 +3155,14 @@ div#graph1, div#graph4, div#graph5, div#graph6, div#graph7, div#graph8, div#grap
     border: none;
     padding: 10px !important;
     margin-bottom: 0 !important;
+    outline: none;
 } 
+
+.btn{
+    outline: none !important;
+}
+
+.selected-menu {
+    background-color: #3498db; /* Màu nền khi đã chọn */
+    color: #ffffff; /* Màu chữ khi đã chọn */
+}
