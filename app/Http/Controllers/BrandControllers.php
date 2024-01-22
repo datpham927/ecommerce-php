@@ -62,8 +62,7 @@ class BrandControllers extends Controller
     }
     public function update(FormBrandRequest $request,$id){
             // tìm brand
-            $brand=$this->brand::find($id);
-
+            $brand=$this->brand::find($id); 
             $brandName = $request->input("brand_name");
             $slug = Str::of($brandName)->slug('-');
             
