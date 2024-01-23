@@ -32,8 +32,6 @@
     <!-- calendar -->
     <link rel="stylesheet" href="{{asset('backend/css/monthly.css')}}">
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-
-    <!-- //calendar -->
     <!-- //font-awesome icons -->
     <script src="{{asset('backend/js/jquery2.0.3.min.js')}}"></script>
     <script src="{{asset('backend/js/raphael-min.js')}}"></script>
@@ -286,23 +284,26 @@
                             </a>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="{{route('category.index')}}">
                                 <span>Danh mục sản phẩm</span>
-                                <span class="dcjq-icon"></span>
                             </a>
-                            <ul class="sub">
-                                <li><a href="{{route('category.index')}}"> Danh sách danh mục</a></li>
-                            </ul>
+                        </li>
+
+                        <li class="sub-menu">
+                            <a href="{{route('brand.index')}}">
+                                <span> Thương hiệu sản phẩm</span>
+                            </a>
                         </li>
 
                         <li class="sub-menu">
                             <a href="javascript:;">
-                                <span> Thương hiệu sản phẩm</span>
+                                <span>Quản lý sản phẩm</span>
                                 <span class="dcjq-icon"></span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{route('brand.index')}}">Danh sách thương hiệu</a></li>
-
+                                <li><a href="{{route('product.index')}}"> Tất cả sản phẩm</a></li>
+                                <li><a href="{{route('product.index')}}"> Sản phẩm nháp</a></li>
+                                <li><a href="{{route('product.index')}}"> Sản phẩm đã xóa</a></li>
                             </ul>
                         </li>
 

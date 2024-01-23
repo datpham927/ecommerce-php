@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminControllers;
 use App\Http\Controllers\BrandControllers;
 use App\Http\Controllers\CategoryControllers;
 use App\Http\Controllers\HomeControllers;
+use App\Http\Controllers\ProductControllers;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,5 +41,13 @@ Route::prefix('admin')->group(function () {
         Route::get('/edit/{id}', [BrandControllers::class, 'edit'])->name("brand.edit"); 
         Route::post('/update/{id}', [BrandControllers::class, 'update'])->name("brand.update");
         Route::get('/delete/{id}', [BrandControllers::class, 'delete'])->name("brand.delete");
+    }); 
+    Route::prefix('/product')->group(function () {
+        Route::get('/', [ProductControllers::class, 'index'])->name("product.index");
+        // Route::get('/add', [ProductControllers::class, 'create'])->name("product.add"); 
+        // Route::post('/store', [ProductControllers::class, 'store'])->name("product.store");
+        // Route::get('/edit/{id}', [ProductControllers::class, 'edit'])->name("product.edit"); 
+        // Route::post('/update/{id}', [ProductControllers::class, 'update'])->name("product.update");
+        // Route::get('/delete/{id}', [ProductControllers::class, 'delete'])->name("product.delete");
     }); 
 });
