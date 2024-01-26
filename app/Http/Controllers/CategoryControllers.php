@@ -16,8 +16,7 @@ class CategoryControllers extends Controller
     }
     
     public function index(){  
-        $categories=$this->category::latest()->paginate(5);
-        
+        $categories=$this->category->latest()->paginate(5);
         return view("admin.category.index",compact("categories"));
     }
     // với sự khác biệt là $this->model->where sử dụng một đối tượng model
@@ -46,7 +45,7 @@ class CategoryControllers extends Controller
             $slug = Str::of($request->input('category_name'))->slug('-');
             $category = $category->create([
                 'category_name' => $request->input('category_name'),
-                'category_parent_id' => $request->input("category_parent_id")||0,
+                'category_parent_id' => $request->input("category_parent_id"),
                 'category_slug' => $slug,
             ]);
             // Gửi thông báo thành công

@@ -8,7 +8,7 @@
 <div class="table-agile-info">
     <div class="panel panel-default">
         <div class="panel-heading">
-            Danh sách sản phẩm
+            Danh sách sản phẩm nháp
         </div>
         <div class="row w3-res-tb">
             <div class="col-sm-5 m-b-xs">
@@ -39,9 +39,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($products as $key => $product)
+                    @foreach($products as $key =>$product)
                     <tr>
-
                         <td><span class="text-ellipsis">{{$key+1}}</span></td>
                         <td style="display: flex;"><span
                                 class="text-ellipsis long-text">{{$product->product_name}}</span></td>
@@ -51,9 +50,8 @@
                         <td><span class="text-ellipsis"> {{ optional($product->category)->category_name }}</span></td>
                         <td><span class="text-ellipsis"> {{ optional($product->brand)->brand_name }} </span></td>
                         <td style="display: flex; justify-content: center; gap: 30px;">
-                            <a href="{{route('product.edit',['id'=>$product->id])}}" class="btn btn-default">Edit</a>
-                            <a href="{{route('product.delete',['id'=>$product->id])}}" onclick="confirmDeleteBrand()"
-                                class="btn btn-danger">Remove</a>
+                            <a href="" data-url="{{ route('product.isPublish', ['id' => $product->id]) }}"
+                                class="btn btn-danger btn-publish-product">Đăng ngay</a>
                         </td>
                     </tr>
                     @endforeach

@@ -44,10 +44,12 @@ Route::prefix('admin')->group(function () {
     }); 
     Route::prefix('/product')->group(function () {
         Route::get('/', [ProductControllers::class, 'index'])->name("product.index");
-        // Route::get('/add', [ProductControllers::class, 'create'])->name("product.add"); 
-        // Route::post('/store', [ProductControllers::class, 'store'])->name("product.store");
-        // Route::get('/edit/{id}', [ProductControllers::class, 'edit'])->name("product.edit"); 
-        // Route::post('/update/{id}', [ProductControllers::class, 'update'])->name("product.update");
-        // Route::get('/delete/{id}', [ProductControllers::class, 'delete'])->name("product.delete");
+        Route::get('/draft', [ProductControllers::class, 'draftList'])->name("product.draft");
+        Route::post('/is_publish/{id}', [ProductControllers::class, 'isPublish'])->name("product.isPublish");
+        Route::get('/add', [ProductControllers::class, 'create'])->name("product.add"); 
+        Route::post('/store', [ProductControllers::class, 'store'])->name("product.store");
+        Route::get('/edit/{id}', [ProductControllers::class, 'edit'])->name("product.edit"); 
+        Route::post('/update/{id}', [ProductControllers::class, 'update'])->name("product.update");
+        Route::get('/delete/{id}', [ProductControllers::class, 'delete'])->name("product.delete");
     }); 
 });
