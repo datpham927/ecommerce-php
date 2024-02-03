@@ -43,8 +43,8 @@
                     <div class="form-group">
                         <label for="brand_status">Trạng thái</label>
                         <select class="form-control" id="brand_status" name="brand_status">
-                            <option value='0'>Ẩn</option>
-                            <option value='1'>Hiển thị</option>
+                            <option value='0'>Hiển thị</option>
+                            <option value='1'>Ẩn</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Thêm</button>

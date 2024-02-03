@@ -17,7 +17,7 @@ class BrandControllers extends Controller
     }
     
     public function index(){  
-        $brands=$this->brand::latest()->paginate(5);
+        $brands=$this->brand->latest()->paginate(5);
        
         return view("admin.brand.index",compact("brands"));
     }
@@ -26,7 +26,6 @@ class BrandControllers extends Controller
    
 
     public function create(){  
-         
           return view("admin.brand.add",);
     }
     
@@ -81,7 +80,7 @@ class BrandControllers extends Controller
     }
     public function delete($id){
         try{
-            $this->brand->find($id)->delete();
+
             session()->flash('success', 'Xóa thương hiệu thành công!');
             return redirect()->back(); 
             } catch (\Exception $e) {

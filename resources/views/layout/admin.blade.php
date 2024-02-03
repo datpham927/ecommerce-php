@@ -4,6 +4,7 @@
     @yield("title")
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta name="keywords" content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
     Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design">
     <script type="application/x-javascript">
@@ -32,14 +33,13 @@
     <!-- calendar -->
     <link rel="stylesheet" href="{{asset('backend/css/monthly.css')}}">
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-
-    <!-- //calendar -->
     <!-- //font-awesome icons -->
     <script src="{{asset('backend/js/jquery2.0.3.min.js')}}"></script>
     <script src="{{asset('backend/js/raphael-min.js')}}"></script>
     <script src="{{asset('backend/js/morris.js')}}"></script>
     <script src="{{asset('backend/js/index.js')}}"></script>
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="{{asset('backend/js/product.js')}}"></script>
 
 </head>
 
@@ -286,23 +286,27 @@
                             </a>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a href="{{route('category.index')}}">
                                 <span>Danh mục sản phẩm</span>
-                                <span class="dcjq-icon"></span>
                             </a>
-                            <ul class="sub">
-                                <li><a href="{{route('category.index')}}"> Danh sách danh mục</a></li>
-                            </ul>
+                        </li>
+
+                        <li class="sub-menu">
+                            <a href="{{route('brand.index')}}">
+                                <span> Thương hiệu sản phẩm</span>
+                            </a>
                         </li>
 
                         <li class="sub-menu">
                             <a href="javascript:;">
-                                <span> Thương hiệu sản phẩm</span>
+                                <span>Quản lý sản phẩm</span>
                                 <span class="dcjq-icon"></span>
                             </a>
                             <ul class="sub">
-                                <li><a href="{{route('brand.index')}}">Danh sách thương hiệu</a></li>
-
+                                <li><a href="{{route('product.add')}}"> Thêm sản phẩm</a></li>
+                                <li><a href="{{route('product.index')}}"> Danh sách sản phẩm</a></li>
+                                <li><a href="{{route('product.draft')}}"> Sản phẩm nháp</a></li>
+                                <li><a href="{{route('product.index')}}"> Sản phẩm đã xóa</a></li>
                             </ul>
                         </li>
 
@@ -444,17 +448,7 @@
     });
     // display alert
     </script>
-    @if(session('success'))
-    <script>
-    alert("{{ session('success') }}");
-    </script>
-    @endif
 
-    @if(session('error'))
-    <script>
-    alert("{{ session('error') }}");
-    </script>
-    @endif
     <!-- calendar -->
     <script type="text/javascript" src="{{asset('backend/js/monthly.js')}}"></script>
     <script>
@@ -483,7 +477,20 @@
         }
     });
     </script>
+    @if(session('success'))
+    <script>
+    alert("{{ session('success') }}");
+    </script>
+    @endif
+
+    @if(session('error'))
+    <script>
+    alert("{{ session('error') }}");
+    </script>
+    @endif
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @yield("js")
+
     <!-- //calendar -->
 </body>
 
