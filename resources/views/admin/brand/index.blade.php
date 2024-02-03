@@ -51,8 +51,8 @@
                         </td>
                         <td style="display: flex; justify-content: center; gap: 30px;">
                             <a href="{{route('brand.edit',['id'=>$brand->id])}}" class="btn btn-default">Edit</a>
-                            <a href="{{route('brand.delete',['id'=>$brand->id])}}" onclick="confirmDeleteBrand()"
-                                class="btn btn-danger">Remove</a>
+                            <a href='' data-url="{{route('brand.delete',['id'=>$brand->id])}}" onclick="confirmDeleteBrand()"
+                                class="btn btn-danger btn-delete-brand">Remove</a>
                         </td>
                     </tr>
                     @endforeach

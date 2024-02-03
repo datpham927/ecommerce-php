@@ -1,29 +1,57 @@
 // Xử lý sự kiện khi nút "Add Size" được click
-$("#add-size").click(function() {
-    // Clone ô kích thước đầu tiên và thêm vào container
-    var clone = $(".size-input:first").clone();
-    clone.find("input[name='product_quantities[]']").val('');
-    clone.find("input[name='product_sizes[]']").val('');
-    $("#sizes-container").append(clone);
+$(function() {
+    $("#add-size").click(function() {
+        // Clone ô kích thước đầu tiên và thêm vào container
+        var clone = $(".size-input:first").clone();
+        // Xóa giá trị của input quantity trong clone mới
+        clone.find("input[name='product_quantities[]']").val('');
+        clone.find("input[name='product_sizes[]']").val('');
+        $("#sizes-container").append(clone);
+        // Focus vào ô kích thước của clone mới
+        clone.find(".size-select").focus();
+    });
+})
+$(function() {
+    $("#sizes-container").on('click', '.remove_input_size', function() {
+        var quantity = $(".size-input").length;
+        if (quantity > 1) {
+            const parent = $(this).closest(".size-input");
+            parent.remove();
+        } else {
+            alert('Không thể xóa!');
+        }
+    })
+});
+// Xử lý sự kiện khi nút "thêm attribute" được click
+$(function() {
+    $("#add-attribute").click(function() {
+        // Clone ô kích thước đầu tiên và thêm vào container
+        var clone = $(".attribute-input:first").clone();
+        // Xóa giá trị của input quantity trong clone mới
+        clone.find("input[name='product_attribute_keys[]']").val('');
+        clone.find("input[name='product_attribute_names[]']").val('');
+        $("#attributes-container").append(clone);
 
-    // Xóa giá trị của input quantity trong clone mới
+        // Focus vào ô kích thước của clone mới
+        clone.find(".attribute-select").focus();
+    });
 
-    // Focus vào ô kích thước của clone mới
-    clone.find(".size-select").focus();
+})
+
+$(function() {
+    $("#attributes-container").on('click', '.remove_input_attribute', function() {
+        var quantity = $(".attribute-input").length;
+        if (quantity > 1) {
+            const parent = $(this).closest(".attribute-input");
+            parent.remove();
+        } else {
+            alert('Không thể xóa!');
+        }
+    })
 });
 
-// Xử lý sự kiện khi nút "Add Size" được click
-$("#add-attribute").click(function() {
-    // Clone ô kích thước đầu tiên và thêm vào container
-    var clone = $(".attribute-input:first").clone();
-    // Xóa giá trị của input quantity trong clone mới
-    clone.find("input[name='product_attribute_keys[]']").val('');
-    clone.find("input[name='product_attribute_names[]']").val('');
-    $("#attributes-container").append(clone);
 
-    // Focus vào ô kích thước của clone mới
-    clone.find(".attribute-select").focus();
-});
+// public product
 $(function() {
     // Assuming #publishButton is the ID of the button triggering the request
     $('.btn-publish-product').on('click', function(e) {
@@ -39,7 +67,6 @@ $(function() {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(results) {
-                    console.log(results.code);
                     results.code == 200 && parent.remove();
                     alert('Đã đăng!')
                 },
@@ -50,4 +77,73 @@ $(function() {
             });
         }
     })
+})
+
+// soft delete product
+
+$(function() {
+    // Assuming #publishButton is the ID of the button triggering the request
+    $('.btn-delete-product').on('click', function(e) {
+        e.preventDefault();
+
+        const dataUrl = $(this).data("url");
+        const parent = $(this).closest("tr");
+
+        if (confirm("Bạn có muốn xóa sản phẩm này không?")) {
+            $.ajax({
+                type: 'DELETE',
+                url: dataUrl,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    if (response.code === 200) {
+                        parent.remove();
+                        alert(response.message);
+                    } else {
+                        alert('Đã xảy ra lỗi!');
+                    }
+                },
+                error: function(error) {
+                    console.log(error);
+                    alert('Đã xảy ra lỗi!');
+                }
+            });
+        }
+    });
+})
+
+// restore product
+
+$(function() {
+    // Assuming #publishButton is the ID of the button triggering the request
+    $('.btn-restore-product').on('click', function(e) {
+        e.preventDefault();
+
+        const dataUrl = $(this).data("url");
+        const parent = $(this).closest("tr");
+
+        if (confirm("Bạn có muốn khôi phục sản phẩm này không?")) {
+            $.ajax({
+                type: 'post',
+                url: dataUrl,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    if (response.code === 200) {
+                        parent.remove();
+                        alert(response.message);
+                    } else {
+                        alert('Đã xảy ra lỗi!');
+                    }
+                },
+                error: function(error) {
+                    console.log(error);
+                    alert('Đã xảy ra lỗi!');
+                }
+            });
+        }
+    });
+
 })

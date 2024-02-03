@@ -47,8 +47,8 @@
                         </td>
                         <td style="display: flex; justify-content: center; gap: 30px;">
                             <a href="{{route('category.edit',['id'=>$category->id])}}" class="btn btn-default">Edit</a>
-                            <a href="{{route('category.delete',['id'=>$category->id])}}" onclick="confirmDeleteCategory()"
-                                class="btn btn-danger">Remove</a>
+                            <a href='' data-url="{{route('category.delete',['id'=>$category->id])}}"
+                                class="btn btn-danger btn-category-delete">Remove</a>
                         </td>
                     </tr>
                     @endforeach

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Models\admin;
+use App\Traits\AdminAuthenticationTrait;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -12,6 +13,14 @@ use Illuminate\Support\Facades\Session;
 
 class AdminControllers extends Controller
 {
+    public function authenticateLogin()
+    {
+        $adminId = Session::get('admin_id');
+        if ($adminId !== null) {
+            return redirect()->route('admin');
+        } else {
+        }
+    }
     protected $admin;
 
     function __construct(admin $admin){
@@ -21,14 +30,15 @@ class AdminControllers extends Controller
       
     function login(){
         $idAdmin=Session::get('admin_id');
-        if(!$idAdmin){
-            return view('admin.login');
+        if ($idAdmin !== null) {
+            return view('admin.dashboard');
         }
-        return view('admin.dashboard');
+        return view('admin.login');
      }
      
      function storeLogin(Request $request)
      {
+        $this->authenticateLogin();
          $admin_email = $request->input('admin_email');
          $admin_password = $request->input('admin_password');
          // Tìm kiếm

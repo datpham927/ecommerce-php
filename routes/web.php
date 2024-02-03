@@ -50,6 +50,8 @@ Route::prefix('admin')->group(function () {
         Route::post('/store', [ProductControllers::class, 'store'])->name("product.store");
         Route::get('/edit/{id}', [ProductControllers::class, 'edit'])->name("product.edit"); 
         Route::post('/update/{id}', [ProductControllers::class, 'update'])->name("product.update");
-        Route::get('/delete/{id}', [ProductControllers::class, 'delete'])->name("product.delete");
+        Route::delete('/delete/{id}', [ProductControllers::class, 'delete'])->name("product.delete");
+        Route::get('/deleted', [ProductControllers::class, 'productDeleted'])->name("product.deleted");
+        Route::post('/restore/{id}', [ProductControllers::class, 'restore'])->name("product.restore");
     }); 
 });

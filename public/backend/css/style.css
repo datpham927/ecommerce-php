@@ -4011,3 +4011,7 @@ div#graph11 {
     text-overflow: ellipsis;
     /* Hiển thị dấu ba chấm khi văn bản bị ẩn */
 }
+
+#product_isDraft {
+    margin: 0 !important;
+}

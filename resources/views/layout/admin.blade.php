@@ -39,7 +39,8 @@
     <script src="{{asset('backend/js/morris.js')}}"></script>
     <script src="{{asset('backend/js/index.js')}}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="{{asset('backend/js/product.js')}}"></script>
+<script src="{{asset('backend/js/product.js')}}"></script>
+
 
 </head>
 
@@ -306,7 +307,7 @@
                                 <li><a href="{{route('product.add')}}"> Thêm sản phẩm</a></li>
                                 <li><a href="{{route('product.index')}}"> Danh sách sản phẩm</a></li>
                                 <li><a href="{{route('product.draft')}}"> Sản phẩm nháp</a></li>
-                                <li><a href="{{route('product.index')}}"> Sản phẩm đã xóa</a></li>
+                                <li><a href="{{route('product.deleted')}}"> Sản phẩm đã xóa</a></li>
                             </ul>
                         </li>
 

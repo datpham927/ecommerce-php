@@ -13,15 +13,18 @@ use App\Models\Category;
 use App\Models\Images;
 use App\Models\Product;
 use App\Models\Size;
+use App\Traits\AdminAuthenticationTrait;
 use App\Traits\StoreImageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
 
 class ProductControllers extends Controller
 {
+    use AdminAuthenticationTrait;
     use StoreImageTrait;
     private $category,$product,$brand,$image,$size,$attribute;
     public function __construct(Product $product, Category $category, 
@@ -33,8 +36,9 @@ class ProductControllers extends Controller
         $this->size = $size;
         $this->attribute = $attribute;
     }
-    
+  
     public function index(){  
+        $this->authenticateLogin();
        // Assuming $this->product represents the Product model in Laravel
        $products = $this->product ->where([
                     ['product_isPublished', 1],
@@ -47,38 +51,7 @@ class ProductControllers extends Controller
     //  đã được khởi tạo trước đó, trong khi Model::where sử dụng tên lớp model trực tiếp.
     
     
-    // ----  danh sách product nháp ---- 
-    public function draftList(){  
-        // Assuming $this->product represents the Product model in Laravel
-        $products = $this->product
-        ->where([
-            ['product_isDraft', 1],
-            ['product_isPublished', 0],
-        ])
-        ->latest()
-        ->paginate(5);
-    
-         return view("admin.product.draft",compact('products') );
-     }
-     
-     public function isPublish($id)
-     {
-         // Find the product by its ID
-         $foundProduct = $this->product->find($id);
-         // Check if the product is not found
-         if (!$foundProduct) {
-             session()->flash('error', 'Không tìm thấy sản phẩm!');
-             return back();
-         }
-         // Update product status
-         $foundProduct->update([
-             'product_isPublished' => 1,
-             'product_isDraft' => 0,
-         ]);
-         // Flash a success message and redirect back
-         session()->flash('success', 'Sản phẩm đã được đăng thành công!');
-         return back();
-     }
+ 
      
      function getCategory($parent_id=0){
         $recursive = new CategoryRecursive($this->category);
@@ -86,6 +59,7 @@ class ProductControllers extends Controller
       }
 
     public function create(){ 
+        $this->authenticateLogin();
         $brands= $this->brand->get();
         $htmlOptionCategory= $this->getCategory("");
         return view("admin.product.add",compact('brands',"htmlOptionCategory") );
@@ -96,6 +70,7 @@ class ProductControllers extends Controller
 
     public function store(FormAddProductRequest $request){
         try {
+            $this->authenticateLogin();
             DB::beginTransaction();
         // *********    insert table Product  *********  
         $dataProduct= array();
@@ -122,7 +97,7 @@ class ProductControllers extends Controller
         // ----- tính tổng số sản phẩm -------
           if ($dataProductQuantities) {
               // Use the sum method to calculate the total quantity 
-           $dataProduct['product_quantity']=collect($dataProductQuantities)->sum();
+           $dataProduct['product_stock']=collect($dataProductQuantities)->sum();
        }
       // tìm kiếm admin 
           $admin= admin::find(Session::get('admin_id'));
@@ -173,6 +148,7 @@ class ProductControllers extends Controller
 
     
     public function edit($id){
+        $this->authenticateLogin();
             $product=$this->product->find($id);
             $images=$this->image->where('image_product_id',$product["id"])->get();
             $attributes=$this->attribute->where('attribute_product_id',$product["id"])->get();
@@ -184,6 +160,7 @@ class ProductControllers extends Controller
     }
     public function update(FormEditProductRequest $request,$id){
         try {
+            $this->authenticateLogin();
             DB::beginTransaction();
         // *********    insert table Product  *********  
         $dataProduct= array();
@@ -213,13 +190,13 @@ class ProductControllers extends Controller
          // lấy array số lượng product theo size
             $dataProductQuantities=$request->input('product_quantities');
               // Use the sum method to calculate the total quantity 
-           $dataProduct['product_quantity']=collect($dataProductQuantities)->sum();
+           $dataProduct['product_stock']=collect($dataProductQuantities)->sum();
        } 
           $this->product->find($id)->update($dataProduct);
           //
           $foundProduct=$this->product->find($id);
 //*********   insert table size  *********  
-          if($request->has('$product_sizes')){
+          if($request->has('product_sizes')){
                 $dataSizes=$request->input('product_sizes'); //array tên kích thước 
                  $this->size->where('size_product_id',$foundProduct['id'])->delete();
                   foreach ($dataSizes as $key => $value) {
@@ -264,7 +241,68 @@ if($request->has("product_images")){
         }
     }
     public function delete($id){
-         
-        
+        $this->authenticateLogin();
+           try{
+            $this->product->find($id)->delete();
+            return response()->json(['code' => 200, 'message' => 'Xóa sản phẩm thành công!']);
+            } catch (\Exception $e) {
+                // Log lỗi
+                Log::error($e->getMessage());
+                // Gửi thông báo lỗi
+                return response()->json(['code' => 500, 'message' => 'Đã xảy ra lỗi khi xóa sản phẩm!']);
+            } 
     }
+     function productDeleted(){
+        $this->authenticateLogin();
+          $products = $this->product::onlyTrashed()
+          ->orderBy('created_at', 'desc') // Use 'created_at' or any other column you want to order by
+          ->paginate(5);
+        return view('admin.product.deleted',compact('products'));
+        }
+        function restore($id){
+            try {
+                // Find the soft-deleted product by ID
+                $product = Product::withTrashed()->findOrFail($id);
+                // Restore the product
+                $product->restore();
+                // Return a success response
+                return response()->json(['code' => 200, 'message' => 'Khôi phục thành công!']);
+            } catch (\Exception $e) {
+                // Return an error response if restoration fails
+                return response()->json(['code' => 500, 'message' => 'Đã xảy ra lỗi']);
+            }
+          }
+             // ----  danh sách product nháp ---- 
+    public function draftList(){  
+        $this->authenticateLogin();
+        // Assuming $this->product represents the Product model in Laravel
+        $products = $this->product
+        ->where([
+            ['product_isDraft', 1],
+            ['product_isPublished', 0],
+        ])
+        ->latest()
+        ->paginate(5); 
+         return view("admin.product.draft",compact('products') );
+     }
+     
+     public function isPublish($id)
+     {
+         $this->authenticateLogin();
+         // Find the product by its ID
+         $foundProduct = $this->product->find($id);
+         // Check if the product is not found
+         if (!$foundProduct) {
+             session()->flash('error', 'Không tìm thấy sản phẩm!');
+             return back();
+         }
+         // Update product status
+         $foundProduct->update([
+             'product_isPublished' => 1,
+             'product_isDraft' => 0,
+         ]);
+         // Flash a success message and redirect back
+         session()->flash('success', 'Sản phẩm đã được đăng thành công!');
+         return back();
+     }
 }

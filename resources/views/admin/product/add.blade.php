@@ -7,7 +7,6 @@
 
 @section("js")
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
 <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
 <script>
 var options = {
@@ -52,7 +51,7 @@ CKEDITOR.replace('my-editor', options);
                 <select class="form-control @error('product_category_id') is-invalid @enderror" id="product_category_id"
                     name="product_category_id">
                     <option value='-1'>Chọn danh mục</option>
-                      {!!$htmlOptionCategory!!}
+                    {!!$htmlOptionCategory!!}
                 </select>
                 @error('product_category_id')
                 <div class="alert alert-danger">{{ $message }}</div>
@@ -100,26 +99,33 @@ CKEDITOR.replace('my-editor', options);
             </div>
             <div style="width: 100%; display: flex;; margin-bottom: 10px;  flex-direction: row; gap: 20px;">
                 <h2 style="width: 50%; font-size: 14px;" for="product_size">Tên kích thước</h2>
-                <h2 style="width: 50%;  font-size: 14px;" for="product_quantity">Số lượng sản phẩm</h2>
+                <h2 style="width: 50%;  font-size: 14px;" for="product_stock">Số lượng sản phẩm</h2>
             </div>
             <div id="sizes-container">
                 <div class='size-input'
                     style="display: flex;margin-top: 10px; row-gap: 20px; display: flex; flex-direction: row; gap: 20px;">
-                    <div style="width: 100%;">
-                        <input type="text" required class="form-control @error('product_sizes') is-invalid @enderror"
-                            id="product_sizes" name="product_sizes[]" />
-                        @error('product_sizes')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                    <div style="display: flex; width: 100%; gap:20px ;  height: 100%;">
+                        <div style="width: 100%;">
+                            <input type="text" required
+                                class="form-control @error('product_sizes') is-invalid @enderror" id="product_sizes"
+                                name="product_sizes[]" />
+                            @error('product_sizes')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div style="width: 100%;">
+                            <input type="number" required
+                                class="form-control @error('product_quantities') is-invalid @enderror"
+                                id="product_quantities" name="product_quantities[]" />
+                            @error('product_quantities')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
-                    <div style="width: 100%;">
-                        <input type="number" required
-                            class="form-control @error('product_quantities') is-invalid @enderror"
-                            id="product_quantities" name="product_quantities[]" />
-                        @error('product_quantities')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                    <div style="display: flex; height: 100%; margin: auto ; cursor: pointer;" class='remove_input_size'>
+                        <span> <i class="fa fa-times" aria-hidden="true"></i></span>
                     </div>
+
                 </div>
             </div>
 
@@ -133,27 +139,33 @@ CKEDITOR.replace('my-editor', options);
                 </div>
                 <div style="width: 100%; display: flex;; margin-bottom: 10px;  flex-direction: row; gap: 20px;">
                     <h2 style="width: 50%; font-size: 14px;" for="product_attribute">Tên thuộc tính</h2>
-                    <h2 style="width: 50%;  font-size: 14px;" for="product_quantity">Mô tả</h2>
+                    <h2 style="width: 50%;  font-size: 14px;" for="product_stock">Mô tả</h2>
                 </div>
 
                 <div id="attributes-container">
                     <div class='attribute-input'
                         style="display: flex;margin-top: 10px; row-gap: 20px; display: flex; flex-direction: row; gap: 20px;">
-                        <div style="width: 100%;">
-                            <input type="text"
-                                class="form-control @error('product_attribute_keys') is-invalid @enderror"
-                                id="product_attribute_keys" name="product_attribute_keys[]" />
-                            @error('product_attribute_keys')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
+                        <div style="display: flex; width: 100%; gap:20px ;  height: 100%;">
+                            <div style="width: 100%;">
+                                <input type="text"
+                                    class="form-control @error('product_attribute_keys') is-invalid @enderror"
+                                    id="product_attribute_keys" name="product_attribute_keys[]" />
+                                @error('product_attribute_keys')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div style="width: 100%;">
+                                <input type="text"
+                                    class="form-control @error('product_attribute_names') is-invalid @enderror"
+                                    id="product_attribute_names" name="product_attribute_names[]" />
+                                @error('product_attribute_names')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
-                        <div style="width: 100%;">
-                            <input type="text"
-                                class="form-control @error('product_attribute_names') is-invalid @enderror"
-                                id="product_attribute_names" name="product_attribute_names[]" />
-                            @error('product_attribute_names')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
+                        <div style="display: flex; height: 100%; margin: auto ; cursor: pointer;"
+                            class='remove_input_attribute'>
+                            <span> <i class="fa fa-times" aria-hidden="true"></i></span>
                         </div>
                     </div>
                 </div>
