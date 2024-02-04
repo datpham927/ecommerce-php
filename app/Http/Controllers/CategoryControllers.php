@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\product;
 use Illuminate\Support\Str;
 use App\Components\CategoryRecursive;
+use App\Models\brand;
 use App\Models\Category;
 use App\Traits\AdminAuthenticationTrait;
 use Illuminate\Http\Request;
@@ -12,13 +13,13 @@ use Illuminate\Support\Facades\Log;
 class CategoryControllers extends Controller
 { 
     use AdminAuthenticationTrait;
-    private $category,$product;
-    
-    public function __construct(Category $category,product $product){ 
+    private $category,$product,$brand;
+   
+    public function __construct(Category $category,product $product,brand $brand){ 
         $this->category = $category;
         $this->product =  $product;
+        $this->brand =  $brand;
     }
-    
     public function index(){  
         $this->authenticateLogin();
         $categories=$this->category->latest()->paginate(5);
@@ -112,5 +113,21 @@ class CategoryControllers extends Controller
                 return response()->json(['code' => 500, 'message' => 'Đã xảy ra lỗi khi xóa danh mục.']); 
             }
         
+    }
+
+
+
+    function showCategoryHome($product_slug,$id){
+        $categories = $this->category->orderby('id','desc')->get();
+        $brands = $this->brand->orderby('id','desc')->get();
+        $products_by_categoryId = $this->product
+        ->join('categories', 'categories.id', '=', 'products.product_category_id')
+        ->where([
+            ['products.product_isPublished',true],
+            ['products.product_category_id', $id],
+        ])
+        ->get();
+    
+        return view('pages.category.showProduct',compact("products_by_categoryId",'brands','categories'));
     }
 }

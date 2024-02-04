@@ -33,6 +33,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/edit/{id}', [CategoryControllers::class, 'edit'])->name("category.edit"); 
         Route::post('/update/{id}', [CategoryControllers::class, 'update'])->name("category.update");
         Route::get('/delete/{id}', [CategoryControllers::class, 'delete'])->name("category.delete");
+        Route::get('/danh-muc-san-pham/{category_slug}/{id}', [CategoryControllers::class, 'showCategoryHome'])->name("category.show_product_home");
     }); 
     Route::prefix('/brand')->group(function () {
         Route::get('/', [BrandControllers::class, 'index'])->name("brand.index");
