@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 use App\Models\product;
 use Illuminate\Support\Str;
 use App\Components\CategoryRecursive;
+use App\Models\admin;
 use App\Models\brand;
 use App\Models\Category;
 use App\Traits\AdminAuthenticationTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class CategoryControllers extends Controller
 { 
@@ -53,10 +55,13 @@ class CategoryControllers extends Controller
             ], $messages);
             
             $slug = Str::of($request->input('category_name'))->slug('-');
+            $admin= admin::find(Session::get('admin_id'));
+        
             $category = $category->create([
                 'category_name' => $request->input('category_name'),
                 'category_parent_id' => $request->input("category_parent_id"),
                 'category_slug' => $slug,
+                "category_admin_id"=> $admin['id']
             ]);
             // Gửi thông báo thành công
             // session()->flash('success', 'Thêm danh mục thành công!');

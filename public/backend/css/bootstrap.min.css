@@ -245,7 +245,7 @@ th {
     }
     a,
     a:visited {
-        text-decoration: underline
+        text-decoration: none
     }
     a[href]:after {
         content: " (" attr(href) ")"
@@ -1415,7 +1415,7 @@ a {
 a:focus,
 a:hover {
     color: #23527c;
-    text-decoration: underline
+    text-decoration: none
 }
 
 a:focus {
@@ -3691,7 +3691,6 @@ textarea.input-lg {
 .btn.focus,
 .btn:focus,
 .btn:hover {
-    color: #333;
     text-decoration: none
 }
 
@@ -4188,7 +4187,7 @@ fieldset[disabled] .btn-link {
 .btn-link:focus,
 .btn-link:hover {
     color: #23527c;
-    text-decoration: underline;
+    text-decoration: none;
     background-color: transparent
 }
 

@@ -109,6 +109,9 @@
         display: inline-block;
         float: left;
     }
+    .logo-min {
+        display: none;
+    }
     .shop-menu ul li a span {
         display: none;
     }

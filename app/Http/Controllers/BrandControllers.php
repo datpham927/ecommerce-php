@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\FormBrandRequest;
+use App\Models\admin;
 use App\Models\brand;
 use App\Models\product;
 use App\Traits\AdminAuthenticationTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
 class BrandControllers extends Controller
@@ -42,12 +44,14 @@ class BrandControllers extends Controller
 
         $brandName = $request->input("brand_name");
         $slug = Str::of($brandName)->slug('-');
+        $admin= admin::find(Session::get('admin_id'));
         // Tạo một mảng chứa dữ liệu thương hiệu
         $brandData = [
             'brand_name' => $brandName,
             'brand_status' =>$request->input("brand_status"),
             'brand_description' => $request->input("brand_description"),
             'brand_slug' => $slug,
+            "brand_admin_id"=> $admin['id']
         ];
         // Tạo thương hiệu mới
         $this->brand->create($brandData);

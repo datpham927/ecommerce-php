@@ -23,4 +23,4 @@ class HomeControllers extends Controller
       $products=$this->product->where("product_isPublished",true)->limit(4)->get(); 
         return view('pages.home',compact("categories",'brands','products'));
      }
-}
+} 

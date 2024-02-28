@@ -4,8 +4,8 @@ $(function() {
         // Clone ô kích thước đầu tiên và thêm vào container
         var clone = $(".size-input:first").clone();
         // Xóa giá trị của input quantity trong clone mới
-        clone.find("input[name='product_quantities[]']").val('');
-        clone.find("input[name='product_sizes[]']").val('');
+        clone.find("input[name='quantities[]']").val('');
+        clone.find("input[name='sizes[]']").val('');
         $("#sizes-container").append(clone);
         // Focus vào ô kích thước của clone mới
         clone.find(".size-select").focus();
@@ -28,8 +28,8 @@ $(function() {
         // Clone ô kích thước đầu tiên và thêm vào container
         var clone = $(".attribute-input:first").clone();
         // Xóa giá trị của input quantity trong clone mới
-        clone.find("input[name='product_attribute_keys[]']").val('');
-        clone.find("input[name='product_attribute_names[]']").val('');
+        clone.find("input[name='attribute_keys[]']").val('');
+        clone.find("input[name='attribute_names[]']").val('');
         $("#attributes-container").append(clone);
 
         // Focus vào ô kích thước của clone mới
@@ -85,10 +85,8 @@ $(function() {
     // Assuming #publishButton is the ID of the button triggering the request
     $('.btn-delete-product').on('click', function(e) {
         e.preventDefault();
-
         const dataUrl = $(this).data("url");
         const parent = $(this).closest("tr");
-
         if (confirm("Bạn có muốn xóa sản phẩm này không?")) {
             $.ajax({
                 type: 'DELETE',

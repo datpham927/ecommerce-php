@@ -1,11 +1,11 @@
-// delete category
+// delete slider
 $(function() {
     // Assuming #publishButton is the ID of the button triggering the request
-    $('.btn-category-delete').on('click', function(e) {
+    $('.btn-delete-slider').on('click', function(e) {
         e.preventDefault();
         const dataUrl = $(this).data("url");
         const parent = $(this).closest("tr");
-        if (confirm("Bạn có muốn xóa danh mục này không?")) {
+        if (confirm("Bạn có muốn xóa slider này không?")) {
             $.ajax({
                 type: 'DELETE',
                 url: dataUrl,

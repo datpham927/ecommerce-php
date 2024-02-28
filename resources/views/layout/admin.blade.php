@@ -38,9 +38,10 @@
     <script src="{{asset('backend/js/raphael-min.js')}}"></script>
     <script src="{{asset('backend/js/morris.js')}}"></script>
     <script src="{{asset('backend/js/index.js')}}"></script>
+    <script src="{{asset('backend/js/product.js')}}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="{{asset('backend/js/product.js')}}"></script>
-
+    @yield("js")
+    <link href="node_modules/froala-editor/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" /><script type="text/javascript" src="node_modules/froala-editor/js/froala_editor.pkgd.min.js"></script>
 
 </head>
 
@@ -287,6 +288,11 @@
                             </a>
                         </li>
                         <li class="sub-menu">
+                            <a href="{{route('slider.index')}}">
+                                <span>Slider</span>
+                            </a>
+                        </li>
+                        <li class="sub-menu">
                             <a href="{{route('category.index')}}">
                                 <span>Danh mục sản phẩm</span>
                             </a>
@@ -490,7 +496,6 @@
     </script>
     @endif
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @yield("js")
 
     <!-- //calendar -->
 </body>

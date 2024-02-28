@@ -119,11 +119,11 @@ class ProductControllers extends Controller
        if($fileImages){
           foreach ($fileImages as $key => $image) {
                 $images=$this->HandleTraitUploadMultiple($image,'productImages'); 
-              $this->image->create([
-                  "image_name"=>$images['file_name'],
-                  "image_url"=>$images['file_path'],
-                  'image_product_id'=>$newProduct['id'],
-              ]);
+                $this->image->create([
+                    "image_name"=>$images['file_name'],
+                    "image_url"=>$images['file_path'],
+                    'image_product_id'=>$newProduct['id'],
+                ]);
           }
        }
 // *********   insert table attribute *********  

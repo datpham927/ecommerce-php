@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('images', function (Blueprint $table) {
             $table->bigIncrements('id'); 
             $table->string('image_url'); 
+            $table->string('image_name'); 
             $table->integer('image_product_id');
             $table->timestamps();
         });
