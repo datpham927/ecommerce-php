@@ -1,14 +1,11 @@
 @extends("layout.admin")
 
-@section("js")
-<script type="text/javascript" src="{{asset('backend/js/product.js')}}"></script>
-@endsection
-
+ 
 @section("content")
 <div class="table-agile-info">
     <div class="panel panel-default">
         <div class="panel-heading">
-            Danh sách sản phẩm
+            Danh sách sản phẩm đã xóa
         </div>
         <div class="row w3-res-tb">
             <div class="col-sm-5 m-b-xs">
@@ -39,9 +36,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($products as $key => $product)
+                    @foreach($products as $key =>$product)
                     <tr>
-
                         <td><span class="text-ellipsis">{{$key+1}}</span></td>
                         <td style="display: flex;"><span
                                 class="text-ellipsis long-text">{{$product->product_name}}</span></td>
@@ -50,10 +46,9 @@
                         <td><span class="text-ellipsis">{{$product->product_discount}}</span></td>
                         <td><span class="text-ellipsis"> {{ optional($product->category)->category_name }}</span></td>
                         <td><span class="text-ellipsis"> {{ optional($product->brand)->brand_name }} </span></td>
-                        <td style="display: flex; justify-content: center; gap: 20px;">
-                            <a href="{{route('product.edit',['id'=>$product->id])}}" class="btn btn-default">Edit</a>
-                            <a url='' data-url="{{route('product.delete',['id'=>$product->id])}}" 
-                                class="btn btn-danger btn-delete-product">Remove</a>
+                        <td style="display: flex; justify-content: center; gap: 30px;">
+                            <a href="" data-url="{{route('product.restore', ['id' => $product->id]) }}"
+                                class="btn btn-danger btn-restore-product">Khôi phục</a>
                         </td>
                     </tr>
                     @endforeach

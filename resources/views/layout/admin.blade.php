@@ -38,8 +38,10 @@
     <script src="{{asset('backend/js/raphael-min.js')}}"></script>
     <script src="{{asset('backend/js/morris.js')}}"></script>
     <script src="{{asset('backend/js/index.js')}}"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="{{asset('backend/js/product.js')}}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @yield("js")
+    <link href="node_modules/froala-editor/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" /><script type="text/javascript" src="node_modules/froala-editor/js/froala_editor.pkgd.min.js"></script>
 
 </head>
 
@@ -286,6 +288,11 @@
                             </a>
                         </li>
                         <li class="sub-menu">
+                            <a href="{{route('slider.index')}}">
+                                <span>Slider</span>
+                            </a>
+                        </li>
+                        <li class="sub-menu">
                             <a href="{{route('category.index')}}">
                                 <span>Danh mục sản phẩm</span>
                             </a>
@@ -306,7 +313,7 @@
                                 <li><a href="{{route('product.add')}}"> Thêm sản phẩm</a></li>
                                 <li><a href="{{route('product.index')}}"> Danh sách sản phẩm</a></li>
                                 <li><a href="{{route('product.draft')}}"> Sản phẩm nháp</a></li>
-                                <li><a href="{{route('product.index')}}"> Sản phẩm đã xóa</a></li>
+                                <li><a href="{{route('product.deleted')}}"> Sản phẩm đã xóa</a></li>
                             </ul>
                         </li>
 
@@ -489,7 +496,6 @@
     </script>
     @endif
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @yield("js")
 
     <!-- //calendar -->
 </body>

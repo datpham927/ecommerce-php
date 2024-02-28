@@ -1,7 +1,7 @@
 @extends("layout.admin")
 
 @section("js")
-<script type="text/javascript" src="{{asset('backend/product.js')}}"></script>
+<script type="text/javascript" src="{{asset('backend/js/product.js')}}"></script>
 @endsection
 
 @section("content")
@@ -44,12 +44,12 @@
                         <td><span class="text-ellipsis">{{$key+1}}</span></td>
                         <td style="display: flex;"><span
                                 class="text-ellipsis long-text">{{$product->product_name}}</span></td>
-                        <td><span class="text-ellipsis">{{$product->product_quantity}}</span></td>
+                        <td><span class="text-ellipsis">{{$product->product_stock}}</span></td>
                         <td><span class="text-ellipsis">{{$product->product_price}}</span></td>
                         <td><span class="text-ellipsis">{{$product->product_discount}}</span></td>
                         <td><span class="text-ellipsis"> {{ optional($product->category)->category_name }}</span></td>
                         <td><span class="text-ellipsis"> {{ optional($product->brand)->brand_name }} </span></td>
-                        <td style="display: flex; justify-content: center; gap: 30px;">
+                        <td style="display: flex; justify-content: center; gap: 20px;">
                             <a href="" data-url="{{ route('product.isPublish', ['id' => $product->id]) }}"
                                 class="btn btn-danger btn-publish-product">Đăng ngay</a>
                         </td>

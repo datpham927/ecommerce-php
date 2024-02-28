@@ -1,14 +1,14 @@
 @extends("layout.admin")
 
 @section("js")
-<script type="text/javascript" src="{{asset('backend/js/brand.js')}}"></script>
+<script type="text/javascript" src="{{asset('backend/js/slider.js')}}"></script>
 @endsection
 
 @section("content")
 <div class="table-agile-info">
     <div class="panel panel-default">
         <div class="panel-heading">
-            Danh sách thương hiệu
+            Danh sách slider
         </div>
         <div class="row w3-res-tb">
             <div class="col-sm-5 m-b-xs">
@@ -23,8 +23,8 @@
             </div>
             <div class="col-sm-3">
                 <button class="btn btn-sm btn-info">
-                    <a href="{{route('brand.add')}}" style="color:white">
-                        Thêm thương hiệu
+                    <a href="{{route('slider.add')}}" style="color:white">
+                        Thêm slider
                     </a>
                 </button>
             </div>
@@ -34,25 +34,23 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Tên thương hiệu</th>
-                        <th>Trạng thái</th>
+                        <th>Tên slider</th>
+                        <th>Hình ảnh</th>
                         <th style="text-align: center;">Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($brands as $brand)
+                    @foreach($sliders as $slider)
                     <tr>
-                        <td>{{$brand->id}}</td>
-                        <td><span class="text-ellipsis">{{$brand->brand_name}}</span></td>
+                        <td>{{$slider->id}}</td>
+                        <td><span class="text-ellipsis">{{$slider->slider_name}}</span></td>
                         <td>
-                            <span class="text-ellipsis">
-                                {{$brand->brand_status==1?"Hoạt động":"Không hoạt động"}}
-                            </span>
+                             <img src='{{$slider->slider_image}}' style="width: 200px;"/>
                         </td>
                         <td style="display: flex; justify-content: center; gap: 30px;">
-                            <a href="{{route('brand.edit',['id'=>$brand->id])}}" class="btn btn-default">Edit</a>
-                            <a href='' data-url="{{route('brand.delete',['id'=>$brand->id])}}" 
-                                class="btn btn-danger btn-delete-brand">Remove</a>
+                            <a href="{{route('slider.edit',['id'=>$slider->id])}}" class="btn btn-default">Edit</a>
+                            <a href='' data-url="{{route('slider.delete',['id'=>$slider->id])}}"
+                                class="btn btn-danger btn-delete-slider">Remove</a>
                         </td>
                     </tr>
                     @endforeach
@@ -62,7 +60,7 @@
         </div>
         <footer class="panel-footer">
             <div class="col-md-12 custom-pagination">
-                {{ $brands->links('pagination::bootstrap-4') }}
+                {{ $sliders->links('pagination::bootstrap-4') }}
             </div>
         </footer>
     </div>
