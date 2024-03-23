@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Models\admin;
+use App\Models\OrderDetail;
 use App\Traits\AdminAuthenticationTrait;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,14 +14,8 @@ use Illuminate\Support\Facades\Session;
 
 class AdminControllers extends Controller
 {
-    public function authenticateLogin()
-    {
-        $adminId = Session::get('admin_id');
-        if ($adminId !== null) {
-            return redirect()->route('admin');
-        } else {
-        }
-    }
+
+    use AdminAuthenticationTrait;
     protected $admin;
 
     function __construct(admin $admin){
@@ -67,5 +62,24 @@ class AdminControllers extends Controller
         $admin=$this->admin->find($idAdmin);
         
         return view('admin.dashboard');
+     }
+    function revenue(){
+        $idAdmin=Session::get('admin_id');
+        if(!$idAdmin){
+             return redirect()->route("admin.login");
+        }
+        return view('admin.revenue');
+     }
+    function viewRevenue(Request $request){
+        $idAdmin=Session::get('admin_id');
+        if(!$idAdmin){
+             return redirect()->route("admin.login");
+        }
+        $orderDetails = OrderDetail::whereMonth('created_at', '=',$request['month'] )->get();
+        $totalRevenue=0;
+        foreach($orderDetails as $od){
+            $totalRevenue+=$od->od_detail_quantity*$od->od_detail_price;
+        }
+        return view('admin.viewRevenue',compact("orderDetails",'totalRevenue'));
      }
 }

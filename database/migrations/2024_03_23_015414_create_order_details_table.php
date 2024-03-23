@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('order_details', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('user_name')->default("");
-            $table->string('user_email')->unique()->default("");
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('user_password')->default("");
-            $table->rememberToken(); 
+            $table->integer('od_detail_productId')->nullable;
+            $table->boolean('od_detail_orderId');
+            $table->integer('od_detail_quantity')->nullable;
+            $table->double('od_detail_price');
+            $table->string('od_detail_size');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('order_details');
     }
 };

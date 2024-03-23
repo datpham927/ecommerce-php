@@ -6,8 +6,7 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,800,300,600,700);
 @import url(http://fonts.googleapis.com/css?family=Abel);
 body {
-    font-family: 'Roboto', sans-serif;
-    background: ;
+    font-family: 'Roboto', sans-serif; 
     position: relative;
     font-weight: 400px;
 }
@@ -206,7 +205,7 @@ a#scrollUp i {
 }
 
 .shop-menu ul li a:hover {
-    opacity: 0.6;
+    opacity: 0.9;
 }
 
 .header-bottom {
@@ -644,8 +643,7 @@ ul.sub-menu {
     right: 0;
 }
 
-.category-products {
-    border: 1px solid #F7F7F0;
+.category-products { 
     margin-bottom: 35px;
     padding-bottom: 20px;
     padding-top: 15px;
@@ -653,6 +651,8 @@ ul.sub-menu {
 
 .left-sidebar {
     box-shadow: 0 0.0625rem 0.125rem 0 rgba(0, 0, 0, .1);
+    background-color: white;
+    padding: 10px 20px;
 }
 
 .left-sidebar h2,
@@ -750,7 +750,6 @@ h2.title:before {
 }
 
 .brands-name {
-    border: 1px solid #F7F7F0;
     padding-bottom: 20px;
     padding-top: 15px;
 }
@@ -875,7 +874,6 @@ h2.title {
     transition: height 500ms ease 0s;
     width: 100%;
     display: block;
-    opacity: ;
 }
 
 .single-products:hover .product-overlay {
@@ -1542,7 +1540,7 @@ h2.title {
 }
 
 #cart_items .cart_info .table.table-condensed tr:last-child {
-    border-bottom: 0
+    border-bottom: 0;
 }
 
 .cart_info table tr td {
@@ -2493,6 +2491,7 @@ textarea {
     width: 100%;
     height: 100%;
     background-color: rgb(245, 245, 245);
+    padding-bottom: 20px;
 }
 
 
@@ -2533,7 +2532,6 @@ textarea {
     font-weight: 400;
     margin: 0;
     text-transform: capitalize;
-    width: 110px;
 }
 
 
@@ -2609,4 +2607,78 @@ position: relative;
     border: solid 1px #ee4d2d;
     border-radius: 2px;
   
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 20px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+
+  .divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
+.h-custom {
+height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+.h-custom {
+height: 100%;
+}
+}
+
+ 
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #BA68C8
+}
+
+.profile-button {
+    background: rgb(99, 39, 120);
+    box-shadow: none;
+    border: none
+}
+
+.profile-button:hover {
+    background: #682773
+}
+
+.profile-button:focus {
+    background: #682773;
+    box-shadow: none
+}
+
+.profile-button:active {
+    background: #682773;
+    box-shadow: none
+}
+
+.back:hover {
+    color: #682773;
+    cursor: pointer
+}
+
+.labels {
+    font-size: 11px
+}
+
+.add-experience:hover {
+    background: #BA68C8;
+    color: #fff;
+    cursor: pointer;
 }

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FormBrandRequest;
 use App\Models\admin;
 use App\Models\brand;
+use App\Models\Category;
 use App\Models\product;
+use App\Models\Slider;
 use App\Traits\AdminAuthenticationTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -15,11 +17,13 @@ use Illuminate\Support\Str;
 class BrandControllers extends Controller
 {
     use AdminAuthenticationTrait;
-    private $brand,$product;
-    
-    public function __construct(brand $brand,product $product){ 
-        $this->brand = $brand;
-        $this->product = $product;
+    private $category,$product,$brand, $slider;
+   
+    public function __construct(Category $category,product $product,brand $brand,Slider $slider){ 
+        $this->category = $category;
+        $this->product =  $product;
+        $this->brand =  $brand;
+        $this->slider =  $slider;
     }
     
     public function index(){  
@@ -57,13 +61,7 @@ class BrandControllers extends Controller
         $this->brand->create($brandData);
         // Gửi thông báo thành công
         return back()->with('success', 'Thêm Thương hiệu thành công!');
-            
-        
     }
-    
-
-
-    
     public function edit($id){
         $this->authenticateLogin();
         $brand=$this->brand::find($id);  
@@ -85,7 +83,6 @@ class BrandControllers extends Controller
             ];
             // update brand 
             $brand->update($brandData);
-
             session()->flash('success', 'Cập nhật thương hiệu thành công!');
             return redirect()->route('brand.index'); 
     }
@@ -103,8 +100,17 @@ class BrandControllers extends Controller
                 Log::error($e->getMessage());
                 // Gửi thông báo lỗi
               return response()->json(['code' => 500, 'message' =>'Đã xảy ra lỗi']);
-
             }
         
+    }
+    function showBrandHome($product_slug,$id){
+        $brands = $this->brand->orderby('id','desc')->get();
+        $products_by_brandId = $this->product
+        ->where([
+            ['products.product_isPublished',true],
+            ['products.product_brand_id', $id],
+        ])
+        ->get();
+        return view('pages.showProductByBrand',compact("products_by_brandId",'brands'));
     }
 }

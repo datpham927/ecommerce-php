@@ -234,7 +234,7 @@ if($request->has("product_images")){
           }
        }
        DB::commit();
-       return back()->with('success', 'Sửa sản phẩm thành công!');
+       return back()->with('success', 'Cập nhật sản phẩm thành công!');
         } catch (\Throwable $exception) {
               DB::rollBack(); //khôi phục giao dịch (không lưu)
             dd("Message".$exception->getMessage(). "line". $exception->getLine());
@@ -305,4 +305,26 @@ if($request->has("product_images")){
          session()->flash('success', 'Sản phẩm đã được đăng thành công!');
          return back();
      }
+     public function detailProduct($slug,$id)
+     {
+        $detailProduct =$this->product->find($id);
+        $title_page=$detailProduct->product_name;
+        $relatedProducts =$this->product
+        ->where('product_isPublished', true)
+        ->where('product_category_id', $detailProduct['product_category_id'])
+        ->where('id', '!=', $id)
+        ->get();
+        return view('pages.detailProduct',compact("detailProduct",'relatedProducts','title_page'));
+     }
+    //  thêm vào giỏ hàng
+    public function searchResult(Request $request)
+    {
+        $query = $request->input('text');
+        $products = Product::where('product_name', 'like', '%' . $query . '%')
+                            ->orWhere('product_description', 'like', '%' . $query . '%')
+                            ->get();
+
+        return view('pages.searchResult',  compact("products","query"));
+    }
+   
 }

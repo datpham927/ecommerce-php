@@ -2,6 +2,6 @@
 @extends("layout.admin")
 
 @section("content")
-<h1>hjihihi</h1>
+<h1>Tổng quan</h1>
 @endsection
 

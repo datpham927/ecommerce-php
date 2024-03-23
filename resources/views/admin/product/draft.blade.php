@@ -50,7 +50,7 @@
                         <td><span class="text-ellipsis"> {{ optional($product->category)->category_name }}</span></td>
                         <td><span class="text-ellipsis"> {{ optional($product->brand)->brand_name }} </span></td>
                         <td style="display: flex; justify-content: center; gap: 20px;">
-                            <a href="" data-url="{{ route('product.isPublish', ['id' => $product->id]) }}"
+                            <a href="" data-url="{{ route('product\.is_publish', ['id' => $product->id]) }}"
                                 class="btn btn-danger btn-publish-product">Đăng ngay</a>
                         </td>
                     </tr>

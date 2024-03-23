@@ -7,7 +7,7 @@
 
 @section("js")
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
 <script>
 var options = {
     filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',

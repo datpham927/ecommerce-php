@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Home | E-Shopper</title>
+    <title>{{ isset($title_page) ? $title_page : "Trang chủ" }}</title>
     <link href="{{asset('frontend/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('frontend/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{asset('frontend/css/prettyPhoto.css')}}" rel="stylesheet">
@@ -16,11 +16,13 @@
     <link href="{{asset('frontend/css/responsive.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
         integrity="sha512-..." crossorigin="anonymous" />
-
+    <link rel="icon" type="image/png" href="{{asset('frontend/images/home/logo.png')}}">
     <!--[if lt IE 9]>
     <script src="{{asset('frontend/js/html5shiv.js')}}"></script>
     <script src="{{asset('frontend/js/respond.min.js')}}"></script>
     <![endif]-->
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
+     
     <link rel="shortcut icon" href="{{asset('frontend/images/ico/favicon.ico')}}">
     <link rel="apple-touch-icon-precomposed" sizes="144x144"
         href="{{asset('frontend/images/ico/apple-touch-icon-144-precomposed.png')}}">
@@ -31,21 +33,20 @@
     <link rel="apple-touch-icon-precomposed"
         href="{{asset('frontend/images/ico/apple-touch-icon-57-precomposed.png')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/js/fontawesome.min.js"></script>
+
     @yield('css')
 </head>
 <!--/head-->
 
 <body>
     @include("layout.components.header")
-    <div class='body-container'> 
+    <div class='body-container'>
         <!--/slider-->
         @yield('slider')
         @yield('body')
     </div>
     <!--/Footer-->
-    @include("layout.components.footer")
-
+    @yield('footer')
 
     <script src="{{asset('frontend/js/jquery.js')}}"></script>
     <script src="{{asset('frontend/js/bootstrap.min.js')}}"></script>
@@ -53,7 +54,21 @@
     <script src="{{asset('frontend/js/price-range.js')}}"></script>
     <script src="{{asset('frontend/js/jquery.prettyPhoto.js')}}"></script>
     <script src="{{asset('frontend/js/main.js')}}"></script>
+    <script src="{{asset('frontend/js/product.js')}}"></script>
+    
     @yield('js')
+
+    @if(session('success'))
+    <script>
+    alert("{{ session('success') }}");
+    </script>
+    @endif
+
+    @if(session('error'))
+    <script>
+    alert("{{ session('error') }}");
+    </script>
+    @endif
 </body>
 
 </html>
