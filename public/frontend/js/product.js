@@ -5,6 +5,7 @@ $(function () {
     $('.cart_quantity_down').on('click', function (e) {
         e.preventDefault();
         const dataUrl = $(this).data("url");
+        console.log(dataUrl);
         var $inputField = $(this).closest('.cart_quantity').find('.cart_quantity_input'); // Find the corresponding input field
         const parent = $(this).closest("tr");
         $.ajax({

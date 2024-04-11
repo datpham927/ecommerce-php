@@ -43,7 +43,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             class="img-fluid" alt="Sample image">
                     </div>
                     <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                        <form action="{{route('user.storeLogin')}}" method="post">
+                        <form action="{{route('user.store_login')}}" method="post">
                         @csrf    
                             <!-- Email input -->
                             <div>

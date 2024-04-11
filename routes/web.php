@@ -28,8 +28,6 @@ Route::prefix('admin')->group(function () {
     Route::get('/dashboard',[AdminControllers::class,'showDashboard'])->name('admin.dashboard');
     Route::post('/store-login',[AdminControllers::class,'storeLogin'])->name('admin.storeLogin');
     Route::get('/logout',[AdminControllers::class,'logout'])->name('admin.logout');
-    Route::get('/revenue',[AdminControllers::class,'revenue'])->name('admin.revenue');
-    Route::get('/viewRevenue',[AdminControllers::class,'viewRevenue'])->name('admin.viewRevenue');
 
     Route::prefix('/category')->group(function () {
         Route::get('/', [CategoryControllers::class, 'index'])->name("category.index");
@@ -72,7 +70,7 @@ Route::prefix('admin')->group(function () {
     }); 
     Route::prefix('/order')->group(function () { 
         Route::get('/', [OrderControllers::class, 'index'])->name("order.index");
-        Route::post('/is-canceled/{oid}', [OrderControllers::class, 'isCanceled'])->name("order.isCanceled");
+        Route::post('/is-canceled/{oid}', [OrderControllers::class, 'isCanceled'])->name("order.is_canceled");
     }); 
 });
 
@@ -81,11 +79,10 @@ Route::get('/',[HomeControllers::class,'index'])->name('home.index');
 Route::prefix('/')->group(function () { 
     Route::prefix('/user')->group(function () { 
         Route::get('/login',[UserControllers::class,'login'])->name('user.login');
-        Route::post('/store-login',[UserControllers::class,'storeLogin'])->name('user.storeLogin');
+        Route::post('/store-login',[UserControllers::class,'storeLogin'])->name('user.store_login');
         Route::get('/register',[UserControllers::class,'register'])->name('user.register');
         Route::get('/logout',[UserControllers::class,'logout'])->name('user.logout');
-        Route::post('/store-register',[UserControllers::class,'storeRegister'])->name('user.storeRegister');
-        Route::post('/store-register',[UserControllers::class,'storeRegister'])->name('user.storeRegister');
+        Route::post('/store-register',[UserControllers::class,'storeRegister'])->name('user.store_register');
         Route::get('/profile', [UserControllers::class, 'showProfile'])->name("user.profile");
         Route::post('/profile/update', [UserControllers::class, 'update'])->name("user.update");
     }); 
@@ -99,24 +96,26 @@ Route::prefix('/')->group(function () {
   }); 
     Route::prefix('/product')->group(function () { 
         Route::get('/{slug}/{pid}', [ProductControllers::class, 'detailProduct'])->name("product.detail");
-        Route::get('/search-result', [ProductControllers::class, 'searchResult'])->name("product.searchResult");
+        Route::get('/search-result', [ProductControllers::class, 'searchResult'])->name("product.search_result");
     }); 
     Route::prefix('/cart')->group(function () { 
-        Route::get('/', [CartControllers::class, 'viewListCart'])->name("cart.viewListCart");
-        Route::post('/add-to-cart', [CartControllers::class, 'addToCart'])->name("cart.addToCart");
+        Route::get('/', [CartControllers::class, 'viewListCart'])->name("cart.view_Cart");
+        Route::post('/add-to-cart', [CartControllers::class, 'addToCart'])->name("cart.add_cart");
         Route::post('/increase/{cid}', [CartControllers::class, 'increase'])->name("cart.increase");
         Route::post('/decrease/{cid}', [CartControllers::class, 'decrease'])->name("cart.decrease");
         Route::delete('/delete/{cid}', [CartControllers::class, 'delete'])->name("cart.delete");
     }); 
     Route::prefix('/order')->group(function () { 
-        Route::get('/', [OrderControllers::class, 'viewAllOrder'])->name("order.orderList");
-        Route::get('/checkout', [OrderControllers::class, 'viewCheckout'])->name("order.viewCheckout");
-        Route::post('/store', [OrderControllers::class, 'addOrder'])->name("order.addOrder");
-        Route::post('/is-canceled/{oid}', [OrderControllers::class, 'isCanceled'])->name("order.isCanceled");
-      // trạng thái
-        Route::post('/is-canceled/{oid}', [OrderControllers::class, 'isCanceled'])->name("order.isCanceled");
-        Route::post('/is-canceled/{oid}', [OrderControllers::class, 'isCanceled'])->name("order.isCanceled");
-        Route::post('/is-canceled/{oid}', [OrderControllers::class, 'isCanceled'])->name("order.isCanceled");
-        Route::post('/is-canceled/{oid}', [OrderControllers::class, 'isCanceled'])->name("order.isCanceled");
+        // trạng thái
+          Route::get('/', [OrderControllers::class, 'showOrder'])->name("order.order_list");
+          Route::get('/confirm', [OrderControllers::class, 'showOrder'])->name("order.confirm");
+          Route::get('/confirm-delivery', [OrderControllers::class, 'showOrder'])->name("order.confirm_delivery");
+          Route::get('/delivering', [OrderControllers::class, 'showOrder'])->name("order.delivering");
+          Route::get('/success', [OrderControllers::class, 'showOrder'])->name("order.success");
+          Route::get('/canceled', [OrderControllers::class, 'showOrder'])->name("order.canceled");
+        //   ------
+        Route::post('/store', [OrderControllers::class, 'addOrder'])->name("order.add_order");
+        Route::get('/view-checkout', [OrderControllers::class, 'viewCheckout'])->name("order.view_checkout");
+         Route::put('/is-canceled/{oid}', [OrderControllers::class, 'isCanceled'])->name("order.isCanceled");
     }); 
 }); 

@@ -55,6 +55,7 @@
     <script src="{{asset('frontend/js/jquery.prettyPhoto.js')}}"></script>
     <script src="{{asset('frontend/js/main.js')}}"></script>
     <script src="{{asset('frontend/js/product.js')}}"></script>
+    <script src="{{asset('frontend/js/order.js')}}"></script>
     
     @yield('js')
 

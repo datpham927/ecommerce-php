@@ -147,7 +147,7 @@ $(document).ready(function() {
                             </div>
                             @endif
                         </div>
-                        <form action="{{route('cart.addToCart')}}" method="post">
+                        <form action="{{route('cart.add_cart')}}" method="post">
                             @csrf
                             <input name='productId_hidden' type="hidden" value="{{$detailProduct->id}}" />
                             <input name='price_hidden' type="hidden"

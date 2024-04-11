@@ -650,6 +650,7 @@ ul.sub-menu {
 }
 
 .left-sidebar {
+    margin-top: 10px;
     box-shadow: 0 0.0625rem 0.125rem 0 rgba(0, 0, 0, .1);
     background-color: white;
     padding: 10px 20px;

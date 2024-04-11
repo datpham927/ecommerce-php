@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6 col-custom-80">
-                    <form action="{{ route('product.searchResult') }}" method="GET">
+                    <form action="{{ route('product.search_result') }}" method="GET">
                         <div class="search_box pull-right">
                             <input type="text" name="text" style='font-size: 14px;' placeholder="Nhập từ khóa tìm kiếm...">
                             <button class="btn btn-primary" type="submit">Tìm Kiếm</button>
@@ -52,7 +52,7 @@
                 <div class="col-custom-20 col-sm-3 ">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="{{route('cart.viewListCart')}}"><i class="fa fa-shopping-cart"></i><span> Giỏ hàng</span></a>
+                            <li><a href="{{route('cart.view_Cart')}}"><i class="fa fa-shopping-cart"></i><span> Giỏ hàng</span></a>
                             </li>
                             <li>
                             <?php

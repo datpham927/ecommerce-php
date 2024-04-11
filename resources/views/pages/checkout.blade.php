@@ -101,7 +101,7 @@
                 </div>
             </div>
             <form style="width: 100%; display: flex; justify-content: end; " method="post"
-                action="{{route('order.addOrder')}}">
+                action="{{route('order.add_order')}}">
                 @csrf
                 <button class="btn btn-primary profile-button btn-order" style="padding: 10px 40px; border-radius: 2px;">
                     Đặt hàng

@@ -4,7 +4,7 @@
 @section("view")
 
 <div class="container" style="width: 100%;">
-
+  @if(count($orders)>0)
     @foreach($orders as $itemOrder)
     <div style="background-color: white; padding:10px 20px; border-radius: 2px; margin: 20px 0;">
         <div>
@@ -36,7 +36,8 @@
                     {{$itemOrderDetail->product->product_name}}</p>
                 <span style="margin: 0; font-size: 12px; text-transform: uppercase;">Size:
                     {{$itemOrderDetail->od_detail_size}}</p>
-                    <span style=" font-size: 12px">Số lượng: {{$itemOrderDetail->od_detail_quantity}}</p>
+                    <span style=" font-size: 12px"> 
+                    {{number_format($itemOrderDetail->od_detail_price, 0, ',', '.')}}₫ X <span style="color: #FE6133;">{{$itemOrderDetail->od_detail_quantity}}</span></p>
             </div>
         </div>
 
@@ -52,13 +53,25 @@
                 ?>
                 </span>
             </p>
-            <button class="btn btn-primary profile-button btn-is-canceled"
+            @if(!$itemOrder['is_confirm']) <a a href='' data-url="{{route('order.isCanceled',['oid'=>$itemOrder['id']])}}" class="btn btn-primary profile-button btn-is-canceled"
                 style="padding: 10px 40px; border-radius: 2px;">
-                Hủy đơn hàng
-            </button>
+                 Hủy đơn hàng 
+                    </a>
+            @endif
         </div>
     </div>
     @endforeach
+
+    @else
+    <div style=" display: flex;height: 400px;  align-items: center;justify-content: center;">
+        <div style="display: flex;flex-direction: column;align-items: center;">
+            <img style='width: 100px;'
+                src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/cart/9bdd8040b334d31946f4.png" />
+            <span style="margin: 10px 0;">Không có đơn hàng nào!</span>
+        </div>
+    </div>
+
+    @endif
 
 </div>
 

@@ -28,5 +28,3 @@
 		}).appendTo('.btn-size');
 	});
 	
-	
-	

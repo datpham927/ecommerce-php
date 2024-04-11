@@ -13,7 +13,7 @@
 
 
             <div style=" display: flex; justify-content: center;">
-                <a href="{{route('order.orderList')}}" style="display: flex;align-items: center ;color: #FB5530">
+                <a href="{{route('order.order_list')}}" style="display: flex;align-items: center ;color: #FB5530">
                     <img src="{{asset('frontend/images/home/logo.png')}}" style="width: 30px;" />
                     Đơn hàng của bạn
                 </a>

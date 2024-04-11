@@ -78,7 +78,7 @@
             </table>
 
             <div style="width: 100%; display: flex; justify-content: end; ">
-                <a class="btn btn-primary profile-button" href='{{route("order.viewCheckout")}}'
+                <a class="btn btn-primary profile-button" href='{{route("order.view_checkout")}}'
                     style="padding: 10px 40px; border-radius: 2px;">
                     Đặt hàng
                 </a>
