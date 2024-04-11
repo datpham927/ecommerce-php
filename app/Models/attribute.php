@@ -9,4 +9,5 @@ class attribute extends Model
 {
     protected $guarded = [];
     use HasFactory;
+
 }

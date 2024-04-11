@@ -14,7 +14,7 @@
                             <div class="carousel-inner" style="width: 100%;">
                                 @foreach($sliders as $key => $slider)
                                 <div class="item {{ $key == 0 ? 'active' : '' }}" >
-                                    <img src='{{ $slider->image }}' style="display: block; width: 100%;"/>
+                                    <img src='{{ $slider->slider_image }}' style="display: block; width: 100%;"/>
                                 </div>
                                 @endforeach
 

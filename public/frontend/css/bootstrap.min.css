@@ -3991,7 +3991,7 @@ textarea.input-group-sm>.input-group-btn>.btn {
     line-height: 1;
     color: #555;
     text-align: center;
-    background-color: #eee;
+    
     border: 1px solid #ccc;
     border-radius: 4px
 }
@@ -4122,7 +4122,7 @@ textarea.input-group-sm>.input-group-btn>.btn {
 .nav .open>a,
 .nav .open>a:hover,
 .nav .open>a:focus {
-    background-color: #eee;
+    
     border-color: #428bca
 }
 
@@ -4724,7 +4724,6 @@ textarea.input-group-sm>.input-group-btn>.btn {
 .navbar-default .navbar-nav>li>a:hover,
 .navbar-default .navbar-nav>li>a:focus {
     color: #333;
-    background-color: transparent
 }
 
 .navbar-default .navbar-nav>.active>a,
@@ -4823,7 +4822,6 @@ textarea.input-group-sm>.input-group-btn>.btn {
 .navbar-inverse .navbar-nav>li>a:hover,
 .navbar-inverse .navbar-nav>li>a:focus {
     color: #fff;
-    background-color: transparent
 }
 
 .navbar-inverse .navbar-nav>.active>a,
@@ -5773,8 +5771,7 @@ a.list-group-item.active:focus .list-group-item-text {
 }
 
 .panel-default>.panel-heading {
-    color: #333;
-    background-color: #f5f5f5;
+    color: #333; 
     border-color: #ddd
 }
 

@@ -289,7 +289,7 @@
                         </li>
                         <li class="sub-menu">
                             <a href="{{route('slider.index')}}">
-                                <span>Slider</span>
+                                <span>Quản lý slider</span>
                             </a>
                         </li>
                         <li class="sub-menu">
@@ -316,7 +316,11 @@
                                 <li><a href="{{route('product.deleted')}}"> Sản phẩm đã xóa</a></li>
                             </ul>
                         </li>
-
+                        <li class="sub-menu">
+                            <a href="{{route('order.index')}}">
+                                <span>Quản lý đơn hàng</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <!-- sidebar menu end-->
@@ -496,7 +500,7 @@
     </script>
     @endif
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+    @yield('js')
     <!-- //calendar -->
 </body>
 

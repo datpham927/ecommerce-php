@@ -7,6 +7,7 @@ use App\Components\CategoryRecursive;
 use App\Models\admin;
 use App\Models\brand;
 use App\Models\Category;
+use App\Models\Slider;
 use App\Traits\AdminAuthenticationTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -15,12 +16,13 @@ use Illuminate\Support\Facades\Session;
 class CategoryControllers extends Controller
 { 
     use AdminAuthenticationTrait;
-    private $category,$product,$brand;
+    private $category,$product,$brand, $slider;
    
-    public function __construct(Category $category,product $product,brand $brand){ 
+    public function __construct(Category $category,product $product,brand $brand,Slider $slider){ 
         $this->category = $category;
         $this->product =  $product;
         $this->brand =  $brand;
+        $this->slider =  $slider;
     }
     public function index(){  
         $this->authenticateLogin();
@@ -46,14 +48,15 @@ class CategoryControllers extends Controller
     public function store(Request $request, Category $category)
     {
         $this->authenticateLogin();
-            $messages = [
-                "category_name.required" => 'Không được để trống',
-                "category_name.unique" => 'Tên danh mục đã tồn tại'
-            ];
-            $request->validate([
-                "category_name" => 'required|unique:categories'
-            ], $messages);
-            
+        $messages = [
+            "category_name.required" => 'Vui lòng không để trống tên danh mục',
+            "category_name.unique" => 'Tên danh mục đã tồn tại'
+        ];
+        
+        $rules = [
+            "category_name" => 'required|unique:categories,category_name,NULL,id,category_parent_id,0'
+        ];
+        $request->validate($rules, $messages);
             $slug = Str::of($request->input('category_name'))->slug('-');
             $admin= admin::find(Session::get('admin_id'));
         
@@ -123,16 +126,15 @@ class CategoryControllers extends Controller
 
 
     function showCategoryHome($product_slug,$id){
+      
         $categories = $this->category->orderby('id','desc')->get();
-        $brands = $this->brand->orderby('id','desc')->get();
         $products_by_categoryId = $this->product
-        ->join('categories', 'categories.id', '=', 'products.product_category_id')
         ->where([
             ['products.product_isPublished',true],
             ['products.product_category_id', $id],
         ])
         ->get();
-    
-        return view('pages.category.showProduct',compact("products_by_categoryId",'brands','categories'));
+        $category = $this->category->find($id);
+        return view('pages.showProductByCategory',compact("products_by_categoryId",'categories'));
     }
 }

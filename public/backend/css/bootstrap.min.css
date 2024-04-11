@@ -3180,7 +3180,7 @@ output {
 .form-control[disabled],
 .form-control[readonly],
 fieldset[disabled] .form-control {
-    background-color: #eee;
+    
     opacity: 1
 }
 
@@ -4748,7 +4748,7 @@ textarea.input-group-sm>.input-group-btn>.btn {
     line-height: 1;
     color: #555;
     text-align: center;
-    background-color: #eee;
+    
     border: 1px solid #ccc;
     border-radius: 4px
 }
@@ -4868,7 +4868,7 @@ textarea.input-group-sm>.input-group-btn>.btn {
 .nav .open>a,
 .nav .open>a:focus,
 .nav .open>a:hover {
-    background-color: #eee;
+    
     border-color: #337ab7
 }
 
@@ -5458,7 +5458,6 @@ textarea.input-group-sm>.input-group-btn>.btn {
 .navbar-default .navbar-nav>li>a:focus,
 .navbar-default .navbar-nav>li>a:hover {
     color: #333;
-    background-color: transparent
 }
 
 .navbar-default .navbar-nav>.active>a,
@@ -5573,7 +5572,6 @@ fieldset[disabled] .navbar-default .btn-link:hover {
 .navbar-inverse .navbar-nav>li>a:focus,
 .navbar-inverse .navbar-nav>li>a:hover {
     color: #fff;
-    background-color: transparent
 }
 
 .navbar-inverse .navbar-nav>.active>a,
@@ -5733,7 +5731,7 @@ fieldset[disabled] .navbar-inverse .btn-link:hover {
 .pagination>li>span:hover {
     z-index: 3;
     color: #23527c;
-    background-color: #eee;
+    
     border-color: #ddd
 }
 
@@ -6577,7 +6575,7 @@ button.list-group-item-danger.active:hover {
 }
 
 .panel-body {
-    padding: 15px
+    padding: 15px; 
 }
 
 .panel-heading {
@@ -6847,7 +6845,6 @@ button.list-group-item-danger.active:hover {
 
 .panel-default>.panel-heading {
     color: #333;
-    background-color: #f5f5f5;
     border-color: #ddd
 }
 
