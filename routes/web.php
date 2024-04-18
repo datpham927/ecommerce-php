@@ -47,7 +47,6 @@ Route::prefix('admin')->group(function () {
         Route::delete('/delete/{id}', [SliderControllers::class, 'delete'])->name("slider.delete");
     }); 
 
-
     Route::prefix('/brand')->group(function () {
         Route::get('/', [BrandControllers::class, 'index'])->name("brand.index");
         Route::get('/add', [BrandControllers::class, 'create'])->name("brand.add");  
@@ -56,6 +55,7 @@ Route::prefix('admin')->group(function () {
         Route::post('/update/{id}', [BrandControllers::class, 'update'])->name("brand.update");
         Route::delete('/delete/{id}', [BrandControllers::class, 'delete'])->name("brand.delete");
     }); 
+    
     Route::prefix('/product')->group(function () {
         Route::get('/', [ProductControllers::class, 'index'])->name("product.index");
         Route::get('/draft', [ProductControllers::class, 'draftList'])->name("product.draft");
@@ -68,8 +68,18 @@ Route::prefix('admin')->group(function () {
         Route::get('/deleted', [ProductControllers::class, 'productDeleted'])->name("product.deleted");
         Route::post('/restore/{id}', [ProductControllers::class, 'restore'])->name("product.restore");
     }); 
+
     Route::prefix('/order')->group(function () { 
-        Route::get('/', [OrderControllers::class, 'index'])->name("order.index");
+        Route::get('/', [OrderControllers::class, 'index'])->name("admin.order.index");
+        Route::get('/confirm', [OrderControllers::class, 'index'])->name("admin.order.confirm");
+        Route::get('/confirm-delivery', [OrderControllers::class, 'index'])->name("admin.order.confirm_delivery");
+        Route::get('/delivered', [OrderControllers::class, 'index'])->name("admin.order.delivered");
+        Route::get('/success', [OrderControllers::class, 'index'])->name("admin.order.success");
+        Route::get('/canceled', [OrderControllers::class, 'index'])->name("admin.order.canceled");
+        //    xác nhận đơn hàng
+        Route::put('/is-confirm/{oid}', [OrderControllers::class, 'isConfirm'])->name("admin.order.status.confirmation");
+        Route::put('/is-confirm-delivery/{oid}', [OrderControllers::class, 'isConfirmDelivery'])->name("admin.order.status.confirm_delivery");
+        Route::put('/is-delivered/{oid}', [OrderControllers::class, 'isDelivered'])->name("admin.order.status.delivered");
         Route::post('/is-canceled/{oid}', [OrderControllers::class, 'isCanceled'])->name("order.is_canceled");
     }); 
 });

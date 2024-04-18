@@ -12,7 +12,7 @@ $('.btn-is-canceled').on('click', function (e) {
         },
         success: function (response) {
             if (response.code === 200) {
-                alert(response.message );
+                window.location.href = '/order/canceled';
             } else {
                 alert(response.message );
             }
