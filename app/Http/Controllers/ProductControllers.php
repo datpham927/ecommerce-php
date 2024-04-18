@@ -316,7 +316,7 @@ if($request->has("product_images")){
         ->get();
         return view('pages.detailProduct',compact("detailProduct",'relatedProducts','title_page'));
      }
-    //  thêm vào giỏ hàng
+    //  tìm kiếm sản phẩm
     public function searchResult(Request $request)
     {
         $query = $request->input('text');

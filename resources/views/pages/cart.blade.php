@@ -54,7 +54,7 @@
 
                                 <a class="cart_quantity_up" data-url="{{route('cart.increase',["cid"=>$cartItem->id])}}"
                                     style="display: flex;justify-content: center;align-items: center;font-size: 14px;"
-                                    href=""> - </a>
+                                    href=""> + </a>
 
                             </div>
                         </td>
