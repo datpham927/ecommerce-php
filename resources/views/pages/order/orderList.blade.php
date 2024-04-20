@@ -39,8 +39,7 @@
                     <span style=" font-size: 12px"> 
                     {{number_format($orderItemDetail->od_detail_price, 0, ',', '.')}}₫ X <span style="color: #FE6133;">{{$orderItemDetail->od_detail_quantity}}</span></p>
             </div>
-        </div>
-
+        </div> 
         @endforeach
         <div style="display: flex;flex-direction: column;align-items: end;justify-content: end;">
             <p style="font-size: 20px;">Tổng tiền: <span style="color: #FE6133;">

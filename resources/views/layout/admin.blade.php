@@ -42,6 +42,7 @@
     <script src="{{asset('backend/js/index.js')}}"></script>
     <script src="{{asset('backend/js/product.js')}}"></script>
     <script src="{{asset('backend/js/order.js')}}"></script>
+    <script src="{{asset('backend/js/role.js')}}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @yield("js")
     <link href="node_modules/froala-editor/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
@@ -306,6 +307,11 @@
                             <a class="active" href="{{URL::to('/dashboard')}}">
                                 <i class="fa fa-dashboard"></i>
                                 <span>Tổng quan</span>
+                            </a>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="{{route('role.index')}}">
+                                <span>Quản lý vai trò</span>
                             </a>
                         </li>
                         <li class="sub-menu">

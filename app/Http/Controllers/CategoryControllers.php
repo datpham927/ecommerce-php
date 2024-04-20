@@ -110,7 +110,7 @@ class CategoryControllers extends Controller
            $foundProduct=$this->product->where("product_category_id",$id)->get();
            if($foundProduct->isNotEmpty()){
             session()->flash('error', 'Vui lòng xóa hết sản phẩm thuộc danh mục!');
-            return response()->json(['code' => 200, 'message' => 'Vui lòng xóa hết sản phẩm thuộc danh mục!']);
+            return response()->json(['code' => 500, 'message' => 'Vui lòng xóa hết sản phẩm thuộc danh mục này!']);
            }
             $this->category->find($id)->delete();  
             return response()->json(['code' => 200, 'message' => 'Xóa sản phẩm thành công!']); 

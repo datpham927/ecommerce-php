@@ -1545,7 +1545,7 @@ h2.title {
 }
 
 .cart_info table tr td {
-    border-top: 0 none;
+    border:none;
     vertical-align: inherit;
 }
 

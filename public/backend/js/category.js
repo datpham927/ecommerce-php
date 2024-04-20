@@ -17,7 +17,7 @@ $(function() {
                         parent.remove();
                         alert(response.message);
                     } else {
-                        alert('Đã xảy ra lỗi!');
+                        alert(response.message);
                     }
                 },
                 error: function(error) {
