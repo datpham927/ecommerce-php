@@ -1,8 +1,5 @@
 @extends("layout.admin")
-
-@section("js")
-<script type="text/javascript" src="{{asset('backend/js/product.js')}}"></script>
-@endsection
+ 
 
 @section("content")
 <div class="table-agile-info">

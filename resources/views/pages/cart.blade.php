@@ -15,11 +15,11 @@
             <table class='table table-condensed'>
                 <thead>
                     <tr class="cart_menu">
-                        <td class="image" style="font-size: 14px;">Sản phẩm</td>
+                        <td class="image" style="font-size: 14px;text-align: center">Sản phẩm</td>
                         <td class="description" style="font-size: 14px;"></td>
-                        <td class="price" style="font-size: 14px;">Đơn giá</td>
-                        <td class="quantity" style="font-size: 14px;">Số lượng</td>
-                        <td class="total" style="font-size: 14px;">Thành tiền</td>
+                        <td class="price" style="font-size: 14px;text-align: center">Đơn giá</td>
+                        <td class="quantity" style="font-size: 14px; text-align: center;">Số lượng</td>
+                        <td class="total" style="font-size: 14px;text-align: center">Thành tiền</td>
                         <td>Xóa</td>
                     </tr>
                 </thead>

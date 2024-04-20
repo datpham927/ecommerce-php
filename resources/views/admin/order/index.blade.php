@@ -98,7 +98,8 @@
                         </td>
                         <td>
                             <div style="display: flex; flex-direction: column; text-align: center; font-size: 13px;">
-                                <a style="cursor: pointer;">Xem chi tiết</a>
+                                <a href='{{route('admin.order.detail', ['oid' => $orderItem->id])}}'
+                                    style="cursor: pointer;">Xem chi tiết</a>
                                 @if (!in_array($active, ['order', 'canceled', 'success']))
                                 <a style="cursor: pointer;" class="btn-confirm-status-order" data-url="{{ route(
                                         $active == 'confirm' ? 'admin.order.status.confirmation' :
