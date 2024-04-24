@@ -3982,3 +3982,14 @@ div#graph11 {
     color: white!important;
     border: none !important;
 }
+
+.card-header{
+background-color: #3498db;
+color: white;
+padding: 10px 20px;
+border-radius: 4px;
+}
+
+.card-body{
+    padding: 20px;
+}

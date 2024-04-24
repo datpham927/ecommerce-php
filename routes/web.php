@@ -6,6 +6,7 @@ use App\Http\Controllers\CartControllers;
 use App\Http\Controllers\CategoryControllers;
 use App\Http\Controllers\HomeControllers;
 use App\Http\Controllers\OrderControllers;
+use App\Http\Controllers\PermissionControllers;
 use App\Http\Controllers\ProductControllers;
 use App\Http\Controllers\RoleControllers;
 use App\Http\Controllers\SliderControllers;
@@ -29,7 +30,6 @@ Route::prefix('admin')->group(function () {
     Route::get('/dashboard',[AdminControllers::class,'showDashboard'])->name('admin.dashboard');
     Route::post('/store-login',[AdminControllers::class,'storeLogin'])->name('admin.storeLogin');
     Route::get('/logout',[AdminControllers::class,'logout'])->name('admin.logout');
-     
 
     Route::prefix('/role')->group(function () {
         Route::get('/', [RoleControllers::class, 'index'])->name("role.index");
@@ -39,7 +39,10 @@ Route::prefix('admin')->group(function () {
         Route::post('/update/{id}', [RoleControllers::class, 'update'])->name("role.update");
         Route::delete('/delete/{id}', [RoleControllers::class, 'delete'])->name("role.delete");
     }); 
-
+    Route::prefix('/permission')->group(function () {
+        Route::get('/add', [PermissionControllers::class, 'create'])->name("permission.add"); 
+        Route::post('/store', [PermissionControllers::class, 'store'])->name("permission.store");
+    }); 
     Route::prefix('/category')->group(function () {
         Route::get('/', [CategoryControllers::class, 'index'])->name("category.index");
         Route::get('/add', [CategoryControllers::class, 'create'])->name("category.add"); 
@@ -108,8 +111,6 @@ Route::prefix('/')->group(function () {
         Route::get('/profile', [UserControllers::class, 'showProfile'])->name("user.profile");
         Route::post('/profile/update', [UserControllers::class, 'update'])->name("user.update");
     }); 
-    
-
     Route::prefix('/category')->group(function () { 
         Route::get('/danh-muc-san-pham/{slug}/{cid}', [CategoryControllers::class, 'showCategoryHome'])->name("category.show_product_home");
     });  
