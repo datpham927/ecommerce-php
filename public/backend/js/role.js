@@ -27,4 +27,15 @@ $(function() {
             });
         }
     });
+//checked all
+$('.checked-all').on('click', function() {
+    $(this).parents().find(".checkbox_children").prop('checked', $(this).prop("checked"));
+});
+
 })
+
+
+
+
+
+
