@@ -12,21 +12,21 @@ use Illuminate\Support\Facades\Log;
 
 class RoleControllers extends Controller
 {
-    use AdminAuthenticationTrait;
+   
     public function index() {
         $roles=role::latest()->paginate(5);
          return view('admin.role.index',compact("roles"));
     }
 
     public function create(){  
-          $this->authenticateLogin();
+          
           $permissionParents=permission::where(["pms_parent_id"=>0])->get();
           return view("admin.role.add",compact('permissionParents'));
     }
     
     public function store(Request  $request)
     {
-            $this->authenticateLogin();
+            
             $request->validate([
                 'role_name' => "required|unique:roles,role_name",
                 'role_display_name' => "required|unique:roles,role_display_name"
@@ -50,7 +50,7 @@ class RoleControllers extends Controller
     }
     
     public function edit($id){
-        $this->authenticateLogin();
+        
         $permissionParents=permission::where(["pms_parent_id"=>0])->get();
         $role=role::where('role_id',$id)->first();  
         $permissionChecked = $role->permissions;
@@ -58,7 +58,7 @@ class RoleControllers extends Controller
     }
     public function update(Request $request,$id){
         try {
-            $this->authenticateLogin();
+            
             DB::beginTransaction();
             Role::where(["role_id"=>$id])->update([
                 "role_name" => $request->input('role_name'),
@@ -76,7 +76,7 @@ class RoleControllers extends Controller
     }
     public function delete($id){
         try{
-            $this->authenticateLogin();
+            
             $role=  role::where('role_id',$id)->first();
             $role->permissions()->detach();
              $role->delete();

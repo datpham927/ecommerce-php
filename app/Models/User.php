@@ -25,7 +25,10 @@ class User extends Authenticatable
         'user_avatar',
         'user_password',
     ];
-
+    public function getAuthPassword()
+    {
+        return $this->user_password;
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -44,4 +47,5 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+   
 }

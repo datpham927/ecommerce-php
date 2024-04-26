@@ -275,7 +275,7 @@
                             <span class="username">
                                 <?php
                                     use Illuminate\Support\Facades\Session;
-                                    $adminName = Session::get("admin_name");
+                                    $adminName = Session::get("user_name");
                                     if ($adminName) {
                                         echo  $adminName  ; 
                   }

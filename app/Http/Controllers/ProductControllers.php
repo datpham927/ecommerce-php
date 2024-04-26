@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Session;
 
 class ProductControllers extends Controller
 {
-    use AdminAuthenticationTrait;
+   
     use StoreImageTrait;
     private $category,$product,$brand,$image,$size,$attribute;
     public function __construct(Product $product, Category $category, 
@@ -38,7 +38,7 @@ class ProductControllers extends Controller
     }
   
     public function index(){  
-        $this->authenticateLogin();
+        
        // Assuming $this->product represents the Product model in Laravel
        $products = $this->product ->where([
                     ['product_isPublished', 1],
@@ -59,7 +59,7 @@ class ProductControllers extends Controller
       }
 
     public function create(){ 
-        $this->authenticateLogin();
+        
         $brands= $this->brand->get();
         $htmlOptionCategory= $this->getCategory("");
         return view("admin.product.add",compact('brands',"htmlOptionCategory") );
@@ -70,7 +70,7 @@ class ProductControllers extends Controller
 
     public function store(FormAddProductRequest $request){
         try {
-            $this->authenticateLogin();
+            
             DB::beginTransaction();
         // *********    insert table Product  *********  
         $dataProduct= array();
@@ -100,8 +100,8 @@ class ProductControllers extends Controller
            $dataProduct['product_stock']=collect($dataProductQuantities)->sum();
        }
       // tìm kiếm admin 
-          $admin= admin::find(Session::get('admin_id'));
-          $dataProduct['product_admin_id']=  $admin['id'];
+          $admin= admin::find(Session::get('user_id'));
+          $dataProduct['product_user_id']=  $admin['id'];
           $newProduct =$this->product->create($dataProduct);
 //*********   insert table size  *********  
           $dataSizes=$request->input('product_sizes'); //array tên kích thước 
@@ -148,7 +148,7 @@ class ProductControllers extends Controller
 
     
     public function edit($id){
-        $this->authenticateLogin();
+        
             $product=$this->product->find($id);
             $images=$this->image->where('image_product_id',$product["id"])->get();
             $attributes=$this->attribute->where('attribute_product_id',$product["id"])->get();
@@ -160,7 +160,7 @@ class ProductControllers extends Controller
     }
     public function update(FormEditProductRequest $request,$id){
         try {
-            $this->authenticateLogin();
+            
             DB::beginTransaction();
         // *********    insert table Product  *********  
         $dataProduct= array();
@@ -241,7 +241,7 @@ if($request->has("product_images")){
         }
     }
     public function delete($id){
-        $this->authenticateLogin();
+        
            try{
             $this->product->find($id)->delete();
             return response()->json(['code' => 200, 'message' => 'Xóa sản phẩm thành công!']);
@@ -253,7 +253,7 @@ if($request->has("product_images")){
             } 
     }
      function productDeleted(){
-        $this->authenticateLogin();
+        
           $products = $this->product::onlyTrashed()
           ->orderBy('created_at', 'desc') // Use 'created_at' or any other column you want to order by
           ->paginate(5);
@@ -274,7 +274,7 @@ if($request->has("product_images")){
           }
              // ----  danh sách product nháp ---- 
     public function draftList(){  
-        $this->authenticateLogin();
+        
         // Assuming $this->product represents the Product model in Laravel
         $products = $this->product
         ->where([
@@ -288,7 +288,7 @@ if($request->has("product_images")){
      
      public function isPublish($id)
      {
-         $this->authenticateLogin();
+         
          // Find the product by its ID
          $foundProduct = $this->product->find($id);
          // Check if the product is not found

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string("category_name");
             $table->integer("category_parent_id")->default(0);
             $table->string("category_slug");
-            $table->integer("category_admin_id");
+            $table->integer("category_user_id");
             $table->timestamps();
         });
     }

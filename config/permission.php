@@ -14,9 +14,9 @@ return [
    ],
    "table_module"=>[
       "category",
-      "slider",
-      "menu",
+      "slider", 
       "product",
+      "order",
       "setting",
       "user",
       "role"
