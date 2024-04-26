@@ -17,6 +17,10 @@ class CartControllers extends Controller
         if(!$request->has("size_hidden")){ 
             return back()->with('error', 'Vui lòng chọn kích thước!');
         }
+        if($request->input("quantity") == 0){ 
+            return back()->with('error', 'Vui lòng chọn số lượng!');
+        }
+        
         $data = [ 
             "cart_userId" => $userId,
             "cart_productId" => $request->input("productId_hidden"),

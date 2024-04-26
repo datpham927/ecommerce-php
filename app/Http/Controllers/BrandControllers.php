@@ -91,7 +91,7 @@ class BrandControllers extends Controller
             $this->authenticateLogin();
             $foundProduct=$this->product->where("product_brand_id",$id)->get();
             if($foundProduct->isNotEmpty()){
-              return response()->json(['code' => 200, 'message' =>'Vui lòng xóa hết sản phẩm thuộc nhãn hàng!']);
+              return response()->json(['code' => 500, 'message' =>'Vui lòng xóa hết sản phẩm thuộc nhãn hàng này!']);
             } 
             $this->brand->find($id)->delete();
             return response()->json(['code' => 200, 'message' =>'Xóa thương hiệu thành công!']);

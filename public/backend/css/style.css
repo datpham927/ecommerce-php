@@ -2054,7 +2054,7 @@ ul.bs-glyphicons-list {
 
 .table-agile-info {
     background: #eef9f0;
-    padding: 2em;
+    padding:1em;
     border-radius: 4px;
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
     box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
@@ -3058,26 +3058,6 @@ h4 input[type="checkbox"] {
 }
 
 
-/*--placeholder-color--*/
-
-::-webkit-input-placeholder {
-    color: #fff !important;
-}
-
-:-moz-placeholder {
-    /* Firefox 18- */
-    color: #fff !important;
-}
-
-::-moz-placeholder {
-    /* Firefox 19+ */
-    color: #fff !important;
-}
-
-:-ms-input-placeholder {
-    color: #fff !important;
-}
-
 
 /*--//placeholder-color--*/
 
@@ -3978,7 +3958,7 @@ div#graph11 {
 }
 
 .long-text {
-    width: 100px!important;
+    max-width: 100px!important;
     /* Độ rộng của phần tử chứa đoạn văn */
     white-space: nowrap;
     /* Ngăn không cho đoạn văn xuống dòng */
@@ -3990,4 +3970,26 @@ div#graph11 {
 
 #isDraft {
     margin: 0 !important;
+}
+
+.active{
+    background-color: #26849c;
+    border-radius: 2px 2px 0 0  ;
+    overflow: hidden;
+}
+.active a{
+    background-color: #26849c !important;
+    color: white!important;
+    border: none !important;
+}
+
+.card-header{
+background-color: #3498db;
+color: white;
+padding: 10px 20px;
+border-radius: 4px;
+}
+
+.card-body{
+    padding: 20px;
 }

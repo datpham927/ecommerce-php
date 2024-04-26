@@ -1,13 +1,17 @@
-// delete brand
+
+
+
+
+
 $(function() {
     // Assuming #publishButton is the ID of the button triggering the request
-    $('.btn-delete-brand').on('click', function(e) {
+    $('.btn-confirm-status-order').on('click', function(e) {
         e.preventDefault();
         const dataUrl = $(this).data("url");
         const parent = $(this).closest("tr");
-        if (confirm("Bạn có muốn xóa nhãn hàng này không?")) {
+        if (confirm("Bạn có muốn xác nhận sản phẩm này không?")) {
             $.ajax({
-                type: 'DELETE',
+                type: 'put',
                 url: dataUrl,
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -15,9 +19,9 @@ $(function() {
                 success: function(response) {
                     if (response.code === 200) {
                         parent.remove();
-                        alert(response.message);
+                        alert('Xác nhận thành công');
                     } else {
-                        alert(response.message);
+                        alert('Đã xảy ra lỗi!');
                     }
                 },
                 error: function(error) {
@@ -27,4 +31,8 @@ $(function() {
             });
         }
     });
+ 
+   
 })
+
+ 

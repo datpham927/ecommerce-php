@@ -16,6 +16,8 @@
         window.scrollTo(0, 1);
     }
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/i18n/jquery-ui-i18n.min.js"></script>
+
     <!-- bootstrap-css -->
     <link rel="stylesheet" href="{{asset('backend/css/bootstrap.min.css')}}">
     <!-- //bootstrap-css -->
@@ -39,9 +41,29 @@
     <script src="{{asset('backend/js/morris.js')}}"></script>
     <script src="{{asset('backend/js/index.js')}}"></script>
     <script src="{{asset('backend/js/product.js')}}"></script>
+    <script src="{{asset('backend/js/order.js')}}"></script>
+    <script src="{{asset('backend/js/role.js')}}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @yield("js")
-    <link href="node_modules/froala-editor/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" /><script type="text/javascript" src="node_modules/froala-editor/js/froala_editor.pkgd.min.js"></script>
+    <link href="node_modules/froala-editor/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="node_modules/froala-editor/js/froala_editor.pkgd.min.js"></script>
+    <!-- Bootstrap 5 CSS -->
+    <!-- Datepicker CSS (tùy chọn) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"
+        rel="stylesheet">
+    <!-- Bootstrap 5 JS và Popper.js (cần thiết cho dropdown của Bootstrap) -->
+    <!-- Datepicker JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+        $('#datepicker').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: true,
+            language: 'vi' // Thêm dòng này để thiết lập ngôn ngữ là tiếng Việt
+        });
+    });
+    </script>
 
 </head>
 
@@ -243,7 +265,7 @@
                 <!--search & user info start-->
                 <ul class="nav pull-right top-menu">
                     <li>
-                        <input type="text" class="form-control search" placeholder=" Search">
+                        <input type="text" class="form-control search" placeholder="Search">
                     </li>
                     <!-- user login dropdown start-->
                     <li class="dropdown">
@@ -317,8 +339,18 @@
                             </ul>
                         </li>
                         <li class="sub-menu">
-                            <a href="{{route('order.index')}}">
+                            <a href="{{route('admin.order.index')}}">
                                 <span>Quản lý đơn hàng</span>
+                            </a>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="{{route('role.index')}}">
+                                <span>Quản lý vai trò</span>
+                            </a>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="{{route('permission.add')}}">
+                                <span>Thêm permission</span>
                             </a>
                         </li>
                     </ul>

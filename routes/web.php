@@ -6,7 +6,9 @@ use App\Http\Controllers\CartControllers;
 use App\Http\Controllers\CategoryControllers;
 use App\Http\Controllers\HomeControllers;
 use App\Http\Controllers\OrderControllers;
+use App\Http\Controllers\PermissionControllers;
 use App\Http\Controllers\ProductControllers;
+use App\Http\Controllers\RoleControllers;
 use App\Http\Controllers\SliderControllers;
 use App\Http\Controllers\UserControllers;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +31,18 @@ Route::prefix('admin')->group(function () {
     Route::post('/store-login',[AdminControllers::class,'storeLogin'])->name('admin.storeLogin');
     Route::get('/logout',[AdminControllers::class,'logout'])->name('admin.logout');
 
+    Route::prefix('/role')->group(function () {
+        Route::get('/', [RoleControllers::class, 'index'])->name("role.index");
+        Route::get('/add', [RoleControllers::class, 'create'])->name("role.add"); 
+        Route::post('/store', [RoleControllers::class, 'store'])->name("role.store");
+        Route::get('/edit/{id}', [RoleControllers::class, 'edit'])->name("role.edit"); 
+        Route::post('/update/{id}', [RoleControllers::class, 'update'])->name("role.update");
+        Route::delete('/delete/{id}', [RoleControllers::class, 'delete'])->name("role.delete");
+    }); 
+    Route::prefix('/permission')->group(function () {
+        Route::get('/add', [PermissionControllers::class, 'create'])->name("permission.add"); 
+        Route::post('/store', [PermissionControllers::class, 'store'])->name("permission.store");
+    }); 
     Route::prefix('/category')->group(function () {
         Route::get('/', [CategoryControllers::class, 'index'])->name("category.index");
         Route::get('/add', [CategoryControllers::class, 'create'])->name("category.add"); 
@@ -47,7 +61,6 @@ Route::prefix('admin')->group(function () {
         Route::delete('/delete/{id}', [SliderControllers::class, 'delete'])->name("slider.delete");
     }); 
 
-
     Route::prefix('/brand')->group(function () {
         Route::get('/', [BrandControllers::class, 'index'])->name("brand.index");
         Route::get('/add', [BrandControllers::class, 'create'])->name("brand.add");  
@@ -56,6 +69,7 @@ Route::prefix('admin')->group(function () {
         Route::post('/update/{id}', [BrandControllers::class, 'update'])->name("brand.update");
         Route::delete('/delete/{id}', [BrandControllers::class, 'delete'])->name("brand.delete");
     }); 
+    
     Route::prefix('/product')->group(function () {
         Route::get('/', [ProductControllers::class, 'index'])->name("product.index");
         Route::get('/draft', [ProductControllers::class, 'draftList'])->name("product.draft");
@@ -68,8 +82,19 @@ Route::prefix('admin')->group(function () {
         Route::get('/deleted', [ProductControllers::class, 'productDeleted'])->name("product.deleted");
         Route::post('/restore/{id}', [ProductControllers::class, 'restore'])->name("product.restore");
     }); 
+
     Route::prefix('/order')->group(function () { 
-        Route::get('/', [OrderControllers::class, 'index'])->name("order.index");
+        Route::get('/', [OrderControllers::class, 'index'])->name("admin.order.index");
+        Route::get('/confirm', [OrderControllers::class, 'index'])->name("admin.order.confirm");
+        Route::get('/confirm-delivery', [OrderControllers::class, 'index'])->name("admin.order.confirm_delivery");
+        Route::get('/delivered', [OrderControllers::class, 'index'])->name("admin.order.delivered");
+        Route::get('/success', [OrderControllers::class, 'index'])->name("admin.order.success");
+        Route::get('/canceled', [OrderControllers::class, 'index'])->name("admin.order.canceled");
+        Route::get('/detail/{oid}', [OrderControllers::class, 'getOrderDetailByAdmin'])->name("admin.order.detail");
+        //    xác nhận đơn hàng
+        Route::put('/is-confirm/{oid}', [OrderControllers::class, 'isConfirm'])->name("admin.order.status.confirmation");
+        Route::put('/is-confirm-delivery/{oid}', [OrderControllers::class, 'isConfirmDelivery'])->name("admin.order.status.confirm_delivery");
+        Route::put('/is-delivered/{oid}', [OrderControllers::class, 'isDelivered'])->name("admin.order.status.delivered");
         Route::post('/is-canceled/{oid}', [OrderControllers::class, 'isCanceled'])->name("order.is_canceled");
     }); 
 });
@@ -86,8 +111,6 @@ Route::prefix('/')->group(function () {
         Route::get('/profile', [UserControllers::class, 'showProfile'])->name("user.profile");
         Route::post('/profile/update', [UserControllers::class, 'update'])->name("user.update");
     }); 
-    
-
     Route::prefix('/category')->group(function () { 
         Route::get('/danh-muc-san-pham/{slug}/{cid}', [CategoryControllers::class, 'showCategoryHome'])->name("category.show_product_home");
     });  
