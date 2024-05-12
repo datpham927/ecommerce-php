@@ -10,6 +10,8 @@ use App\Http\Controllers\admin\ProductControllers;
 use App\Http\Controllers\admin\RoleControllers;
 use App\Http\Controllers\admin\SliderControllers;
 use App\Http\Controllers\admin\StaffControllers;
+use App\Http\Controllers\admin\CustomerControllers;
+use App\Http\Controllers\admin\UploadImageControllers;
 use App\Http\Controllers\user\auth\UserLoginControllers;
 use App\Http\Controllers\user\CartControllers;
 use App\Http\Controllers\user\HomeControllers;
@@ -32,13 +34,13 @@ use Illuminate\Support\Facades\Route;
 // admin
 Route::get('/admin', [AdminLoginControllers::class, 'login'])->name('admin.login');
 Route::post('/admin/store-login', [AdminLoginControllers::class, 'storeLogin'])->name('admin.storeLogin');
+Route::post('/upload-image', [UploadImageControllers ::class, 'uploadImage'])->name("upload_image");
 
 Route::middleware(['auth-admin'])->group(function () {
 Route::prefix('admin')->group(function () { 
-      
         Route::get('/dashboard', [SystemControllers::class, 'showDashboard'])->name('admin.dashboard');
         Route::get('/logout', [AdminLoginControllers::class, 'logout'])->name('admin.logout');
-       
+        // quản lý nhân viên
         Route::prefix('/staff')->group(function () {
             Route::get('/', [StaffControllers::class, 'index'])->name("staff.index");
             Route::get('/add', [StaffControllers::class, 'create'])->name("staff.add");
@@ -46,8 +48,18 @@ Route::prefix('admin')->group(function () {
             Route::get('/edit/{id}', [StaffControllers::class, 'edit'])->name("staff.edit");
             Route::post('/update/{id}', [StaffControllers::class, 'update'])->name("staff.update");
             Route::delete('/delete/{id}', [StaffControllers::class, 'delete'])->name("staff.delete");
-            Route::post('/upload-image', [StaffControllers::class, 'uploadImage'])->name("staff.upload_image");
         });
+        // quản lý khách hàng
+        route::prefix('/customer')->group(function () {
+            Route::get('/', [CustomerControllers::class, 'index'])->name("customer.index");
+            Route::get('/add', [CustomerControllers::class, 'create'])->name("customer.add");
+            Route::post('/store', [CustomerControllers::class, 'store'])->name("customer.store");
+            Route::get('/edit/{id}', [CustomerControllers::class, 'edit'])->name("customer.edit");
+            Route::post('/update/{id}', [CustomerControllers::class, 'update'])->name("customer.update");
+            Route::delete('/delete/{id}', [CustomerControllers::class, 'delete'])->name("customer.delete");
+        });
+
+
 
         Route::prefix('/role')->group(function () {
             Route::get('/', [RoleControllers::class, 'index'])->name("role.index");
@@ -150,8 +162,6 @@ Route::prefix('/')->group(function () {
         Route::delete('/delete/{cid}', [CartControllers::class, 'delete'])->name("cart.delete");
     }); 
     Route::prefix('/order')->group(function () { 
-
-        
         // trạng thái
           Route::get('/', [UserOrderControllers::class, 'showOrder'])->name("order.order_list");
           Route::get('/confirm', [UserOrderControllers::class, 'showOrder'])->name("order.confirm");

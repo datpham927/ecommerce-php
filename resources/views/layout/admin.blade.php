@@ -359,7 +359,7 @@
                                     </a>
                                 </li>
                                 <li class="sub-menu">
-                                    <a href="{{route('staff.index')}}">
+                                    <a href="{{route('customer.index')}}">
                                         <span>Quản lý khách hàng</span>
                                     </a>
                                 </li>

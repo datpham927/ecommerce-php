@@ -8,8 +8,9 @@ $(function() {
     $('.user-avatar').change(function () {
         const dataUrl = $(this).data("url"); 
         const formData = new FormData();
-        formData.append('admin_image', $(this)[0].files[0]); 
+        formData.append('image', $(this)[0].files[0]); 
         const parent = $(this).closest(".add-avatar");
+        console.log()
         $.ajax({
             type: 'post',
             url: dataUrl,

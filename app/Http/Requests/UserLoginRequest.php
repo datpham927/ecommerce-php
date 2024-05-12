@@ -31,7 +31,6 @@ class UserLoginRequest extends FormRequest
             'user_password' => 'required|min:6',
             'password_confirm' => 'required|same:user_password',
             'user_image_url' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'user_roles' => 'required|array',
         ];
     }
 
@@ -43,7 +42,6 @@ class UserLoginRequest extends FormRequest
             'user_email.unique' => 'Email đã tồn tại trong hệ thống.',
             'user_name.required' => 'Vui lòng nhập tên nhân viên.',
             'user_address.required' => 'Vui lòng nhập địa chỉ.',
-            'user_roles.required' => 'Vui lòng chọn vai trò.',
             'user_mobile.required' => 'Vui lòng nhập số điện thoại.',
             'user_mobile.numeric' => 'Số điện thoại phải là số.',
             'user_password.required' => 'Vui lòng nhập mật khẩu.',
