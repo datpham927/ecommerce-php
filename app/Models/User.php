@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -20,11 +21,23 @@ class User extends Authenticatable
     protected $fillable = [
         'user_name',
         'user_email',
-        'user_phone',
+        'user_mobile',
         'user_address',
-        'user_avatar',
+        'user_image_url',
         'user_password',
+        "user_type",
     ];
+    // thêm mới try cập được password
+    public function getAuthPassword()
+    {
+        return $this->user_password;
+    }
+    // public function roles()
+    // {
+    //     return $this->hasMany(user_role::class, 'user_role_user_id');
+    // }
+
+    
 
     /**
      * The attributes that should be hidden for serialization.
@@ -44,4 +57,5 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+   
 }

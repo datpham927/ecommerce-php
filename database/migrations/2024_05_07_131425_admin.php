@@ -14,11 +14,15 @@ return new class extends Migration
     public function up()
     {
         Schema::create('admins', function (Blueprint $table) {
-            $table->bigIncrements('id'); 
-            $table->String('admin_password');
-            $table->String('admin_name');
-            $table->String('admin_email');
-            $table->String('admin_phone');
+            $table->bigIncrements('id');
+            $table->string('admin_name')->default("");
+            $table->string('admin_password')->default("");
+            $table->string('admin_address')->nullable();
+            $table->string('admin_mobile')->nullable();
+            $table->string('admin_image_url')->nullable();
+            $table->string('admin_cmnd')->nullable();
+            $table->string('admin_type')->default('admin'); //employee
+            $table->rememberToken(); 
             $table->timestamps();
         });
     }

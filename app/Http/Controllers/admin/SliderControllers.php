@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\admin; 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\FormSliderRequest;
 use App\Models\admin;
 use App\Models\slider;
@@ -15,7 +15,7 @@ use Illuminate\Support\Str;
 
 class SliderControllers extends Controller
 {
-    use AdminAuthenticationTrait;
+   
     use StoreImageTrait;
     private $slider,$product;
     
@@ -25,7 +25,7 @@ class SliderControllers extends Controller
     }
     
     public function index(){  
-        $this->authenticateLogin();
+        
         $sliders=$this->slider->latest()->paginate(5);
         return view("admin.slider.index",compact("sliders"));
     }
@@ -34,13 +34,13 @@ class SliderControllers extends Controller
    
 
     public function create(){  
-        $this->authenticateLogin();
+        
           return view("admin.slider.add",);
     }
     
     public function store(FormSliderRequest  $request, slider $slider)
     {
-        $this->authenticateLogin();
+        
         $sliderName = $request->input("slider_name");
         $slug = Str::of($sliderName)->slug('-');
         // Tạo một mảng chứa dữ liệu slider
@@ -52,8 +52,8 @@ class SliderControllers extends Controller
         if($slider_image){
           $sliderData['slider_image']=$slider_image["file_path"];
        } 
-       $admin= admin::find(Session::get('admin_id'));
-       $sliderData['slider_admin_id']=  $admin['id'];
+       $admin= admin::find(Session::get('user_id'));
+       $sliderData['slider_user_id']=  $admin['id'];
         // Tạo slider mới
         $this->slider->create($sliderData);
         // Gửi thông báo thành công
@@ -65,12 +65,12 @@ class SliderControllers extends Controller
 
     
     public function edit($id){
-        $this->authenticateLogin();
+        
         $slider=$this->slider::find($id);  
         return view("admin.slider.edit",compact("slider"));
     }
     public function update(FormSliderRequest $request,$id){
-        $this->authenticateLogin();
+        
             // tìm slider
             $slider=$this->slider::find($id); 
             $sliderName = $request->input("slider_name");
@@ -89,7 +89,7 @@ class SliderControllers extends Controller
     }
     public function delete($id){
         try{
-            $this->authenticateLogin();
+            
             $this->slider->find($id)->delete();
             return response()->json(['code' => 200, 'message' =>'Xóa slider thành công!']);
             } catch (\Exception $e) {

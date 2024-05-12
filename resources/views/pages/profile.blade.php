@@ -7,7 +7,7 @@
             <div
                 style="background-color: white;padding: 20px; height:inherit; display: flex; flex-direction: column;align-items: center;">
                 <img class="rounded-circle mt-5" width="150px"
-                    src="{{$user->user_avatar?$user->user_name:"https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"}}">
+                    src="{{$user->user_image_url?$user->user_name:"https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"}}">
                 <span style="font-weight: 600;">{{$user->user_name}}</span>
             </div>
 
@@ -37,8 +37,8 @@
                                 value="{{$user->user_name}}">
                         </div>
                         <div class="col-md-6"><label class="Số điện thoại">Số điện thoại</label>
-                            <input type="number" class="form-control" name="user_phone" placeholder="Nhập số điện thoại"
-                                value="{{$user->user_phone}}">
+                            <input type="number" class="form-control" name="user_mobile" placeholder="Nhập số điện thoại"
+                                value="{{$user->user_mobile}}">
                         </div>
                     </div>
                     <div class="row mt-3" style="margin-top: 20px;">

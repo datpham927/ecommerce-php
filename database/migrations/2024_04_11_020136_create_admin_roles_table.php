@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('admin_roles', function (Blueprint $table) {
-            $table->bigIncrements('admin_role_id');
-            $table->string("admin_role_admin_id");
-            $table->string("admin_role_role_id"); 
+            $table->bigIncrements('ar_id');
+            $table->string("ar_admin_id");
+            $table->string("ar_role_id"); 
             $table->timestamps();
         });
     }

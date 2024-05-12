@@ -50,7 +50,7 @@
                     </div>
                     <div style="font-size: 14px;opacity: 0.7">Số điện thoại:
                         <span">
-                            {{  $orderDetail->user->user_phone}}
+                            {{  $orderDetail->user->user_mobile}}
                             </span>
                     </div>
                 </div>

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class permission_role extends Model
 {
 
-    protected $primaryKey = 'pms_role_id';
+    protected $primaryKey = 'pr_id';
     protected $guarded = [];
     use HasFactory;
 }

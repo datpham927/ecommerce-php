@@ -15,9 +15,8 @@ class Role extends Model
         return $this->belongsToMany(
             Permission::class, 
             'permission_roles', 
-            'pms_role_role_id',  // Khóa ngoại của bảng role trong bảng trung gian
-            'pms_role_pms_id',    // Khóa ngoại của bảng permission trong bảng trung gian
-             
+            'pr_role_id',  // Khóa ngoại của bảng role trong bảng trung gian
+            'pr_pms_id',    // Khóa ngoại của bảng permission trong bảng trung gian
         );
     }
 }

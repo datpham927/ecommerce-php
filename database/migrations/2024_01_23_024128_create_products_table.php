@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('product_thumb')->nullable;
             $table->text('product_description');
             $table->float('product_ratings')->default('4.5');
-            $table->integer('product_admin_id');
+            $table->integer('product_user_id');
             $table->integer('product_category_id');
             $table->integer('product_brand_id');
             $table->boolean('product_isPublished')->default(true);
