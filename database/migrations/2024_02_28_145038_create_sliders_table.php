@@ -18,7 +18,6 @@ return new class extends Migration
             $table->String("slider_name");
             $table->String("slider_description");
             $table->String("slider_image");  
-            $table->integer("slider_user_id");
             $table->timestamps();
         });
     }

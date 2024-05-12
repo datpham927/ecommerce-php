@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="{{asset('backend/css/morris.css')}}" type="text/css">
     <!-- calendar -->
     <link rel="stylesheet" href="{{asset('backend/css/monthly.css')}}">
+    <link rel="stylesheet" href="{{asset('backend/css/multi-select.css')}}">
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <!-- //font-awesome icons -->
     <script src="{{asset('backend/js/jquery2.0.3.min.js')}}"></script>
@@ -43,6 +44,9 @@
     <script src="{{asset('backend/js/product.js')}}"></script>
     <script src="{{asset('backend/js/order.js')}}"></script>
     <script src="{{asset('backend/js/role.js')}}"></script>
+    <script src="{{asset('backend/js/user_.js')}}"></script>
+    <script src="{{asset('backend/js/multi-select.js')}}"></script>
+
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @yield("js")
     <link href="node_modules/froala-editor/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
@@ -54,7 +58,6 @@
     <!-- Bootstrap 5 JS và Popper.js (cần thiết cho dropdown của Bootstrap) -->
     <!-- Datepicker JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-
     <script>
     $(document).ready(function() {
         $('#datepicker').datepicker({
@@ -343,6 +346,27 @@
                                 <span>Quản lý đơn hàng</span>
                             </a>
                         </li>
+
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <span>Quản lý người dùng</span>
+                                <span class="dcjq-icon"></span>
+                            </a>
+                            <ul class="sub">
+                                <li class="sub-menu">
+                                    <a href="{{route('staff.index')}}">
+                                        <span>Quản lý nhân viên</span>
+                                    </a>
+                                </li>
+                                <li class="sub-menu">
+                                    <a href="{{route('staff.index')}}">
+                                        <span>Quản lý khách hàng</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            
+                        </li>
+
                         <li class="sub-menu">
                             <a href="{{route('role.index')}}">
                                 <span>Quản lý vai trò</span>
@@ -353,6 +377,9 @@
                                 <span>Thêm permission</span>
                             </a>
                         </li>
+
+
+
                     </ul>
                 </div>
                 <!-- sidebar menu end-->
@@ -520,20 +547,20 @@
         }
     });
     </script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @yield('js')
+    <!-- //calendar -->
     @if(session('success'))
     <script>
     alert("{{ session('success') }}");
     </script>
     @endif
-
     @if(session('error'))
     <script>
     alert("{{ session('error') }}");
     </script>
     @endif
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @yield('js')
-    <!-- //calendar -->
 </body>
 
 </html>

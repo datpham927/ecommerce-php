@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\FormBrandRequest;
 use App\Models\admin;
 use App\Models\brand;
 use App\Models\Category;
 use App\Models\product;
 use App\Models\Slider;
-use App\Traits\AdminAuthenticationTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
@@ -16,7 +16,6 @@ use Illuminate\Support\Str;
 
 class BrandControllers extends Controller
 {
-   
     private $category,$product,$brand, $slider;
    
     public function __construct(Category $category,product $product,brand $brand,Slider $slider){ 
@@ -41,20 +40,16 @@ class BrandControllers extends Controller
     
     public function store(FormBrandRequest $request, brand $brand)
     {
-        
           $request->validate([ 'brand_name'=>"unique:brands" ],
                              [ "brand_name.unique" => 'Tên thương hiệu đã tồn tại!' ]);
-
         $brandName = $request->input("brand_name");
         $slug = Str::of($brandName)->slug('-');
-        $admin= admin::find(Session::get('user_id'));
         // Tạo một mảng chứa dữ liệu thương hiệu
         $brandData = [
             'brand_name' => $brandName,
             'brand_status' =>$request->input("brand_status"),
             'brand_description' => $request->input("brand_description"),
             'brand_slug' => $slug,
-            "brand_user_id"=> $admin['id']
         ];
         // Tạo thương hiệu mới
         $this->brand->create($brandData);
@@ -101,15 +96,5 @@ class BrandControllers extends Controller
               return response()->json(['code' => 500, 'message' =>'Đã xảy ra lỗi']);
             }
         
-    }
-    function showBrandHome($product_slug,$id){
-        $brands = $this->brand->orderby('id','desc')->get();
-        $products_by_brandId = $this->product
-        ->where([
-            ['products.product_isPublished',true],
-            ['products.product_brand_id', $id],
-        ])
-        ->get();
-        return view('pages.showProductByBrand',compact("products_by_brandId",'brands'));
     }
 }

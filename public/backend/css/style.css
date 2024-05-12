@@ -3993,3 +3993,33 @@ border-radius: 4px;
 .card-body{
     padding: 20px;
 }
+
+.add-avatar{
+    display: flex;
+    flex-direction: column;
+}
+.add-avatar img{
+    width: 20%;
+}
+
+.bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn){
+    width: 100% !important;
+}
+.dropdown-toggle{
+    height: 40px !important;
+    background-color: none !important;
+    border: none !important;
+}
+
+.bootstrap-select .dropdown-toggle:focus{
+    border: none !important;
+    border: none !important;
+}
+.bootstrap-select > .dropdown-toggle.bs-placeholder, .bootstrap-select > .dropdown-toggle.bs-placeholder:hover, .bootstrap-select > .dropdown-toggle.bs-placeholder:focus, .bootstrap-select > .dropdown-toggle.bs-placeholder:active{
+    border: none !important;
+}
+.bootstrap-select .dropdown-toggle:focus{
+    outline: none !important ;
+    border: none !important;
+}
+

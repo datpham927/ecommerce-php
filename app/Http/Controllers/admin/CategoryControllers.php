@@ -1,21 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
-use App\Models\product;
-use Illuminate\Support\Str;
+namespace App\Http\Controllers\admin;
+
 use App\Components\CategoryRecursive;
+use App\Http\Controllers\Controller;
 use App\Models\admin;
 use App\Models\brand;
 use App\Models\Category;
+use App\Models\product;
 use App\Models\Slider;
-use App\Traits\AdminAuthenticationTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
-
+use Illuminate\Support\Str;
 class CategoryControllers extends Controller
-{ 
-   
+{
     private $category,$product,$brand, $slider;
    
     public function __construct(Category $category,product $product,brand $brand,Slider $slider){ 
@@ -47,24 +46,19 @@ class CategoryControllers extends Controller
     
     public function store(Request $request, Category $category)
     {
-        
         $messages = [
             "category_name.required" => 'Vui lòng không để trống tên danh mục',
             "category_name.unique" => 'Tên danh mục đã tồn tại'
         ];
-        
         $rules = [
             "category_name" => 'required|unique:categories,category_name,NULL,id,category_parent_id,0'
         ];
         $request->validate($rules, $messages);
             $slug = Str::of($request->input('category_name'))->slug('-');
-            $admin= admin::find(Session::get('user_id'));
-        
             $category = $category->create([
                 'category_name' => $request->input('category_name'),
                 'category_parent_id' => $request->input("category_parent_id"),
                 'category_slug' => $slug,
-                "category_user_id"=> $admin['id']
             ]);
             // Gửi thông báo thành công
             // session()->flash('success', 'Thêm danh mục thành công!');
@@ -125,16 +119,4 @@ class CategoryControllers extends Controller
 
 
 
-    function showCategoryHome($product_slug,$id){
-      
-        $categories = $this->category->orderby('id','desc')->get();
-        $products_by_categoryId = $this->product
-        ->where([
-            ['products.product_isPublished',true],
-            ['products.product_category_id', $id],
-        ])
-        ->get();
-        $category = $this->category->find($id);
-        return view('pages.showProductByCategory',compact("products_by_categoryId",'categories'));
-    }
 }

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("pms_name");
             $table->string("pms_display_name"); 
             $table->string("pms_parent_id"); 
+            $table->string("pms_key_code")->nullable; 
             $table->timestamps();
         });
     }

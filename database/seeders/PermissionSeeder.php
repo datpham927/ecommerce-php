@@ -34,8 +34,8 @@ class PermissionSeeder extends Seeder
                 'pms_key_code' => "",
             ],
             [
-                'pms_name' => "Slide",
-                'pms_display_name' => "Slide",
+                'pms_name' => "slider",
+                'pms_display_name' => "slider",
                 'pms_parent_id' => 0,
                 'pms_key_code' => "",
             ],
@@ -122,30 +122,30 @@ class PermissionSeeder extends Seeder
                 'pms_key_code' => "edit_product",
             ],
 
-              // Danh sách Slide
+              // Danh sách slider
               [
-                'pms_name' => "Danh sách Slide",
-                'pms_display_name' => "Danh sách Slide",
+                'pms_name' => "Danh sách slider",
+                'pms_display_name' => "Danh sách slider",
                 'pms_parent_id' => 4,
-                'pms_key_code' => "list_slide",
+                'pms_key_code' => "list_slider",
             ],
             [
-                'pms_name' => "Xóa Slide",
-                'pms_display_name' => "Xóa Slide",
+                'pms_name' => "Xóa slider",
+                'pms_display_name' => "Xóa slider",
                 'pms_parent_id' => 4,
-                'pms_key_code' => "delete_slide",
+                'pms_key_code' => "delete_slider",
             ],
             [
-                'pms_name' => "Thêm Slide",
-                'pms_display_name' => "Thêm Slide",
+                'pms_name' => "Thêm slider",
+                'pms_display_name' => "Thêm slider",
                 'pms_parent_id' => 4,
-                'pms_key_code' => "add_slide",
+                'pms_key_code' => "add_slider",
             ],
             [
-                'pms_name' => "Sửa Slide",
-                'pms_display_name' => "Sửa Slide",
+                'pms_name' => "Sửa slider",
+                'pms_display_name' => "Sửa slider",
                 'pms_parent_id' => 4,
-                'pms_key_code' => "edit_slide",
+                'pms_key_code' => "edit_slider",
             ],
             // đơn hàng
         ]);

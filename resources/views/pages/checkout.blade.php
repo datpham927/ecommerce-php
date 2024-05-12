@@ -70,8 +70,8 @@
                     <p
                         style="margin: 0;padding-right: 10px;margin-right: 10px; border-right: 2px solid rgb(229,231,235);">
                         {{$user->user_name}}</p>
-                    @if($user->user_phone)
-                    <span> {{$user->user_phone}}</span>
+                    @if($user->user_mobile)
+                    <span> {{$user->user_mobile}}</span>
                     @endif
                 </div>
                 @if($user->user_address)

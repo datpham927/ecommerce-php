@@ -17,12 +17,12 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'user_name' => "Admin",
-            'user_email' => "admin@gmail.com",
-            'user_phone' => "0917442948",
-            'user_password' => Hash::make('123'),
-            'user_type'=>'admin'
+        DB::table('admins')->insert([
+            'admin_name' => "admin", 
+            'admin_mobile' => "0917442948",
+            'admin_password' => Hash::make('123'),
+            'admin_cmnd' =>  '043982737828',
+            'admin_type'=>'admin'
         ]);
     }
 }
