@@ -57,10 +57,10 @@ Route::prefix('admin')->group(function () {
             Route::get('/edit/{id}', [CustomerControllers::class, 'edit'])->name("customer.edit");
             Route::post('/update/{id}', [CustomerControllers::class, 'update'])->name("customer.update");
             Route::delete('/delete/{id}', [CustomerControllers::class, 'delete'])->name("customer.delete");
+            Route::post('/is-active/{id}', [CustomerControllers::class, 'isActive'])->name("customer.is_active");
+            Route::post('/is-block/{id}', [CustomerControllers::class, 'isBlock'])->name("customer.is_block");
         });
-
-
-
+ 
         Route::prefix('/role')->group(function () {
             Route::get('/', [RoleControllers::class, 'index'])->name("role.index");
             Route::get('/add', [RoleControllers::class, 'create'])->name("role.add");

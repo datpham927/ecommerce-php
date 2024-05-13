@@ -35,7 +35,7 @@ class CustomerControllers extends Controller
             "user_password" => bcrypt($request->user_password),
         ]);
         DB::commit();
-        return back()->with('success', 'Thêm nhân viên thành công!');
+        return back()->with('success', 'Thêm khách hàng thành công!');
        } catch (\Throwable $th) {
            DB::rollback();
            return back()->with('error', $th->getMessage());
@@ -66,7 +66,7 @@ class CustomerControllers extends Controller
                     $data["user_password"] = bcrypt($request->user_password);
                 }
             }
-            session()->flash('success', 'Cập nhật nhân viên thành công!');
+            session()->flash('success', 'Cập nhật khách hàng thành công!');
             return redirect()->back();
         } catch (\Throwable $th) {
             return back()->with('error', $th->getMessage());
@@ -77,14 +77,41 @@ class CustomerControllers extends Controller
     public function delete($id){
         try{
             $customer= User::find($id);
-            $customer->roles()->detach();
             $customer->delete();
-            return response()->json(['code' => 200, 'message' =>'Xóa nhân viên thành công!']);
+            return response()->json(['code' => 200, 'message' =>'Xóa khách hàng thành công!']);
             } catch (\Exception $e) {
                 // Log lỗi
                 Log::error($e->getMessage());
                 // Gửi thông báo lỗi
-              return response()->json(['code' => 500, 'message' =>'Xó nhân viên không thành công!']);
+              return response()->json(['code' => 500, 'message' =>'Xóa khách hàng không thành công!']);
             }
     }
+
+    public function isBlock($id){
+        try{
+            $customer= User::find($id);
+            $customer->user_is_block=true;
+            $customer->save();
+            return response()->json(['code' => 200, 'message' =>'Chặn tài khoản thành công!']);
+            } catch (\Exception $e) {
+                // Log lỗi
+                Log::error($e->getMessage());
+                // Gửi thông báo lỗi
+              return response()->json(['code' => 500, 'message' =>'Chặn không thành công!']);
+            }
+    }
+    public function isActive($id){
+        try{
+            $customer= User::find($id);
+            $customer->user_is_block=false;
+            $customer->save();
+            return response()->json(['code' => 200, 'message' =>'Khách hàng đã được hoạt động trở lại!']);
+            } catch (\Exception $e) {
+                // Log lỗi
+                Log::error($e->getMessage());
+                // Gửi thông báo lỗi
+              return response()->json(['code' => 500, 'message' =>'Không thành công!']);
+            }
+    }
+
 }

@@ -25,23 +25,39 @@
                     <tr>
                         <th style="text-align: center;">ID</th>
                         <th style="text-align: center;">Hình ảnh</th>
-                        <th style="text-align: center;">Tên người dùng</th> 
+                        <th style="text-align: center;">Tên người dùng</th>
+                        <th style="text-align: center;">Trạng thái</th>
+                        <th style="text-align: center;">Đơn hàng đã mua</th>
                         <th style="text-align: center;">Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($customers as $customer)
                     <tr>
-                        <td style="text-align: center;" >{{$customer->id}}</td>
+                        <td style="text-align: center;">{{$customer->id}}</td>
                         <td style="text-align: center;">
                             <img style="width: 40px; border-radius: 4px;" src="{{$customer->user_image_url}}" />
                         </td>
                         <td style="text-align: center;"><span class="text-ellipsis">{{$customer->user_name}}</span></td>
-                         
-                        <td style="display: flex; justify-content: center; gap: 30px;">
-                            <a href="{{route('customer.edit',['id'=>$customer->id])}}" class="btn btn-default">Edit</a>
+                        <td style="text-align: center;"><span
+                                class="text-ellipsis">{{$customer->user_is_block==true?"Đã bị chặn":"Đang hoạt động"}}</span>
+                        </td>
+                        <td style="text-align: center;"><span class="text-ellipsis">{{count($customer->Orders)}}</span>
+                        </td>
+                        <td
+                            style="display: flex; flex-direction: column;justify-content: center;align-items: center;gap: 4px;">
+                            <a href="{{route('customer.edit',['id'=>$customer->id])}}" style="width: 100px;"
+                                class="btn btn-default">Edit</a>
+                            @if($customer->user_is_block)
+                                <a data-url="{{route('customer.is_active',['id'=>$customer->id])}}" style="width: 100px;"
+                                    class="btn btn-default  btn-customer-is_active">Active</a>
+                            @else
+                                <a data-url="{{route('customer.is_block',['id'=>$customer->id])}}" style="width: 100px;"
+                                    class="btn btn-default  btn-customer-is_block">Block</a>
+                            @endif
                             <a href='' data-url="{{route('customer.delete',['id'=>$customer->id])}}"
-                                class="btn btn-danger btn-delete-customer">Remove</a>
+                                class="btn btn-danger btn-delete-customer" style="width: 100px;">Remove</a>
+
                         </td>
                     </tr>
                     @endforeach
