@@ -61,9 +61,7 @@
             </table>
         </div>
         <footer class="panel-footer">
-            <div class="col-md-12 custom-pagination">
-                {{ $brands->links('pagination::bootstrap-4') }}
-            </div>
+            @include('components.empty',['list'=>$brands,'title'=>'Không có nhãn hàng nào!'])
         </footer>
     </div>
 </div>

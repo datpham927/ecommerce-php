@@ -14,11 +14,20 @@ class CustomerControllers extends Controller
 {
     use StoreImageTrait;
    
-    public function index() {
+    public function index(Request $request)
+{
+    $userName = $request->input('name');
+    if (!empty($userName)) {
+        // Retrieve users whose user_name matches the given name with pagination
+        $customers = User::where('user_name', 'like', "%{$userName}%")->paginate(5);
+    } else {
+        // Retrieve the latest users with pagination
         $customers = User::latest()->paginate(5);
-         return view('admin.customer.index',compact("customers"));
     }
-    
+
+    return view('admin.customer.index', compact('customers','userName'));
+}
+
     public function create(){   
           return view("admin.customer.add" );
     }

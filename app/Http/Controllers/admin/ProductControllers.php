@@ -38,16 +38,28 @@ class ProductControllers extends Controller
         $this->attribute = $attribute;
     }
   
-    public function index(){  
-        
-       // Assuming $this->product represents the Product model in Laravel
-       $products = $this->product ->where([
-                    ['product_isPublished', 1],
-                    ['product_isDraft', 0]
-                    ]) ->latest()->paginate(5);
-
-        return view("admin.product.index",compact('products') );
+    public function index(Request $request)
+    {
+        // Assuming $this->product represents the Product model in Laravel
+    
+        // Initial query to get published and non-draft products
+        $productsQuery = $this->product->where([
+            ['product_isPublished', 1],
+            ['product_isDraft', 0]
+        ]);
+    
+        // Retrieve the product name from the request input
+        $productName = $request->input('name');
+        // If a product name is provided, add a where clause to filter by product_name
+        if (!empty($productName)) {
+            $productsQuery = $productsQuery->where('product_name', 'like', "%{$productName}%");
+        }
+        // Apply pagination and order by latest
+        $products = $productsQuery->latest()->paginate(5);
+        // Return the view with the products and the productName
+        return view('admin.product.index', compact('products', 'productName'));
     }
+    
     // với sự khác biệt là $this->model->where sử dụng một đối tượng model
     //  đã được khởi tạo trước đó, trong khi Model::where sử dụng tên lớp model trực tiếp.
     

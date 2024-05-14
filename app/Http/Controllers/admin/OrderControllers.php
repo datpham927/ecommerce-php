@@ -12,8 +12,7 @@ class OrderControllers extends Controller
 {
     public function index(Request $request)
 {
-    // Lấy phần cuối của URL
-    $lastSegment = Str::afterLast(request()->url(), '/');
+    
     // Xác định trạng thái đơn hàng và lấy danh sách đơn hàng tương ứng
     $statusFilters = [
         'order' => null,
@@ -23,6 +22,8 @@ class OrderControllers extends Controller
         'success' => ['od_is_canceled' => false, 'od_is_confirm' => true, 'od_is_confirm_delivery' => true, 'od_is_delivering' => true, 'od_is_success' => true],
         'canceled' => ['od_is_canceled' => true],
     ];
+    // Lấy phần cuối của URL
+    $lastSegment = Str::afterLast(request()->url(), '/');
     // Kiểm tra và lấy các tham số từ request
     $code = $request->input('code');
     $date = $request->input('date');

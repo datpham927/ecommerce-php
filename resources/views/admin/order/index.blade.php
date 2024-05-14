@@ -122,21 +122,7 @@
             </table>
         </div>
         <footer class="panel-footer">
-            @if($orders->count()==0)
-            <div
-                style=" display: flex;height: 400px;  align-items: center;justify-content: center; background-color: white;">
-                <div style="display: flex;flex-direction: column;align-items: center;">
-                    <img style='width: 100px;'
-                        src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/cart/9bdd8040b334d31946f4.png" />
-                    <span style="margin: 10px 0;">Không có đơn hàng nào!</span>
-                </div>
-            </div>
-            @endif
-            @if($orders->count()>2)
-            <div class="col-md-12 custom-pagination">
-                {{ $orders->links('pagination::bootstrap-4') }}
-            </div>
-            @endif
+             @include('components.empty',['list'=>$orders,'title'=>'Không có đơn hàng nào!'])
         </footer>
     </div>
 </div>

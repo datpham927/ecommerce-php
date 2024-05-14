@@ -1,5 +1,5 @@
 @extends("layout.admin")
- 
+
 
 @section("content")
 <div class="table-agile-info">
@@ -8,16 +8,15 @@
             Danh sách sản phẩm
         </div>
         <div class="row w3-res-tb">
-            <div class="col-sm-5 m-b-xs">
-                <div class="input-group">
-                    <input type="text" class="input-sm form-control" placeholder="Search">
-                    <span class="input-group-btn">
-                        <button class="btn btn-sm btn-default" type="button">Tìm kiếm</button>
-                    </span>
-                </div>
-            </div>
-            <div class="col-sm-4">
-            </div>
+            <div class="col-sm-9 m-b-xs">
+                <form action="{{ url()->current() }}" method="GET" class="col-sm-12 m-b-xs" style="display: flex;">
+                    <div class="col-sm-6" style="display: flex; justify-items: center; text-align: center;">
+                        <input type="text" name='name' value="{{ $productName ?? '' }}" class="input-sm form-control"
+                            style="margin-right: 20px;" placeholder="Nhập tên sản phẩm cần tìm kiếm">
+                    </div>
+                    <button class="btn btn-sm btn-default" type="submit">Tìm kiếm</button>
+                </form>
+            </div> 
             <div class="col-sm-3">
             </div>
         </div>
@@ -49,7 +48,7 @@
                         <td><span class="text-ellipsis"> {{ optional($product->brand)->brand_name }} </span></td>
                         <td style="display: flex; justify-content: center; gap: 20px;">
                             <a href="{{route('product.edit',['id'=>$product->id])}}" class="btn btn-default">Edit</a>
-                            <a url='' data-url="{{route('product.delete',['id'=>$product->id])}}" 
+                            <a url='' data-url="{{route('product.delete',['id'=>$product->id])}}"
                                 class="btn btn-danger btn-delete-product">Remove</a>
                         </td>
                     </tr>
@@ -59,9 +58,8 @@
             </table>
         </div>
         <footer class="panel-footer">
-            <div class="col-md-12 custom-pagination">
-                {{ $products->links('pagination::bootstrap-4') }}
-            </div>
+                @include('components.empty',['list'=>$product,'title'=>'Không có sản phẩm nào!'])
+         @endif
         </footer>
     </div>
 </div>

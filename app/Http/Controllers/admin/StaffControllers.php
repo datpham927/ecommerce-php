@@ -15,9 +15,20 @@ class StaffControllers extends Controller
 {
 
    
-    public function index() {
-         $admin_staffs=admin::where(['admin_type'=>"employee"])->latest()->paginate(5);
-         return view('admin.staff.index',compact("admin_staffs"));
+    public function index(Request  $request) {
+
+        $staffName = $request->input('name');
+        $customers=[];
+        if (!empty($staffName)) {
+            // Retrieve users whose user_name matches the given name with pagination
+            $customers = admin::where('user_name', 'like', "%{$staffName}%")->paginate(5);
+        } else {
+            // Retrieve the latest users with pagination
+            $admin_staffs=admin::where(['admin_type'=>"employee"])->latest()->paginate(5);
+        }
+    
+       
+         return view('admin.staff.index',compact("admin_staffs",'staffName'));
     }
  
     public function create(){  

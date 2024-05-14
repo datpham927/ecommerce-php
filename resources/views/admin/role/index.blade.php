@@ -46,9 +46,7 @@
             </table>
         </div>
         <footer class="panel-footer">
-            <div class="col-md-12 custom-pagination">
-                {{ $roles->links('pagination::bootstrap-4') }}
-            </div>
+            @include('components.empty',['list'=>$roles,'title'=>'Không có vai trò nào!'])
         </footer>
     </div>
 </div>

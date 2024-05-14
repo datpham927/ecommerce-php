@@ -7,9 +7,16 @@
             Danh sách tài khoản khách hàng
         </div>
         <div class="row w3-res-tb">
-            <div class="col-sm-5 m-b-xs">
+            <div class="col-sm-7 m-b-xs">
+                <form action="{{ url()->current() }}" method="GET" class="col-sm-12 m-b-xs" style="display: flex;">
+                    <div class="col-sm-6" style="display: flex; justify-items: center; text-align: center;">
+                        <input type="text" name='name' value="{{ $userName ?? '' }}" class="input-sm form-control"
+                            style="margin-right: 20px;" placeholder="Nhập tên cần tìm kiếm">
+                    </div>
+                    <button class="btn btn-sm btn-default" type="submit">Tìm kiếm</button>
+                </form>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-2">
             </div>
             <div class="col-sm-3">
                 <button class="btn btn-sm btn-info">
@@ -49,11 +56,11 @@
                             <a href="{{route('customer.edit',['id'=>$customer->id])}}" style="width: 100px;"
                                 class="btn btn-default">Edit</a>
                             @if($customer->user_is_block)
-                                <a data-url="{{route('customer.is_active',['id'=>$customer->id])}}" style="width: 100px;"
-                                    class="btn btn-default  btn-customer-is_active">Active</a>
+                            <a data-url="{{route('customer.is_active',['id'=>$customer->id])}}" style="width: 100px;"
+                                class="btn btn-default  btn-customer-is_active">Active</a>
                             @else
-                                <a data-url="{{route('customer.is_block',['id'=>$customer->id])}}" style="width: 100px;"
-                                    class="btn btn-default  btn-customer-is_block">Block</a>
+                            <a data-url="{{route('customer.is_block',['id'=>$customer->id])}}" style="width: 100px;"
+                                class="btn btn-default  btn-customer-is_block">Block</a>
                             @endif
                             <a href='' data-url="{{route('customer.delete',['id'=>$customer->id])}}"
                                 class="btn btn-danger btn-delete-customer" style="width: 100px;">Remove</a>
@@ -66,9 +73,7 @@
             </table>
         </div>
         <footer class="panel-footer">
-            <div class="col-md-12 custom-pagination">
-                {{ $customers ->links('pagination::bootstrap-4') }}
-            </div>
+            @include('components.empty',['list'=>$customers,'title'=>'Không có khách hàng nào!'])
         </footer>
     </div>
 </div>
