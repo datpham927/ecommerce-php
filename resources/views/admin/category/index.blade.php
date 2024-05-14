@@ -57,9 +57,7 @@
             </table>
         </div>
         <footer class="panel-footer">
-            <div class="col-md-12 custom-pagination">
-                {{ $categories->links('pagination::bootstrap-4') }}
-            </div>
+            @include('components.empty',['list'=>$categories,'title'=>'Không có danh mục nào!'])
         </footer>
     </div>
 </div>

@@ -14,21 +14,23 @@ use Illuminate\Support\Facades\Log;
 class StaffControllers extends Controller
 {
 
-    use StoreImageTrait;
    
-    public function index() {
-         $admin_staffs=admin::where(['admin_type'=>"employee"])->latest()->paginate(5);
-         return view('admin.staff.index',compact("admin_staffs"));
-    }
-    public function uploadImage(Request $request){
-        try {
-            $fileImage = $request->file('admin_image');
-            $image = $this->HandleTraitUploadMultiple($fileImage, 'image-storage');
-            return response()->json(['code' => 200, 'image' => $image["file_path"]]);
-        } catch (\Throwable $th) {
-            return response()->json(['code' => 500, 'message' => $th->getMessage()]);
+    public function index(Request  $request) {
+
+        $staffName = $request->input('name');
+        $customers=[];
+        if (!empty($staffName)) {
+            // Retrieve users whose user_name matches the given name with pagination
+            $customers = admin::where('user_name', 'like', "%{$staffName}%")->paginate(5);
+        } else {
+            // Retrieve the latest users with pagination
+            $admin_staffs=admin::where(['admin_type'=>"employee"])->latest()->paginate(5);
         }
+    
+       
+         return view('admin.staff.index',compact("admin_staffs",'staffName'));
     }
+ 
     public function create(){  
           $roles=Role::get();
           return view("admin.staff.add",compact('roles'));

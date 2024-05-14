@@ -7,9 +7,16 @@
             Danh sách người dùng (admin)
         </div>
         <div class="row w3-res-tb">
-            <div class="col-sm-5 m-b-xs">
+            <div class="col-sm-7 m-b-xs">
+                <form action="{{ url()->current() }}" method="GET" class="col-sm-12 m-b-xs" style="display: flex;">
+                    <div class="col-sm-6" style="display: flex; justify-items: center; text-align: center;">
+                        <input type="text" name='name' value="{{ $staffName ?? '' }}" class="input-sm form-control"
+                            style="margin-right: 20px;" placeholder="Nhập tên cần tìm kiếm">
+                    </div>
+                    <button class="btn btn-sm btn-default" type="submit">Tìm kiếm</button>
+                </form>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-2">
             </div>
             <div class="col-sm-3">
                 <button class="btn btn-sm btn-info">
@@ -33,15 +40,15 @@
                 <tbody>
                     @foreach($admin_staffs as $staff)
                     <tr>
-                        <td style="text-align: center;" >{{$staff->id}}</td>
+                        <td style="text-align: center;">{{$staff->id}}</td>
                         <td style="text-align: center;">
                             <img style="width: 40px; border-radius: 4px;" src="{{$staff->admin_image_url}}" />
                         </td>
                         <td style="text-align: center;"><span class="text-ellipsis">{{$staff->admin_name}}</span></td>
                         <td style="text-align: center;">
-                             @foreach($staff->roles as $role)
-                                <span class="text-ellipsis">{{$role->role_display_name}}</span>
-                                <br/>
+                            @foreach($staff->roles as $role)
+                            <span class="text-ellipsis">{{$role->role_display_name}}</span>
+                            <br />
                             @endforeach
 
                         </td>
@@ -57,9 +64,7 @@
             </table>
         </div>
         <footer class="panel-footer">
-            <div class="col-md-12 custom-pagination">
-                {{ $admin_staffs ->links('pagination::bootstrap-4') }}
-            </div>
+            @include('components.empty',['list'=>$admin_staffs,'title'=>'Không có nhân viên nào!'])
         </footer>
     </div>
 </div>

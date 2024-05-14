@@ -25,20 +25,17 @@ class User extends Authenticatable
         'user_address',
         'user_image_url',
         'user_password',
-        "user_type",
     ];
     // thêm mới try cập được password
     public function getAuthPassword()
     {
         return $this->user_password;
     }
-    // public function roles()
-    // {
-    //     return $this->hasMany(user_role::class, 'user_role_user_id');
-    // }
-
     
-
+    public function Orders()
+    {
+        return $this->hasMany(Order::class, 'od_user_id','id');
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
