@@ -51,46 +51,46 @@ $(document).ready(function() {
                     <div class="col-md-12">
 
                         <div class="form-group">
-                            <label for="admin_name">Nhập tên đăng nhập</label>
-                            <input type="text" class="form-control @error('admin_name') is-invalid @enderror" id="name"
-                                name="admin_name" placeholder="Nhập tên" value="{{old('admin_name')}}" />
-                            @error('admin_name')
+                            <label for="user_name">Nhập tên đăng nhập</label>
+                            <input type="text" class="form-control @error('user_name') is-invalid @enderror" id="name"
+                                name="user_name" placeholder="Nhập tên" value="{{old('user_name')}}" />
+                            @error('user_name')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="admin_address">Địa chỉ</label>
-                            <input type="text" class="form-control @error('admin_address') is-invalid @enderror"
-                                id="admin_address" name="admin_address" placeholder="Nhập Địa chỉ"
-                                value="{{old('admin_address')}}" />
-                            @error('admin_address')
+                            <label for="user_address">Địa chỉ</label>
+                            <input type="text" class="form-control @error('user_address') is-invalid @enderror"
+                                id="user_address" name="user_address" placeholder="Nhập Địa chỉ"
+                                value="{{old('user_address')}}" />
+                            @error('user_address')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="admin_mobile">Nhập số điện thoại</label>
-                            <input type="number" class="form-control @error('admin_mobile') is-invalid @enderror"
-                                id="name" name="admin_mobile" placeholder="Nhập số điện thoại"
-                                value="{{old('admin_mobile')}}" />
-                            @error('admin_mobile')
+                            <label for="user_mobile">Nhập số điện thoại</label>
+                            <input type="number" class="form-control @error('user_mobile') is-invalid @enderror"
+                                id="name" name="user_mobile" placeholder="Nhập số điện thoại"
+                                value="{{old('user_mobile')}}" />
+                            @error('user_mobile')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="admin_cmnd">Nhập số cmnd</label>
-                            <input type="number" class="form-control @error('admin_cmnd') is-invalid @enderror"
-                                id="name" name="admin_cmnd" placeholder="Nhập số cmnd"
-                                value="{{old('admin_cmnd')}}" />
-                            @error('admin_cmnd')
+                            <label for="user_cmnd">Nhập số cmnd</label>
+                            <input type="number" class="form-control @error('user_cmnd') is-invalid @enderror"
+                                id="name" name="user_cmnd" placeholder="Nhập số cmnd"
+                                value="{{old('user_cmnd')}}" />
+                            @error('user_cmnd')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="admin_password">Nhập mật khẩu</label>
-                            <input type="password" class="form-control @error('admin_password') is-invalid @enderror"
-                                id="name" name="admin_password" placeholder="Nhập mật khẩu"
-                                value="{{old('admin_password')}}" />
-                            @error('admin_password')
+                            <label for="user_password">Nhập mật khẩu</label>
+                            <input type="password" class="form-control @error('user_password') is-invalid @enderror"
+                                id="name" name="user_password" placeholder="Nhập mật khẩu"
+                                value="{{old('user_password')}}" />
+                            @error('user_password')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
@@ -106,28 +106,28 @@ $(document).ready(function() {
                         </div>
 
                         <div class="form-group add-avatar">
-                            <label for="admin_image_url">
+                            <label for="user_image_url">
                                 Chọn ảnh đại diện
                                 <img src="{{asset('backend/images/image_logo2.png')}}"
                                     style='width: 30px; height: 30px;' />
-                                <input type="file" class="user-avatar @error('admin_image_url') is-invalid @enderror"
-                                    value="{{old('admin_image_url')}}" data-url='{{route("upload_image")}}'
-                                    id="admin_image_url" style="display: none;" name="admin_image_url" />
+                                <input type="file" class="user-avatar @error('user_image_url') is-invalid @enderror"
+                                    value="{{old('user_image_url')}}" data-url='{{route("upload_image")}}'
+                                    id="user_image_url" style="display: none;" name="user_image_url" />
                             </label>
                             <img src='{{asset('backend/images/avatar.jpg')}}'/>
-                            @error('admin_image_url')
+                            @error('user_image_url')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label><strong>Chọn vai trò</strong></label><br />
-                            <select class="selectpicker" class="form-control @error('admin_roles') is-invalid @enderror"
-                                multiple data-live-search="true" name="admin_roles[]">
+                            <select class="selectpicker" class="form-control @error('user_roles') is-invalid @enderror"
+                                multiple data-live-search="true" name="user_roles[]">
                                 @foreach($roles as $role)
                                 <option value="{{$role->role_id}}">{{$role->role_display_name}}</option>
                                 @endforeach
                             </select>
-                            @error('admin_roles')
+                            @error('user_roles')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>

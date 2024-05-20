@@ -9,6 +9,6 @@
 @endif
 @if($list->count()>2)
 <div class="col-md-12 custom-pagination">
-    {{ $orders->links('pagination::bootstrap-4') }}
+    {{ $list->links('pagination::bootstrap-4') }}
 </div>
 @endif

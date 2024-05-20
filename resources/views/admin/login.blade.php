@@ -38,10 +38,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <h2>Đăng nhập</h2>
             <form action="{{route('admin.storeLogin')}}" method="post">
                 @csrf
-                <input type="text" class="ggg" name="admin_name" placeholder="Nhập tên đăng nhập"
+                <input type="text" class="ggg" name="user_name" placeholder="Nhập tên đăng nhập"
                     required="true">
             
-                <input type="password" class="ggg " name="admin_password"
+                <input type="password" class="ggg " name="user_password"
                     placeholder="Nhập mật khẩu" required="true">
                 
                 <?php

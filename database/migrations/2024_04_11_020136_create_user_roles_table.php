@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('admin_roles', function (Blueprint $table) {
+        Schema::create('user_roles', function (Blueprint $table) {
             $table->bigIncrements('ar_id');
-            $table->string("ar_admin_id");
+            $table->string("ar_user_id");
             $table->string("ar_role_id"); 
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admin_roles');
+        Schema::dropIfExists('user_roles');
     }
 };

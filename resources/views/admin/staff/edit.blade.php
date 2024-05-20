@@ -52,40 +52,40 @@ $(document).ready(function() {
 
                        
                         <div class="form-group">
-                            <label for="admin_name">Tên nhân viên</label>
-                            <input type="text" class="form-control @error('admin_name') is-invalid @enderror"
-                                id="admin_name" name="admin_name" placeholder="Nhập tên vai trò"
-                                value="{{$staff->admin_name}}" />
-                            @error('admin_name')
+                            <label for="user_name">Tên nhân viên</label>
+                            <input type="text" class="form-control @error('user_name') is-invalid @enderror"
+                                id="user_name" name="user_name" placeholder="Nhập tên vai trò"
+                                value="{{$staff->user_name}}" />
+                            @error('user_name')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="admin_address">Địa chỉ</label>
-                            <input type="text" class="form-control @error('admin_address') is-invalid @enderror"
-                                id="admin_address" name="admin_address" placeholder="Nhập Địa chỉ"
-                                value="{{$staff->admin_address}}" />
-                            @error('admin_address')
+                            <label for="user_address">Địa chỉ</label>
+                            <input type="text" class="form-control @error('user_address') is-invalid @enderror"
+                                id="user_address" name="user_address" placeholder="Nhập Địa chỉ"
+                                value="{{$staff->user_address}}" />
+                            @error('user_address')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="admin_mobile">Số điện thoại</label>
-                            <input type="number" class="form-control @error('admin_mobile') is-invalid @enderror"
-                                id="name" name="admin_mobile" placeholder="Nhập số điện thoại"
-                                value="{{$staff->admin_mobile}}" />
-                            @error('admin_mobile')
+                            <label for="user_mobile">Số điện thoại</label>
+                            <input type="number" class="form-control @error('user_mobile') is-invalid @enderror"
+                                id="name" name="user_mobile" placeholder="Nhập số điện thoại"
+                                value="{{$staff->user_mobile}}" />
+                            @error('user_mobile')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
 
                         
                         <div class="form-group">
-                            <label for="admin_password">Mật khẩu mới</label>
-                            <input type="password" class="form-control @error('admin_password') is-invalid @enderror"
-                                id="name" name="admin_password" placeholder="Nhập mật khẩu"
+                            <label for="user_password">Mật khẩu mới</label>
+                            <input type="password" class="form-control @error('user_password') is-invalid @enderror"
+                                id="name" name="user_password" placeholder="Nhập mật khẩu"
                                 value="" />
-                            @error('admin_password')
+                            @error('user_password')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
@@ -101,23 +101,23 @@ $(document).ready(function() {
                         </div>
 
                         <div class="form-group add-avatar">
-                            <label for="admin_image_url">
+                            <label for="user_image_url">
                                 Chọn ảnh đại diện
                                 <img src="{{asset('backend/images/image_logo2.png')}}"
                                     style='width: 30px; height: 30px;' />
-                                <input type="file" class="user-avatar @error('admin_image_url') is-invalid @enderror"
+                                <input type="file" class="user-avatar @error('user_image_url') is-invalid @enderror"
                                      data-url='{{route("upload_image")}}'
-                                    id="admin_image_url" style="display: none;" name="admin_image_url" />
+                                    id="user_image_url" style="display: none;" name="user_image_url" />
                             </label> 
-                                <img src='{{$staff->admin_image_url}}'/>  
-                            @error('admin_image_url')
+                                <img src='{{$staff->user_image_url}}'/>  
+                            @error('user_image_url')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label><strong>Chọn vai trò</strong></label><br />
-                            <select class="selectpicker" class="form-control @error('admin_roles') is-invalid @enderror"
-                                multiple data-live-search="true" name="admin_roles[]">
+                            <select class="selectpicker" class="form-control @error('user_roles') is-invalid @enderror"
+                                multiple data-live-search="true" name="user_roles[]">
                                 @foreach($roles as $role)
                                     <option value="{{$role->role_id}}"
                                     {{  $staff->roles->contains('role_id',$role->role_id)  ? 'selected' : '' }}
@@ -125,7 +125,7 @@ $(document).ready(function() {
                                     >{{$role->role_display_name}}</option>
                                 @endforeach
                             </select>
-                            @error('admin_roles')
+                            @error('user_roles')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>

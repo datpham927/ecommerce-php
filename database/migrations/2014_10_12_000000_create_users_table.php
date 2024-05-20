@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('user_mobile')->nullable();
             $table->string('user_image_url')->nullable();
             $table->boolean('user_is_block')->default(0);
+            $table->string('user_type')->default('customer'); // admin/employee
             $table->rememberToken(); 
             $table->timestamps();
         });

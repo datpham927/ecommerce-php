@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('od_user_id')->nullable;
-            $table->integer('od_admin_id')->nullable;
             $table->boolean('od_is_pay')->default(false);
             $table->string('od_paymentMethod')->default('CASH');
             $table->boolean('od_is_confirm')->default(false);

@@ -38,13 +38,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($admin_staffs as $staff)
+                    @foreach($user_staffs as $staff)
                     <tr>
                         <td style="text-align: center;">{{$staff->id}}</td>
                         <td style="text-align: center;">
-                            <img style="width: 40px; border-radius: 4px;" src="{{$staff->admin_image_url}}" />
+                            <img style="width: 40px; border-radius: 4px;" src="{{$staff->user_image_url}}" />
                         </td>
-                        <td style="text-align: center;"><span class="text-ellipsis">{{$staff->admin_name}}</span></td>
+                        <td style="text-align: center;"><span class="text-ellipsis">{{$staff->user_name}}</span></td>
                         <td style="text-align: center;">
                             @foreach($staff->roles as $role)
                             <span class="text-ellipsis">{{$role->role_display_name}}</span>
@@ -64,7 +64,7 @@
             </table>
         </div>
         <footer class="panel-footer">
-            @include('components.empty',['list'=>$admin_staffs,'title'=>'Không có nhân viên nào!'])
+            @include('components.empty',['list'=>$user_staffs,'title'=>'Không có nhân viên nào!'])
         </footer>
     </div>
 </div>

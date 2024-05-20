@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use App\Models\User;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\ServiceProvider;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -24,9 +24,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Gate::define('list_slider', function (User $user) {
-            // trả về true thì được truy cập
-            return $user->hasRole(config('permission.access.list-slider'));
-        });
+      
     }
 }
