@@ -25,4 +25,19 @@ $(function() {
             }
         });
     });
+    $(".freeship").change(function(){
+        const dataUrl = $(this).data("url");
+        const feeship=$(this).val();
+        $.ajax({
+            method: "put",
+            url: dataUrl,
+            data: { feeship: feeship },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }, 
+            error: function(error) {
+                alert('Đã xảy ra lỗi!');
+            }
+        });
+    });
 });

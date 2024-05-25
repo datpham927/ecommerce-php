@@ -82,8 +82,11 @@
                         <td><span class="text-ellipsis" style="text-align: center;">{{$feeship->Province->name}}</span>
                         </td>
                         <td><span class="text-ellipsis" style="text-align: center;">{{$feeship->Ward->name}}</span></td>
-                        <td><input class="form-control" style="width: 200px; margin:auto;text-align: center;"
-                                value="{{$feeship->feeship}}" /> </td>
+                        <td><input class="form-control freeship"
+                        type="number"
+                                data-url="{{route('delivery.update',['id'=>$feeship->id])}}"
+                                style="width: 200px; margin:auto;text-align: center;" value="{{$feeship->feeship}}" />
+                        </td>
                     </tr>
                     @endforeach
 

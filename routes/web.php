@@ -46,6 +46,7 @@ Route::prefix('admin')->group(function () {
             Route::get('/city', [DeliveryControllers::class, 'city']);
             Route::post('/select-delivery', [DeliveryControllers::class, 'selectDelivery']);
             Route::post('/add', [DeliveryControllers::class, 'add'])->name("delivery.add");
+            Route::put('/update/{id}', [DeliveryControllers::class, 'update'])->name("delivery.update");
         });
         
         

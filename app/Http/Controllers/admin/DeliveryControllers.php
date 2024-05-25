@@ -9,6 +9,7 @@ use App\Models\Feeship;
 use App\Models\Wards;
 use Illuminate\Console\View\Components\Warn;
 use Illuminate\Http\Request;
+use Response;
 
 class DeliveryControllers extends Controller
 {
@@ -34,10 +35,8 @@ class DeliveryControllers extends Controller
                 $output .= "<option value='{$ward->maqh}'>{$ward->name}</option>";
             }
         }
-    
         return response()->json($output);
     }
-
 
     public function add(Request $request){
             // Define custom validation messages
@@ -81,7 +80,16 @@ class DeliveryControllers extends Controller
             return back()->with('success', 'Thành công!');
     }
     
-    
+    public function update(Request $request,$id) {
+         try {
+             Feeship::find($id)->update(
+               [ 'feeship'=> $request->feeship]
+             );
+             return response()->json(['code' => 200]);
+         } catch (\Throwable $th) {
+            return response()->json(['code' => 500]);
+         }
+    }
     
     
 }
