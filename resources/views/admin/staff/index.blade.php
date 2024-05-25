@@ -64,7 +64,7 @@
             </table>
         </div>
         <footer class="panel-footer">
-            @include('components.empty',['list'=>$user_staffs,'title'=>'Không có nhân viên nào!'])
+            @include('components.pagination',['list'=>$user_staffs,'title'=>'Không có nhân viên nào!'])
         </footer>
     </div>
 </div>

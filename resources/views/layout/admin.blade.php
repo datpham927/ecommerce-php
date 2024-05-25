@@ -45,6 +45,7 @@
     <script src="{{asset('backend/js/order.js')}}"></script>
     <script src="{{asset('backend/js/role.js')}}"></script>
     <script src="{{asset('backend/js/user_.js')}}"></script>
+    <script src="{{asset('backend/js/delivery.js')}}"></script>
     <script src="{{asset('backend/js/multi-select.js')}}"></script>
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -267,22 +268,15 @@
             <div class="top-nav clearfix">
                 <!--search & user info start-->
                 <ul class="nav pull-right top-menu">
-                    <li>
-                        <input type="text" class="form-control search" placeholder="Search">
-                    </li>
                     <!-- user login dropdown start-->
                     <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <img alt=""
-                                src="https://1.bp.blogspot.com/-YNdCxMYLUQ4/X_ZqA1Op2zI/AAAAAAAA1aw/F26IU_yfl4sJNKfYpqi2ks4sxLmxh0kzACLcBGAsYHQ/s0/gai-xinh-2k%2B%252820%2529.jpg">
-                            <span class="username">
-                                <?php
-                                    use Illuminate\Support\Facades\Session;
-                                    $adminName = Session::get("user_name");
-                                    if ($adminName) {
-                                        echo  $adminName  ; 
-                  }
-            ?>
+                        <a data-toggle="dropdown" class="dropdown-toggle" style="padding: 4px;">
+                            <img alt="" src="{{Auth::user()->user_image_url??''}}">
+                            <span class="username" style="margin-left: 10px;">
+                                @if (Auth::check())
+                                {{ Auth::user()->user_name }}
+                                @endif
+                            </span>
 
                             </span>
                             <b class="caret"></b>
@@ -328,6 +322,11 @@
                                 <span> Thương hiệu sản phẩm</span>
                             </a>
                         </li>
+                        <li class="sub-menu">
+                            <a href="{{route('delivery.index')}}">
+                                <span> Phí vận chuyển</span>
+                            </a>
+                        </li>
 
                         <li class="sub-menu">
                             <a href="javascript:;">
@@ -364,7 +363,7 @@
                                     </a>
                                 </li>
                             </ul>
-                            
+
                         </li>
 
                         <li class="sub-menu">

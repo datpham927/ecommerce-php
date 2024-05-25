@@ -42,7 +42,7 @@ $(document).ready(function() {
     @endif
     <div class="container-fluid">
         <div class="panel-heading" style="background:none ;">
-            Sửa khách hàng
+            Cập nhật khách hàng
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -116,7 +116,8 @@ $(document).ready(function() {
                                      data-url='{{route("upload_image")}}'
                                     id="user_image_url" style="display: none;" name="user_image_url" />
                             </label> 
-                                <img src='{{$customer->user_image_url}}'/>  
+                             
+                                <img src='{{$customer->user_image_url??asset('backend/images/avatar.jpg')}}'/>  
                             @error('user_image_url')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror

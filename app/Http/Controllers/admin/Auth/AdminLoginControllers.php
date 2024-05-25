@@ -28,10 +28,6 @@ class AdminLoginControllers extends Controller
         //    trong cơ sở dữ liệu để tìm kiếm và xác thực người dùng.
         // thêm class Admin extends Model implements Authenticatable
         if (Auth::attempt(['user_name' => $user_name, 'password' => $user_password])) {
-            $request->session()->regenerate();
-            $adminGuard = Auth::user();
-            Session::put('user_id', $adminGuard->id);
-            Session::put('user_name', $adminGuard->user_name);
             return redirect()->route('admin.dashboard');
         }
             Session::put('message', "Tài khoản hoặc mật khẩu không chính xác!");

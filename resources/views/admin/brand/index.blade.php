@@ -61,7 +61,7 @@
             </table>
         </div>
         <footer class="panel-footer">
-            @include('components.empty',['list'=>$brands,'title'=>'Không có nhãn hàng nào!'])
+            @include('components.pagination',['list'=>$brands,'title'=>'Không có nhãn hàng nào!'])
         </footer>
     </div>
 </div>

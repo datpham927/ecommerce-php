@@ -47,19 +47,18 @@ class CategoryControllers extends Controller
     public function store(Request $request, Category $category)
     {
         $messages = [
-            "category_name.required" => 'Vui lòng không để trống tên danh mục',
-            "category_name.unique" => 'Tên danh mục đã tồn tại'
+            "city.required" => 'Vui lòng chọn!',
+            "province.required" => 'Vui lòng chọn!',
+            "ward.required" => 'Vui lòng chọn!'
         ];
         $rules = [
-            "category_name" => 'required|unique:categories,category_name,NULL,id,category_parent_id,0'
+            "category_name" => 'required',
+            "province" => 'required',
+            "ward" => 'required'
         ];
         $request->validate($rules, $messages);
-            $slug = Str::of($request->input('category_name'))->slug('-');
-            $category = $category->create([
-                'category_name' => $request->input('category_name'),
-                'category_parent_id' => $request->input("category_parent_id"),
-                'category_slug' => $slug,
-            ]);
+            
+        dd($request->data);
             // Gửi thông báo thành công
             // session()->flash('success', 'Thêm danh mục thành công!');
             return back()->with('success', 'Thêm danh mục thành công!');

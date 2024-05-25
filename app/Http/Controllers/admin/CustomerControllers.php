@@ -22,7 +22,7 @@ class CustomerControllers extends Controller
         $customers = User::where('user_name', 'like', "%{$userName}%")->paginate(5);
     } else {
         // Retrieve the latest users with pagination
-        $customers = User::latest()->paginate(5);
+        $customers = User::where('user_type','customer')->paginate(5);
     }
 
     return view('admin.customer.index', compact('customers','userName'));
@@ -75,6 +75,7 @@ class CustomerControllers extends Controller
                     $data["user_password"] = bcrypt($request->user_password);
                 }
             }
+            User::find($id)->update($data);
             session()->flash('success', 'Cập nhật khách hàng thành công!');
             return redirect()->back();
         } catch (\Throwable $th) {

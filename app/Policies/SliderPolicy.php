@@ -30,6 +30,7 @@ class SliderPolicy
      */
     public function view(User $user)
     {
+
                 return $user->hasRole(config('permission.access.list-slider'));
     }
 

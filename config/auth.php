@@ -9,12 +9,7 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
-        ],
-
-        'admin' => [
-            'driver' => 'session',
-            'provider' => 'admins',
-        ],
+        ], 
     ],
 
     'providers' => [
@@ -23,10 +18,7 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        'admins' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
+      
     ],
 
     'passwords' => [
@@ -35,12 +27,7 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
         ],
-
-        'admins' => [
-            'provider' => 'admins',
-            'table' => 'password_resets',
-            'expire' => 60,
-        ],
+ 
     ],
     /*
     |--------------------------------------------------------------------------

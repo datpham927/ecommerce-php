@@ -20,8 +20,12 @@ class AuthAdmin
      public function handle(Request $request, Closure $next)
         {
           
-            if (Auth::guard('admin')->check()) {
-                return $next($request);
+            if (Auth::check()) {
+                if(Auth::user()->user_type=='customer'){
+                    return redirect()->route('home.index');
+                }else{
+                    return $next($request);
+                }
             }
             
             return redirect()->route('admin.login');

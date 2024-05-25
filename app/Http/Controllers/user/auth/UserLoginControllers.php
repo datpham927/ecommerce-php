@@ -71,6 +71,7 @@ class UserLoginControllers extends Controller
         return redirect()->route("user.login");
     }
      function logout(){
+        Auth::logout();
         Session::put('user_id',null);
         Session::put('user_name',null);
         return redirect()->route("home.index");

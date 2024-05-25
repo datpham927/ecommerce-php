@@ -122,7 +122,7 @@
             </table>
         </div>
         <footer class="panel-footer">
-             @include('components.empty',['list'=>$orders,'title'=>'Không có đơn hàng nào!'])
+             @include('components.pagination',['list'=>$orders,'title'=>'Không có đơn hàng nào!'])
         </footer>
     </div>
 </div>

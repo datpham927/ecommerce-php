@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\admin; 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FormSliderRequest;
-use App\Models\admin;
 use App\Models\slider;
 use App\Models\product;
+use App\Models\User;
 use App\Traits\AdminAuthenticationTrait;
 use App\Traits\StoreImageTrait;
 use Illuminate\Http\Request;
@@ -34,7 +34,6 @@ class SliderControllers extends Controller
    
 
     public function create(){  
-        
           return view("admin.slider.add",);
     }
     
@@ -52,9 +51,6 @@ class SliderControllers extends Controller
         if($slider_image){
           $sliderData['slider_image']=$slider_image["file_path"];
        } 
-       $admin= admin::find(Session::get('user_id'));
-       $sliderData['slider_user_id']=  $admin['id'];
-        // Tạo slider mới
         $this->slider->create($sliderData);
         // Gửi thông báo thành công
         return back()->with('success', 'Thêm slider thành công!');
@@ -87,18 +83,31 @@ class SliderControllers extends Controller
             session()->flash('success', 'Cập nhật slider thành công!');
             return redirect()->route('slider.index'); 
     }
-    public function delete($id){
-        try{
-            
-            $this->slider->find($id)->delete();
-            return response()->json(['code' => 200, 'message' =>'Xóa slider thành công!']);
-            } catch (\Exception $e) {
-                // Log lỗi
-                Log::error($e->getMessage());
-                // Gửi thông báo lỗi
-              return response()->json(['code' => 500, 'message' =>'Đã xảy ra lỗi']);
+    public function delete($id)
+{
+    try {
+        // Tìm slider bằng id
+        $slider = $this->slider->find($id);
+        // Kiểm tra nếu slider không tồn tại
+        if (!$slider) {
+            return response()->json(['code' => 404, 'message' => 'Slider không tồn tại']);
+        }
+        // Kiểm tra và xóa tệp hình ảnh nếu tồn tại
+        if (file_exists(public_path($slider->slider_image))) {
+            unlink(public_path($slider->slider_image));
+        }
+        // Xóa slider khỏi cơ sở dữ liệu
+        $slider->delete();
 
-            }
-        
+        // Trả về phản hồi thành công
+        return response()->json(['code' => 200, 'message' => 'Xóa slider thành công!']);
+    } catch (\Exception $e) {
+        // Ghi log lỗi
+        Log::error($e->getMessage());
+
+        // Trả về phản hồi lỗi
+        return response()->json(['code' => 500, 'message' => 'Đã xảy ra lỗi']);
     }
+}
+
 }

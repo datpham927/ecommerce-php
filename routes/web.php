@@ -11,13 +11,13 @@ use App\Http\Controllers\admin\RoleControllers;
 use App\Http\Controllers\admin\SliderControllers;
 use App\Http\Controllers\admin\StaffControllers;
 use App\Http\Controllers\admin\CustomerControllers;
+use App\Http\Controllers\admin\DeliveryControllers;
 use App\Http\Controllers\admin\UploadImageControllers;
 use App\Http\Controllers\user\auth\UserLoginControllers;
 use App\Http\Controllers\user\CartControllers;
 use App\Http\Controllers\user\HomeControllers;
 use App\Http\Controllers\User\UserOrderControllers;
 use App\Http\Controllers\user\UserProductControllers;
-use App\Http\Controllers\UserControllers;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,13 +36,22 @@ Route::get('/admin', [AdminLoginControllers::class, 'login'])->name('admin.login
 Route::post('/admin/store-login', [AdminLoginControllers::class, 'storeLogin'])->name('admin.storeLogin');
 Route::post('/upload-image', [UploadImageControllers ::class, 'uploadImage'])->name("upload_image");
 
-// Route::middleware(['auth-admin'])->group(function () {
+Route::middleware(['auth-admin'])->group(function () {
 Route::prefix('admin')->group(function () { 
         Route::get('/dashboard', [SystemControllers::class, 'showDashboard'])->name('admin.dashboard');
         Route::get('/logout', [AdminLoginControllers::class, 'logout'])->name('admin.logout');
+        
+        Route::prefix('/delivery')->group(function () {
+            Route::get('/', [DeliveryControllers::class, 'index'])->name("delivery.index");
+            Route::get('/city', [DeliveryControllers::class, 'city']);
+            Route::post('/select-delivery', [DeliveryControllers::class, 'selectDelivery']);
+            Route::post('/add', [DeliveryControllers::class, 'add'])->name("delivery.add");
+        });
+        
+        
         // quản lý nhân viên
         Route::prefix('/staff')->group(function () {
-            Route::get('/', [StaffControllers::class, 'index'])->name("staff.index")->middleware('can:list_staff');
+            Route::get('/', [StaffControllers::class, 'index'])->name("staff.index") ;
             Route::get('/add', [StaffControllers::class, 'create'])->name("staff.add")->middleware('can:add_staff');
             Route::post('/store', [StaffControllers::class, 'store'])->name("staff.store")->middleware('can:add_staff');
             Route::get('/edit/{id}', [StaffControllers::class, 'edit'])->name("staff.edit")->middleware('can:list_staff');
@@ -130,7 +139,7 @@ Route::prefix('admin')->group(function () {
             Route::post('/is-canceled/{oid}', [OrderControllers::class, 'isCanceled'])->name("order.is_canceled")->middleware('can:edit_order');
         }); 
 });
-// });
+});
 
 // client
 Route::get('/',[HomeControllers::class,'index'])->name('home.index');

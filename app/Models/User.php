@@ -43,8 +43,8 @@ class User extends Authenticatable
         return $this->belongsToMany(
             Role::class, 
             'user_roles', 
-            'ar_user_id',  // Khóa ngoại của bảng user trong bảng trung gian
-            'ar_role_id',    // Khóa ngoại của bảng role trong bảng trung gian
+            'ur_user_id',  // Khóa ngoại của bảng user trong bảng trung gian
+            'ur_role_id',    // Khóa ngoại của bảng role trong bảng trung gian
         );
     }
   
@@ -64,7 +64,6 @@ class User extends Authenticatable
                 }
             }
         }
-        
         return false; // Nếu không tìm thấy, trả về false
     }
 

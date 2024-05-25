@@ -57,7 +57,7 @@
             </table>
         </div>
         <footer class="panel-footer">
-            @include('components.empty',['list'=>$categories,'title'=>'Không có danh mục nào!'])
+            @include('components.pagination',['list'=>$categories,'title'=>'Không có danh mục nào!'])
         </footer>
     </div>
 </div>

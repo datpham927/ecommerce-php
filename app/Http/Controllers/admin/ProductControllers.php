@@ -113,7 +113,7 @@ class ProductControllers extends Controller
            $dataProduct['product_stock']=collect($dataProductQuantities)->sum();
        }
       // tìm kiếm admin 
-          $admin= admin::find(Session::get('user_id'));
+          $admin= User::find(Session::get('user_id'));
           $dataProduct['product_user_id']=  $admin['id'];
           $newProduct =$this->product->create($dataProduct);
 //*********   insert table size  *********  
