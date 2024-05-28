@@ -26,7 +26,6 @@ class UserLoginRequest extends FormRequest
         return [
             'user_email' => 'required|email|unique:users',
             'user_name' => 'required',
-            'user_address' => 'required',
             'user_mobile' => 'required|numeric',
             'user_password' => 'required|min:6',
             'password_confirm' => 'required|same:user_password',

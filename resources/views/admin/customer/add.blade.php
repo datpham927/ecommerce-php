@@ -8,8 +8,6 @@
 @section("js")
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 <!-- Initialize the plugin: -->
 <script type="text/javascript">
 $(document).ready(function() {
@@ -18,6 +16,7 @@ $(document).ready(function() {
 </script>
 
 @endsection
+
 
 @section("css")
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
@@ -42,15 +41,15 @@ $(document).ready(function() {
     @endif
     <div class="container-fluid">
         <div class="panel-heading" style="background:none ;">
-         Tạo tài khoản khách hàng
+            Tạo tài khoản khách hàng
         </div>
         <div class="row">
             <div class="col-md-12">
-                <form action="{{route('customer.store')}}" style="width: 100%" method="post" enctype="multipart/form-data">
+                <form action="{{route('customer.store')}}" style="width: 100%" method="post"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="col-md-12">
-
-                    <div class="form-group">
+                        <div class="form-group">
                             <label for="user_email">Nhập email</label>
                             <input type="email" class="form-control @error('user_email') is-invalid @enderror" id="name"
                                 name="user_email" placeholder="Nhập email" value="{{old('user_email')}}" />
@@ -66,14 +65,29 @@ $(document).ready(function() {
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="user_address">Địa chỉ</label>
-                            <input type="text" class="form-control @error('user_address') is-invalid @enderror"
-                                id="user_address" name="user_address" placeholder="Nhập Địa chỉ"
-                                value="{{old('user_address')}}" />
-                            @error('user_address')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
+                        <div class="row row-cols-1 row-cols-md-3 mb-3"
+                            style="display: flex;justify-content: space-between;">
+                            <div class="col" style="min-width: 200px; ">
+                                <label for="city">Chọn thành phố</label>
+                                <select class="form-control choose city" id="city" name="city" required>
+                                    <option value=''>Chọn thành phố</option>
+                                    @foreach($cities as $city)
+                                    <option value='{{$city->matp}}'>{{$city->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col" style="min-width: 200px; ">
+                                <label for="province">Quận huyện</label>
+                                <select class="form-control choose province" id="province" name="province" required>
+                                    <option value=''>Chọn quận huyện</option>
+                                </select>
+                            </div>
+                            <div class="col" style="min-width: 200px; ">
+                                <label for="ward">Chọn xã phường</label>
+                                <select class="form-control ward" id="ward" name="ward" required>
+                                    <option value="">Chọn xã phường</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="user_mobile">Nhập số điện thoại</label>
@@ -95,9 +109,8 @@ $(document).ready(function() {
                         </div>
                         <div class="form-group">
                             <label for="password_confirm">Xác nhận mật khẩu</label>
-                            <input type="password"
-                                class="form-control @error('password_confirm') is-invalid @enderror" id="name"
-                                name="password_confirm" placeholder="Xác nhận mật khẩu"
+                            <input type="password" class="form-control @error('password_confirm') is-invalid @enderror"
+                                id="name" name="password_confirm" placeholder="Xác nhận mật khẩu"
                                 value="{{old('password_confirm')}}" />
                             @error('password_confirm')
                             <div class="alert alert-danger">{{ $message }}</div>
@@ -113,7 +126,7 @@ $(document).ready(function() {
                                     value="{{old('user_image_url')}}" data-url='{{route("upload_image")}}'
                                     id="user_image_url" style="display: none;" name="user_image_url" />
                             </label>
-                            <img src='{{asset('backend/images/avatar.jpg')}}'/>
+                            <img src='{{asset('backend/images/avatar.jpg')}}' />
                             @error('user_image_url')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror

@@ -44,7 +44,8 @@
                 <div class="col-sm-6 col-custom-80">
                     <form action="{{ route('product.search_result') }}" method="GET">
                         <div class="search_box pull-right">
-                            <input type="text" name="text" style='font-size: 14px;' placeholder="Nhập từ khóa tìm kiếm...">
+                            <input type="text" name="text" style='font-size: 14px;'
+                                placeholder="Nhập từ khóa tìm kiếm...">
                             <button class="btn btn-primary" type="submit">Tìm Kiếm</button>
                         </div>
                     </form>
@@ -52,19 +53,21 @@
                 <div class="col-custom-20 col-sm-3 ">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="{{route('cart.view_Cart')}}"><i class="fa fa-shopping-cart"></i><span> Giỏ hàng</span></a>
-                            </li>
+
+                            @if(Auth::user()->user_type=='customer')
                             <li>
-                            <?php
-                                use Illuminate\Support\Facades\Session;
-                                $username = Session::get('user_name');
-                                if ($username) {
-                                    echo '<a href="' . route('user.profile') . '"><i class="fa fa-user"></i><span>' . $username . '</span></a>';
-                                } else {
-                                    echo '<a href="' . route('user.login') . '"></i><span>Tài khoản</span></a>';
-                                }
-                                ?> 
-                                </li>
+                                <a href="{{route('cart.view_Cart')}}"><i class="fa fa-shopping-cart"></i><span> Giỏ
+                                        hàng</span></a>
+                            </li>
+                            @endif
+                            <li>
+                                @if (Auth::check())
+                                <a href="{{route('user.profile')}}"><i
+                                        class="fa fa-user"></i><span>{{ Auth::user()->user_name }}</span></a>;
+                                @else
+                                <a href="{{route('user.login')}}"></i><span>Tài khoản</span></a>;
+                                @endif
+                            </li>
                         </ul>
                     </div>
                 </div>

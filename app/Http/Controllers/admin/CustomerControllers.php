@@ -4,7 +4,10 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserLoginRequest;
+use App\Models\City;
+use App\Models\Province;
 use App\Models\User;
+use App\Models\Wards;
 use App\Traits\StoreImageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -29,7 +32,8 @@ class CustomerControllers extends Controller
 }
 
     public function create(){   
-          return view("admin.customer.add" );
+          $cities= City::orderBy("matp",'asc')->get();
+          return view("admin.customer.add",compact("cities") );
     }
     public function store(UserLoginRequest $request)
     {
@@ -39,30 +43,39 @@ class CustomerControllers extends Controller
             "user_email" => $request->user_email,
             "user_name" => $request->user_name,
             "user_mobile" => $request->user_mobile,
-            "user_address" => $request->user_address,
             "user_image_url" => $image["file_path"],
+            "user_city_id" => $request->city,
+            "user_province_id" =>$request->province,
+            "user_ward_id" =>$request->ward,
             "user_password" => bcrypt($request->user_password),
         ]);
         DB::commit();
         return back()->with('success', 'Thêm khách hàng thành công!');
        } catch (\Throwable $th) {
            DB::rollback();
+        dd($th->getMessage());
+
            return back()->with('error', $th->getMessage());
        }
     }
-    
     public function edit($id){
         $customer=user::find($id); 
-        return view("admin.customer.edit",compact("customer"));
+        $cities= City::orderBy("matp",'asc')->get();
+        $provinces= Province::orderBy("maqh",'asc')->get();
+        $wards= Wards::orderBy("xaid",'asc')->get();
+        return view("admin.customer.edit",compact("customer",'cities','provinces','wards'));
     }
-    
     public function update(Request $request, $id)
     {
         try {
             $data = [
                 "user_email" => $request->user_email,
                 "user_mobile" => $request->user_mobile,
-                "user_address" => $request->user_address,
+                
+                "user_name" => $request->user_name,
+                "user_city_id" => $request->city,
+                "user_province_id" =>$request->province,
+                "user_ward_id" =>$request->ward,
             ];
             if ($request->hasFile('user_image_url')) {
                 $image = $this->HandleTraitUploadMultiple($request->file('user_image_url'), 'image-storage');

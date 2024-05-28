@@ -2,7 +2,7 @@ $(function() {
     $('.choose').change(function() {
         const action = $(this).attr('id');
         const code = $(this).val();
-        $("#ward").html('<option value="0">Chọn xã phường</option>'); // Xóa nội dung của phần tử #ward
+        $(".ward").html('<option value="0">Chọn xã phường</option>'); // Xóa nội dung của phần tử #ward
         var result = '';
         if (action == 'city') {
              result = "province";
@@ -17,7 +17,8 @@ $(function() {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function(response) {
-                $("#" + result).html(response);
+                console.log( $("." + result))
+                $("." + result).html(response);
             },
             error: function(error) {
                 console.log(error);

@@ -61,15 +61,6 @@ $(document).ready(function() {
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="user_address">Địa chỉ</label>
-                            <input type="text" class="form-control @error('user_address') is-invalid @enderror"
-                                id="user_address" name="user_address" placeholder="Nhập Địa chỉ"
-                                value="{{$staff->user_address}}" />
-                            @error('user_address')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
                             <label for="user_mobile">Số điện thoại</label>
                             <input type="number" class="form-control @error('user_mobile') is-invalid @enderror"
                                 id="name" name="user_mobile" placeholder="Nhập số điện thoại"

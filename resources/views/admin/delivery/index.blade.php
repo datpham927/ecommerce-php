@@ -26,7 +26,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="city">Chọn thành phố</label>
-                        <select class="form-control choose" id="city" name="city" required>
+                        <select class="form-control choose city" id="city" name="city" required>
                             <option value=''>Chọn thành phố</option>
                             @foreach($cities as $city)
                             <option value='{{$city->matp}}'>{{$city->name}}</option>
@@ -35,13 +35,13 @@
                     </div>
                     <div class="form-group">
                         <label for="province">Quận huyện</label>
-                        <select class="form-control choose" id="province" name="province" required>
+                        <select class="form-control choose province" id="province" name="province" required>
                             <option value=''>Chọn quận huyện</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="ward">Chọn xã phường</label>
-                        <select class="form-control" id="ward" name="ward" required>
+                        <select class="form-control ward" id="ward" name="ward" required>
                             <option value="">Chọn xã phường</option>
                         </select>
                     </div>

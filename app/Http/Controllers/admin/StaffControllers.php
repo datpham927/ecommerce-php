@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\adminLoginFormRequest;
+use App\Models\City;
 use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\User;
@@ -16,7 +17,6 @@ class StaffControllers extends Controller
 
    use StoreImageTrait;
     public function index(Request  $request) {
-
         $staffName = $request->input('name');
         $customers=[];
         if (!empty($staffName)) {
@@ -26,14 +26,13 @@ class StaffControllers extends Controller
             // Retrieve the latest users with pagination
             $user_staffs = User::whereIn('user_type', ['employee', 'admin'])->latest()->paginate(5);
         }
-    
-       
          return view('admin.staff.index',compact("user_staffs",'staffName'));
     }
  
     public function create(){  
           $roles=Role::get();
-          return view("admin.staff.add",compact('roles'));
+          $cities= City::orderBy("matp",'asc')->get();
+          return view("admin.staff.add",compact('roles','cities'));
     }
     public function store(AdminLoginFormRequest $request)
     {
@@ -43,7 +42,6 @@ class StaffControllers extends Controller
         $admin= User::create([
             "user_name" => $request->user_name,
             "user_mobile" => $request->user_mobile,
-            "user_address" => $request->user_address,
             "user_image_url" => $image["file_path"],
             "user_cmnd" => $request->user_cmnd,
             "user_password" => bcrypt($request->user_password),
@@ -71,7 +69,7 @@ class StaffControllers extends Controller
             $data = [
                 "user_name" => $request->user_name,
                 "user_mobile" => $request->user_mobile,
-                "user_address" => $request->user_address,
+                
             ];
             if ($request->hasFile('user_image_url')) {
                 $image = $this->HandleTraitUploadMultiple($request->file('user_image_url'), 'image-storage');

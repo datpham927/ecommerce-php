@@ -28,7 +28,7 @@ class DeliveryControllers extends Controller
             foreach ($provinces as $province) {
                 $output .= "<option value='{$province->matp}'>{$province->name}</option>";
             }
-        } else {
+        } else if ($request->input('action') === 'province'){
             $wards = Wards::where('maqh', $code)->orderBy("xaid",'asc')->get();
             $output='<option value="0">Chọn xã phường</option>';
             foreach ($wards as $ward) {

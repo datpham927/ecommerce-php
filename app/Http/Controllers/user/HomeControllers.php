@@ -21,8 +21,7 @@ class HomeControllers extends Controller
         return view('pages.home',compact("categories",'brands','products','sliders' ,'newProducts'));
       }
       
-    function showCategoryHome($product_slug,$id){
-      
+    function showCategoryHome($product_slug,$id){ 
         $categories = Category::orderby('id','desc')->get();
         $products_by_categoryId =  product::where([
             ['products.product_isPublished',true],

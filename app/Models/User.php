@@ -18,13 +18,16 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
     protected $fillable = [
         'user_name',
         'user_email',
         'user_mobile',
-        'user_address',
         'user_image_url',
         'user_password',
+        "user_province_id",
+        "user_ward_id" ,
+        "user_city_id" ,
     ];
     // thêm mới try cập được password
     public function getAuthPassword()

@@ -8,15 +8,6 @@
 @section("js")
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-<!-- Initialize the plugin: -->
-<script type="text/javascript">
-$(document).ready(function() {
-    $('select').selectpicker();
-});
-</script>
-
 @endsection
 
 @section("css")
@@ -69,14 +60,33 @@ $(document).ready(function() {
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="user_address">Địa chỉ</label>
-                            <input type="text" class="form-control @error('user_address') is-invalid @enderror"
-                                id="user_address" name="user_address" placeholder="Nhập Địa chỉ"
-                                value="{{$customer->user_address}}" />
-                            @error('user_address')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
+                        <div class="row row-cols-1 row-cols-md-3 mb-3"
+                            style="display: flex;justify-content: space-between;">
+                            <div class="col" style="min-width: 200px; ">
+                                <label for="city">Chọn thành phố</label>
+                                <select class="form-control choose city" id="city" name="city" required>
+                                    <option value=''>Chọn thành phố</option>
+                                    @foreach($cities as $city) 
+                                    <option value='{{$city->matp}}'   {{ $customer->user_city_id === $city->matp ? 'selected' : '' }} >{{$city->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col" style="min-width: 200px; ">
+                                <label for="province">Quận huyện</label>
+                                <select class="form-control choose province" id="province" name="province" required>
+                                @foreach($provinces as $province)
+                                    <option value='{{$province->maqh}}'  {{ $customer->user_province_id === $province->maqh ? 'selected' : '' }}>{{$province->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col" style="min-width: 200px; ">
+                                <label for="ward">Chọn xã phường</label>
+                                <select class="form-control ward" id="ward" name="ward" required>
+                                @foreach($wards as $ward)
+                                    <option value='{{$ward->xaid}}'  {{ $customer->user_ward_id === $ward->xaid ? 'selected' : '' }}>{{$ward->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="user_mobile">Nhập số điện thoại</label>
