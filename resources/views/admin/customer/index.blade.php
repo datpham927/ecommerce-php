@@ -19,11 +19,13 @@
             <div class="col-sm-2">
             </div>
             <div class="col-sm-3">
+            @can(config("permission.access.add-customer"))
                 <button class="btn btn-sm btn-info">
                     <a href="{{route('customer.add')}}" style="color:white">
                         Tạo tài khoản
                     </a>
                 </button>
+                @endcan
             </div>
         </div>
         <div class="table-responsive">
@@ -53,8 +55,10 @@
                         </td>
                         <td
                             style="display: flex; flex-direction: column;justify-content: center;align-items: center;gap: 4px;">
+                            @can(config("permission.access.add-customer"))
                             <a href="{{route('customer.edit',['id'=>$customer->id])}}" style="width: 100px;"
                                 class="btn btn-default">Edit</a>
+
                             @if($customer->user_is_block)
                             <a data-url="{{route('customer.is_active',['id'=>$customer->id])}}" style="width: 100px;"
                                 class="btn btn-default  btn-customer-is_active">Active</a>
@@ -62,9 +66,11 @@
                             <a data-url="{{route('customer.is_block',['id'=>$customer->id])}}" style="width: 100px;"
                                 class="btn btn-default  btn-customer-is_block">Block</a>
                             @endif
+                            @endcan
+                            @can(config("permission.access.delete-customer"))
                             <a href='' data-url="{{route('customer.delete',['id'=>$customer->id])}}"
                                 class="btn btn-danger btn-delete-customer" style="width: 100px;">Remove</a>
-
+                                @endcan
                         </td>
                     </tr>
                     @endforeach

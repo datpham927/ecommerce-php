@@ -100,15 +100,17 @@
                             <div style="display: flex; flex-direction: column; text-align: center; font-size: 13px;">
                                 <a href='{{route('admin.order.detail', ['oid' => $orderItem->id])}}'
                                     style="cursor: pointer;">Xem chi tiết</a>
+
+                                    @can(config("permission.access.edit-order"))
                                 @if (!in_array($active, ['order', 'canceled', 'success']))
                                 <a style="cursor: pointer;" class="btn-confirm-status-order" data-url="{{ route(
                                         $active == 'confirm' ? 'admin.order.status.confirmation' :
                                         ($active == 'confirm-delivery' ? 'admin.order.status.confirm_delivery' :
                                       'admin.order.status.delivered'  ), ['oid' => $orderItem->id]) }}">
                                     Xác nhận
-                                </a>
-                                </a>
+                                </a> 
                                 @endif
+                                @endcan
 
 
                             </div>

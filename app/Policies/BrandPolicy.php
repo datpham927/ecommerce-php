@@ -30,7 +30,7 @@ class BrandPolicy
      */
     public function view(User $user)
     {
-        return $user->hasRole(config('permission.access.add-brand'));
+        return $user->hasRole(config('permission.access.list-brand'));
     }
 
     /**
@@ -53,7 +53,7 @@ class BrandPolicy
      */
     public function update(User $user)
     {
-        return $user->hasRole(config('permission.access.add-brand'));
+        return $user->hasRole(config('permission.access.edit-brand'));
     }
 
     /**
@@ -65,7 +65,7 @@ class BrandPolicy
      */
     public function delete(User $user)
     {
-        return $user->hasRole(config('permission.access.add-brand'));
+        return $user->hasRole(config('permission.access.delete-brand'));
     }
 
     /**
