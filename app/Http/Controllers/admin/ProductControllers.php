@@ -14,6 +14,7 @@ use App\Models\Category;
 use App\Models\Images;
 use App\Models\Product;
 use App\Models\Size;
+use App\Models\User;
 use App\Traits\AdminAuthenticationTrait;
 use App\Traits\StoreImageTrait;
 use Illuminate\Http\Request;
@@ -104,6 +105,7 @@ class ProductControllers extends Controller
           $dataProduct['product_isDraft']=true;
           $dataProduct['product_isPublished']=false;
          }
+
          // ------- create product ----------
          // lấy array số lượng product theo size
           $dataProductQuantities=$request->input('product_quantities');
@@ -111,10 +113,7 @@ class ProductControllers extends Controller
           if ($dataProductQuantities) {
               // Use the sum method to calculate the total quantity 
            $dataProduct['product_stock']=collect($dataProductQuantities)->sum();
-       }
-      // tìm kiếm admin 
-          $admin= User::find(Session::get('user_id'));
-          $dataProduct['product_user_id']=  $admin['id'];
+       } 
           $newProduct =$this->product->create($dataProduct);
 //*********   insert table size  *********  
           $dataSizes=$request->input('product_sizes'); //array tên kích thước 
@@ -155,7 +154,8 @@ class ProductControllers extends Controller
        return back()->with('success', 'Thêm sản phẩm thành công!');
         } catch (\Throwable $exception) {
               DB::rollBack(); //khôi phục giao dịch (không lưu)
-            dd("Message".$exception->getMessage(). "line". $exception->getLine());
+              dd($exception->getMessage());
+              return back()->with('error', 'Thêm sản phẩm không thành công!');
         }
     }
 
@@ -250,7 +250,7 @@ if($request->has("product_images")){
        return back()->with('success', 'Cập nhật sản phẩm thành công!');
         } catch (\Throwable $exception) {
               DB::rollBack(); //khôi phục giao dịch (không lưu)
-            dd("Message".$exception->getMessage(). "line". $exception->getLine());
+              return back()->with('error', 'Cập nhật sản phẩm không thành công!');
         }
     }
     public function delete($id){

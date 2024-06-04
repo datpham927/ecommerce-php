@@ -59,7 +59,6 @@
         </div>
         <footer class="panel-footer">
                 @include('components.pagination',['list'=>$product,'title'=>'Không có sản phẩm nào!'])
-         @endif
         </footer>
     </div>
 </div>

@@ -55,6 +55,7 @@ return [
       "product",
       "slider", 
       "order",
+      "brand",
       "staff", 
       "role",
    ],

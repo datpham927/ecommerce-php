@@ -7,7 +7,7 @@
     </div>
 </div>
 @endif
-@if($list->count()>2)
+@if($list->count()>0)
 <div class="col-md-12 custom-pagination">
     {{ $list->links('pagination::bootstrap-4') }}
 </div>

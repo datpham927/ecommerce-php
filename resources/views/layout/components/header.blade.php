@@ -54,12 +54,21 @@
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
 
+                            @if(Auth::check())
                             @if(Auth::user()->user_type=='customer')
                             <li>
-                                <a href="{{route('cart.view_Cart')}}"><i class="fa fa-shopping-cart"></i><span> Giỏ
-                                        hàng</span></a>
+                                <a href="{{route('cart.view_Cart')}}"><i class="fa fa-shopping-cart"></i><span>Giỏ hàng</span>
                             </li>
                             @endif
+                            @else
+                            <li>
+                                <a href="{{route('cart.view_Cart')}}"><i class="fa fa-shopping-cart"></i>  <span>Giỏ hàng</span>
+                            </li>
+                            @endif
+
+
+
+
                             <li>
                                 @if (Auth::check())
                                 <a href="{{route('user.profile')}}"><i
