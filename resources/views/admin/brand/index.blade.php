@@ -22,11 +22,13 @@
             <div class="col-sm-4">
             </div>
             <div class="col-sm-3">
+            @can(config("permission.access.add-brand"))
                 <button class="btn btn-sm btn-info">
                     <a href="{{route('brand.add')}}" style="color:white">
                         Thêm thương hiệu
                     </a>
                 </button>
+                @endcan
             </div>
         </div>
         <div class="table-responsive">
@@ -50,9 +52,13 @@
                             </span>
                         </td>
                         <td style="display: flex; justify-content: center; gap: 30px;">
+                            @can(config("permission.access.edit-brand"))
                             <a href="{{route('brand.edit',['id'=>$brand->id])}}" class="btn btn-default">Edit</a>
-                            <a href='' data-url="{{route('brand.delete',['id'=>$brand->id])}}" 
+                            @endcan
+                            @can(config("permission.access.delete-brand"))
+                            <a href='' data-url="{{route('brand.delete',['id'=>$brand->id])}}"
                                 class="btn btn-danger btn-delete-brand">Remove</a>
+                            @endcan
                         </td>
                     </tr>
                     @endforeach

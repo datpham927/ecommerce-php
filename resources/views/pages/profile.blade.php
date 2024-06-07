@@ -13,7 +13,7 @@
 
 
             <div style=" display: flex; justify-content: center;">
-             @if(Auth::user()->user_type=='customer')
+             @if( Auth::check()&&Auth::user()->user_type=='customer')
                 <a href="{{route('order.order_list')}}" style="display: flex;align-items: center ;color: #FB5530">
                     <img src="{{asset('frontend/images/home/logo.png')}}" style="width: 30px;" />
                     Đơn hàng của bạn

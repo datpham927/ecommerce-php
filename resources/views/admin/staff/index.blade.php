@@ -19,11 +19,13 @@
             <div class="col-sm-2">
             </div>
             <div class="col-sm-3">
+                @can(config("permission.access.add-staff"))
                 <button class="btn btn-sm btn-info">
                     <a href="{{route('staff.add')}}" style="color:white">
                         Thêm nhân viên
                     </a>
                 </button>
+                @endcan
             </div>
         </div>
         <div class="table-responsive">
@@ -53,9 +55,13 @@
 
                         </td>
                         <td style="display: flex; justify-content: center; gap: 30px;">
+                            @can(config("permission.access.edit-staff"))
                             <a href="{{route('staff.edit',['id'=>$staff->id])}}" class="btn btn-default">Edit</a>
+                            @endcan
+                            @can(config("permission.access.delete-staff"))
                             <a href='' data-url="{{route('staff.delete',['id'=>$staff->id])}}"
                                 class="btn btn-danger btn-delete-staff">Remove</a>
+                            @endcan
                         </td>
                     </tr>
                     @endforeach

@@ -18,9 +18,8 @@ use Illuminate\Support\Str;
 class UserOrderControllers extends Controller
 {
     public function viewCheckout(){
-         
-        $userId=Auth::user()->id;
-        $carts = Cart::where('cart_userId', $userId)->get();
+        $user=Auth::user();
+        $carts = Cart::where('cart_userId', $user->id)->get();
         $totalPrice= 0;
         foreach($carts as $cartItem){
             $totalPrice+=$cartItem->cart_quantity*$cartItem->product->product_price;
@@ -32,12 +31,12 @@ class UserOrderControllers extends Controller
     public function addOrder(){
         try {
         DB::beginTransaction();
-        $userId = Session::get('user_id');
-        $user=User::find($userId);
+        $user=Auth::user();
+        $userId=$user->id; 
         $carts = Cart::where('cart_userId', $userId)->get();
            // Tạo một đơn hàng mới
            $order = new Order([
-            'od_userId' => $userId,
+            'od_user_id' => $userId,
             'od_shippingAddress' => $user['user_address'],
             'od_shippingPrice' => 25000,
             'od_dateShipping' => date('Y-m-d H:i:s', strtotime('+' . rand(0, 7) . ' days')),
@@ -143,7 +142,7 @@ class UserOrderControllers extends Controller
             'canceled' => ['od_is_canceled' => true],
         ];
         // Thiết lập điều kiện tìm kiếm đơn hàng
-        $query = Order::where('od_userId', $userId)->orderBy('created_at', 'DESC');
+        $query = Order::where('od_user_id', $userId)->orderBy('created_at', 'DESC');
         if (array_key_exists($lastSegment, $statusFilters)) {
             $query->where($statusFilters[$lastSegment]);
         } else {

@@ -22,11 +22,13 @@
             <div class="col-sm-4">
             </div>
             <div class="col-sm-3">
+                @can(config("permission.access.add-slider"))
                 <button class="btn btn-sm btn-info">
                     <a href="{{route('slider.add')}}" style="color:white">
                         Thêm slider
                     </a>
                 </button>
+                @endcan
             </div>
         </div>
         <div class="table-responsive">
@@ -45,13 +47,17 @@
                         <td>{{$slider->id}}</td>
                         <td><span class="text-ellipsis">{{$slider->slider_name}}</span></td>
                         <td>
-                             <img src='{{$slider->slider_image}}' style="width: 200px;"/>
+                            <img src='{{$slider->slider_image}}' style="width: 200px;" />
                         </td>
                         <td style="display: flex; justify-content: center; gap: 30px;">
-                            <a href="{{route('slider.edit',['id'=>$slider->id])}}" class="btn btn-default">Edit</a>
-                            <a href='' data-url="{{route('slider.delete',['id'=>$slider->id])}}"
+                        @can(config("permission.access.edit-slider"))  
+                        <a href="{{route('slider.edit',['id'=>$slider->id])}}" class="btn btn-default">Edit</a>
+                        @endcan
+                        @can(config("permission.access.delete-slider"))
+                        <a href='' data-url="{{route('slider.delete',['id'=>$slider->id])}}"
                                 class="btn btn-danger btn-delete-slider">Remove</a>
                         </td>
+                        @endcan
                     </tr>
                     @endforeach
 

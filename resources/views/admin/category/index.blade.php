@@ -1,5 +1,5 @@
 @extends("layout.admin")
- 
+
 @section("content")
 <div class="table-agile-info">
     <div class="panel panel-default">
@@ -18,11 +18,13 @@
             <div class="col-sm-4">
             </div>
             <div class="col-sm-3">
+                @can(config("permission.access.add-category"))
                 <button class="btn btn-sm btn-info">
                     <a href="{{route('category.add')}}" style="color:white">
                         Thêm danh mục
                     </a>
                 </button>
+                @endcan
             </div>
         </div>
         <div class="table-responsive">
@@ -46,10 +48,14 @@
                             </span>
                         </td>
                         <td style="display: flex; justify-content: center; gap: 30px;">
+                            @can(config("permission.access.edit-category"))
                             <a href="{{route('category.edit',['id'=>$category->id])}}" class="btn btn-default">Edit</a>
+                            @endcan
+                            @can(config("permission.access.delete-category"))
                             <a href='' data-url="{{route('category.delete',['id'=>$category->id])}}"
                                 class="btn btn-danger btn-category-delete">Remove</a>
                         </td>
+                        @endcan
                     </tr>
                     @endforeach
 

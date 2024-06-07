@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comment;
 use App\Models\product;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,11 @@ class UserProductControllers extends Controller
        ->where('product_category_id', $detailProduct['product_category_id'])
        ->where('id', '!=', $id)
        ->get();
-       return view('pages.detailProduct',compact("detailProduct",'relatedProducts','title_page'));
+       $comments=Comment::where([
+        'comment_product_id'=>$id,
+        'comment_parent_id'=>0,
+       ])->orderBy("created_at","desc")->latest()->paginate(5);
+       return view('pages.detailProduct',compact("detailProduct",'relatedProducts','title_page','comments'));
     }
    //  tìm kiếm sản phẩm
    public function searchResult(Request $request)

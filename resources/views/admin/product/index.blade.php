@@ -16,7 +16,7 @@
                     </div>
                     <button class="btn btn-sm btn-default" type="submit">Tìm kiếm</button>
                 </form>
-            </div> 
+            </div>
             <div class="col-sm-3">
             </div>
         </div>
@@ -47,19 +47,21 @@
                         <td><span class="text-ellipsis"> {{ optional($product->category)->category_name }}</span></td>
                         <td><span class="text-ellipsis"> {{ optional($product->brand)->brand_name }} </span></td>
                         <td style="display: flex; justify-content: center; gap: 20px;">
+                            @can(config("permission.access.edit-product"))
                             <a href="{{route('product.edit',['id'=>$product->id])}}" class="btn btn-default">Edit</a>
+                            @endcan
+                            @can(config("permission.access.delete-product"))
                             <a url='' data-url="{{route('product.delete',['id'=>$product->id])}}"
                                 class="btn btn-danger btn-delete-product">Remove</a>
                         </td>
+                        @endcan
                     </tr>
                     @endforeach
-
                 </tbody>
             </table>
         </div>
         <footer class="panel-footer">
-                @include('components.pagination',['list'=>$product,'title'=>'Không có sản phẩm nào!'])
-         @endif
+            @include('components.pagination',['list'=>$product,'title'=>'Không có sản phẩm nào!'])
         </footer>
     </div>
 </div>

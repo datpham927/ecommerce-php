@@ -9,6 +9,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 @endsection
 @section("js")
+
+<script src="{{asset('frontend/js/comment.js')}}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script>
@@ -196,8 +198,6 @@ $(document).ready(function() {
 
     </div>
 </div>
-</div>
-
 @if(count($relatedProducts) > 0)
 <div class="container" style="background-color: white; margin-top: 20px;padding: 20px;">
     <div style="width: 100%;">
@@ -293,24 +293,18 @@ $(document).ready(function() {
             Chi tiết sản phẩm</h1>
         <table style="width: 100%; margin-top: 20px;">
             @foreach($detailProduct->Attribute as $index => $attribute)
-            <tr style="width: 100%; display: flex;">
+            <tr style="flex-shrink: 1;">
                 <td style="width: 20%; background-color: rgb(239,239,239); padding: 8px; border: none;">
                     {{$attribute->attribute_name}}</td>
-                <td
-                    style="width: 80%; padding: 8px; border: none; {{ $index % 2 == 0 ? 'background-color:#F8FAFC;' : 'background-color:white;' }}">
+                <td style="width: 80%; padding: 8px; border: none;
+                    {{ $index % 2 == 0 ? 'background-color:#F8FAFC;' : 'background-color:white;' }}">
                     {{ $attribute->attribute_description }}
                 </td>
-
             </tr>
             @endforeach
-
-
         </table>
-
     </div>
 </div>
-
-
 <div class='container' style="background-color: white;margin-top: 20px;padding: 20px;">
     <div>
         <h1 class="title" style="width: 100%; display:flex; font-size: 20px;color: black; text-transform: uppercase;">
@@ -319,6 +313,29 @@ $(document).ready(function() {
             {!!$detailProduct->product_description!!}
         </div>
 
+    </div>
+</div>
+<!-- -------  comment -->
+
+<div class='container' style="background-color: white;margin-top: 20px;padding: 20px;">
+    <div>
+        <h1 class="title" style="width: 100%; display:flex; font-size: 20px;color: black; text-transform: uppercase;">
+            Đánh giá sản phẩm</h1>
+        <div style="margin-top: 20px; width: 100%;" id="comment">
+            @if(Auth::check())
+            <div class="comment-input">
+                <div class="comment-avatar"> <img src="{{Auth::user()->user_image_url}}" /></div>
+                <input type="text" class="btn-comment" data-url="{{route("comment.add",["pid"=>$detailProduct->id])}}"
+                    placeholder="Bình luận với vai trò {{Auth::user()->user_name??Auth::user()->user_email}}" />
+            </div>
+            @endif
+            <div class="comment-content">
+                @foreach($comments as $comment)
+                @include('components.commentItem',['comment'=>$comment,'product_id'=>$detailProduct->id])
+                @endforeach
+            </div> 
+                @include('components.pagination',['list'=>$comments,'title'=>'Không có đánh giá nào!'])
+        </div>
     </div>
 </div>
 @endsection

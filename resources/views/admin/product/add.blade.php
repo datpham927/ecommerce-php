@@ -178,12 +178,14 @@ CKEDITOR.replace('my-editor', options);
                     @enderror
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group product-thumb"  >
                 <label for="product_thumb">
                     Thêm hình ảnh
-                    <img src="{{asset('backend/images/image_logo2.png')}}" style='width: 30px; height: 30px;' />
+                    <img src="{{asset('backend/images/image_logo2.png')}}" style='width: 50px;' />
                     <input type="file" class="@error('product_thumb') is-invalid @enderror"
-                        value="{{old('product_thumb')}}" id="product_thumb" style="display: none;"
+                        value="{{old('product_thumb')}}" 
+                        data-url='{{route("upload_image")}}'
+                        id="product_thumb" style="display: none;"
                         name="product_thumb" />
                 </label>
                 @error('product_thumb')
