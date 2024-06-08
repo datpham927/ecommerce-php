@@ -1,14 +1,10 @@
 @extends("layout.admin")
 
-@section("js")
-<script type="text/javascript" src="{{asset('backend/category.js')}}"></script>
-@endsection
-
 @section("content")
 <div class="table-agile-info">
     <div class="panel panel-default">
         <div class="panel-heading">
-            Danh sách danh mục
+            Danh mục sản phẩm
         </div>
         <div class="row w3-res-tb">
             <div class="col-sm-5 m-b-xs">
@@ -22,11 +18,13 @@
             <div class="col-sm-4">
             </div>
             <div class="col-sm-3">
+                @can(config("permission.access.add-category"))
                 <button class="btn btn-sm btn-info">
                     <a href="{{route('category.add')}}" style="color:white">
                         Thêm danh mục
                     </a>
                 </button>
+                @endcan
             </div>
         </div>
         <div class="table-responsive">
@@ -50,10 +48,14 @@
                             </span>
                         </td>
                         <td style="display: flex; justify-content: center; gap: 30px;">
+                            @can(config("permission.access.edit-category"))
                             <a href="{{route('category.edit',['id'=>$category->id])}}" class="btn btn-default">Edit</a>
-                            <a href="{{route('category.delete',['id'=>$category->id])}}" onclick="confirmDelete()"
-                                class="btn btn-danger">Remove</a>
+                            @endcan
+                            @can(config("permission.access.delete-category"))
+                            <a href='' data-url="{{route('category.delete',['id'=>$category->id])}}"
+                                class="btn btn-danger btn-category-delete">Remove</a>
                         </td>
+                        @endcan
                     </tr>
                     @endforeach
 
@@ -61,9 +63,7 @@
             </table>
         </div>
         <footer class="panel-footer">
-            <div class="col-md-12 custom-pagination">
-                {{ $categories->links('pagination::bootstrap-4') }}
-            </div>
+            @include('components.pagination',['list'=>$categories,'title'=>'Không có danh mục nào!'])
         </footer>
     </div>
 </div>

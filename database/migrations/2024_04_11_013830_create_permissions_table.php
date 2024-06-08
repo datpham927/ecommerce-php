@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('admins', function (Blueprint $table) {
-            $table->bigIncrements('id'); 
-            $table->String('admin_password');
-            $table->String('admin_name');
-            $table->String('admin_email');
-            $table->String('admin_phone');
+        Schema::create('permissions', function (Blueprint $table) {
+            $table->bigIncrements('pms_id');
+            $table->string("pms_name");
+            $table->string("pms_display_name"); 
+            $table->string("pms_parent_id"); 
+            $table->string("pms_key_code")->nullable; 
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admins');
+        Schema::dropIfExists('permissions');
     }
 };

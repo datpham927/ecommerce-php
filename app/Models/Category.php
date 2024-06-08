@@ -9,10 +9,4 @@ class Category extends Model
 {
     protected $guarded = [];
     use HasFactory;
-
-    // Mối quan hệ với chính nó
-    public function parentCategory()
-    {
-        return $this->belongsTo(Category::class, 'category_parent_id');
-    }
 }

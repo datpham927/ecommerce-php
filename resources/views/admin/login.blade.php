@@ -38,11 +38,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <h2>Đăng nhập</h2>
             <form action="{{route('admin.storeLogin')}}" method="post">
                 @csrf
-                <input type="email" class="ggg " name="admin_email" placeholder="Nhập email"
-                    required="">
+                <input type="text" class="ggg" name="user_name" placeholder="Nhập tên đăng nhập"
+                    required="true">
             
-                <input type="admin_password" class="ggg " name="admin_password"
-                    placeholder="Nhập mật khẩu" required="">
+                <input type="password" class="ggg " name="user_password"
+                    placeholder="Nhập mật khẩu" required="true">
                 
                 <?php
                   use Illuminate\Support\Facades\Session;

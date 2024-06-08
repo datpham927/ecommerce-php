@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fe33f98a750b8c5a51b30c78bd3fab21",
+    "content-hash": "2649dc32e65fbf995da477929ae05118",
     "packages": [
         {
             "name": "brick/math",
@@ -1881,6 +1881,73 @@
             "time": "2023-10-17T14:13:20+00:00"
         },
         {
+            "name": "masterminds/html5",
+            "version": "2.9.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Masterminds/html5-php.git",
+                "reference": "f5ac2c0b0a2eefca70b2ce32a5809992227e75a6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Masterminds/html5-php/zipball/f5ac2c0b0a2eefca70b2ce32a5809992227e75a6",
+                "reference": "f5ac2c0b0a2eefca70b2ce32a5809992227e75a6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.35 || ^5.7.21 || ^6 || ^7 || ^8 || ^9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Masterminds\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Matt Butcher",
+                    "email": "technosophos@gmail.com"
+                },
+                {
+                    "name": "Matt Farina",
+                    "email": "matt@mattfarina.com"
+                },
+                {
+                    "name": "Asmir Mustafic",
+                    "email": "goetas@gmail.com"
+                }
+            ],
+            "description": "An HTML5 parser and serializer.",
+            "homepage": "http://masterminds.github.io/html5-php",
+            "keywords": [
+                "HTML5",
+                "dom",
+                "html",
+                "parser",
+                "querypath",
+                "serializer",
+                "xml"
+            ],
+            "support": {
+                "issues": "https://github.com/Masterminds/html5-php/issues",
+                "source": "https://github.com/Masterminds/html5-php/tree/2.9.0"
+            },
+            "time": "2024-03-31T07:05:07+00:00"
+        },
+        {
             "name": "monolog/monolog",
             "version": "2.9.2",
             "source": {
@@ -3398,6 +3465,73 @@
                 }
             ],
             "time": "2022-01-02T09:55:41+00:00"
+        },
+        {
+            "name": "symfony/dom-crawler",
+            "version": "v7.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/dom-crawler.git",
+                "reference": "01ce8174447f1f1dd33a5854b01beef79061d9fa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/01ce8174447f1f1dd33a5854b01beef79061d9fa",
+                "reference": "01ce8174447f1f1dd33a5854b01beef79061d9fa",
+                "shasum": ""
+            },
+            "require": {
+                "masterminds/html5": "^2.6",
+                "php": ">=8.2",
+                "symfony/polyfill-ctype": "~1.8",
+                "symfony/polyfill-mbstring": "~1.0"
+            },
+            "require-dev": {
+                "symfony/css-selector": "^6.4|^7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\DomCrawler\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Eases DOM navigation for HTML and XML documents",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/dom-crawler/tree/v7.1.1"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2024-05-31T14:57:53+00:00"
         },
         {
             "name": "symfony/error-handler",
@@ -5473,6 +5607,65 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/v2.2.7"
             },
             "time": "2023-12-08T13:03:43+00:00"
+        },
+        {
+            "name": "tinymce/tinymce",
+            "version": "6.8.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tinymce/tinymce-dist.git",
+                "reference": "01d1959b1200e0b872ea078e59ea5abfb5c54100"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/01d1959b1200e0b872ea078e59ea5abfb5c54100",
+                "reference": "01d1959b1200e0b872ea078e59ea5abfb5c54100",
+                "shasum": ""
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "scripts": [
+                        "tinymce.js",
+                        "plugins/*/plugin.js",
+                        "themes/*/theme.js",
+                        "models/*/model.js",
+                        "icons/*/icons.js"
+                    ],
+                    "files": [
+                        "tinymce.min.js",
+                        "plugins/*/plugin.min.js",
+                        "themes/*/theme.min.js",
+                        "models/*/model.min.js",
+                        "skins/**",
+                        "icons/*/icons.min.js"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT-only"
+            ],
+            "description": "Web based JavaScript HTML WYSIWYG editor control.",
+            "homepage": "https://www.tiny.cloud/",
+            "keywords": [
+                "contenteditable",
+                "editing",
+                "html",
+                "javascript",
+                "rich editor",
+                "rich text",
+                "rich text editor",
+                "richtext",
+                "rte",
+                "text",
+                "tinymce",
+                "wysiwyg"
+            ],
+            "support": {
+                "source": "https://github.com/tinymce/tinymce-dist/tree/6.8.3"
+            },
+            "time": "2024-02-08T23:33:30+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
