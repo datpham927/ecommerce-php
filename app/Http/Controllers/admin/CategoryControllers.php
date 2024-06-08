@@ -24,7 +24,6 @@ class CategoryControllers extends Controller
         $this->slider =  $slider;
     }
     public function index(){  
-        
         $categories=$this->category->latest()->paginate(5);
         $quantityProduct=$this->product->where('product_category_id')->count();
         return view("admin.category.index",compact("categories"));
@@ -56,9 +55,7 @@ class CategoryControllers extends Controller
             "province" => 'required',
             "ward" => 'required'
         ];
-        $request->validate($rules, $messages);
-            
-        dd($request->data);
+        $request->validate($rules, $messages); 
             // Gửi thông báo thành công
             // session()->flash('success', 'Thêm danh mục thành công!');
             return back()->with('success', 'Thêm danh mục thành công!');

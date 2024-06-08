@@ -31,5 +31,16 @@ class HomeControllers extends Controller
         $category = Category::find($id);
         return view('pages.showProductByCategory',compact("products_by_categoryId",'categories'));
     }
+
+    function showBrandHome($product_slug,$id){ 
+        $brands = brand::orderby('id','desc')->get();
+        $products_by_brandId =  product::where([
+            ['products.product_isPublished',true],
+            ['products.product_brand_id', $id],
+        ])
+        ->get(); 
+        return view('pages.showProductByBrand',compact("products_by_brandId",'brands'));
+    }
+    
     
 }

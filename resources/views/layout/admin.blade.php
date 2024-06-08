@@ -160,67 +160,46 @@
                     </li> -->
                     <!-- settings end -->
                     <!-- inbox dropdown start-->
-                    <li id="header_inbox_bar" class="dropdown">
+                    @php
+                    use App\Models\Notification;
+                    $notifications = Notification::where(["n_user_id" => null])->get();
+                    @endphp
+                    <li id="header_inbox_bar" class="dropdown"  >
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <i class="fa fa-envelope-o"></i>
-                            <span class="badge bg-important">4</span>
+                            <span class="badge bg-important">{{count($notifications)}}</span>
                         </a>
-                        <ul class="dropdown-menu extended inbox">
+                        <ul class="dropdown-menu extended inbox" >
+                            @if(count($notifications)==0)
+                            <div
+                                style=" display: flex;height: 400px;  align-items: center;justify-content: center; background-color: white;">
+                                <div style="display: flex;flex-direction: column;align-items: center;">
+                                    <img style='width: 100px;'
+                                        src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/cart/9bdd8040b334d31946f4.png" />
+                                    <span style="margin: 10px 0;">Không có thông báo nào</span>
+                                </div>
+                            </div>
+                            @else
                             <li>
-                                <p class="red">You have 4 Mails</p>
+                                <p class="red">Bạn có {{ count($notifications) }} thông báo</p>
                             </li>
+
+                            @foreach($notifications as $notification)
                             <li>
-                                <a href="#">
-                                    <span class="photo"><img alt="avatar" src="images/3.png"></span>
-                                    <span class="subject">
-                                        <span class="from">Jonathan Smith</span>
-                                        <span class="time">Just now</span>
+                                <a href="{{ $notification->n_link }}">
+                                    <span class="photo"><img alt="avatar" src="{{ $notification->n_image }}"></span>
+                                    <span class="subject long-text" style="max-width: 200px!important;">
+                                        <span class="from">{{ $notification->n_title }}</span>
                                     </span>
-                                    <span class="message">
-                                        Hello, this is an example msg.
+                                    <span class="message text-ellipsis long-text" style="max-width: 200px!important;">
+                                        {{ $notification->n_subtitle }}
                                     </span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="#">
-                                    <span class="photo"><img alt="avatar" src="images/1.png"></span>
-                                    <span class="subject">
-                                        <span class="from">Jane Doe</span>
-                                        <span class="time">2 min ago</span>
-                                    </span>
-                                    <span class="message">
-                                        Nice admin template
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="photo"><img alt="avatar" src="images/3.png"></span>
-                                    <span class="subject">
-                                        <span class="from">Tasi sam</span>
-                                        <span class="time">2 days ago</span>
-                                    </span>
-                                    <span class="message">
-                                        This is an example msg.
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="photo"><img alt="avatar" src="images/2.png"></span>
-                                    <span class="subject">
-                                        <span class="from">Mr. Perfect</span>
-                                        <span class="time">2 hour ago</span>
-                                    </span>
-                                    <span class="message">
-                                        Hi there, its a test
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">See all messages</a>
-                            </li>
+                            @endforeach
+                            @endif
                         </ul>
+
                     </li>
                     <!-- inbox dropdown end -->
                     <!-- notification dropdown start -->

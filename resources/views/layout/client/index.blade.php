@@ -40,7 +40,7 @@
 <!--/head-->
 
 <body>
-    @include("layout.components.header")
+    @include("layout.client.components.header")
     <div class='body-container'>
         <!--/slider-->
         @yield('slider')

@@ -13,6 +13,7 @@ use App\Http\Controllers\admin\StaffControllers;
 use App\Http\Controllers\admin\CustomerControllers;
 use App\Http\Controllers\admin\DeliveryControllers;
 use App\Http\Controllers\admin\UploadImageControllers;
+use App\Http\Controllers\CrawlerControllers;
 use App\Http\Controllers\user\auth\UserLoginControllers;
 use App\Http\Controllers\user\CartControllers;
 use App\Http\Controllers\user\CommentControllers;
@@ -31,6 +32,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Route::get('/crawler', [CrawlerControllers::class, 'crawler'])->name('crawler.index');
 
 // admin
 Route::get('/admin', [AdminLoginControllers::class, 'login'])->name('admin.login');
@@ -159,7 +161,7 @@ Route::prefix('/')->group(function () {
         Route::get('/danh-muc-san-pham/{slug}/{cid}', [HomeControllers::class, 'showCategoryHome'])->name("category.show_product_home");
     });  
     Route::prefix('/brand')->group(function () { 
-        Route::get('/thuong-hieu-san-pham/{slug}/{bid}', [BrandControllers::class, 'showBrandHome'])->name("brand.show_product_home");
+        Route::get('/thuong-hieu-san-pham/{slug}/{bid}', [HomeControllers::class, 'showBrandHome'])->name("brand.show_product_home");
   }); 
     Route::prefix('/product')->group(function () { 
         Route::get('/{slug}/{pid}', [UserProductControllers::class, 'detailProduct'])->name("product.detail");

@@ -317,8 +317,5 @@ if($request->has("product_images")){
          // Flash a success message and redirect back
          session()->flash('success', 'Sản phẩm đã được đăng thành công!');
          return back();
-     }
-
-     
-   
+     } 
 }

@@ -87,7 +87,6 @@ a#scrollUp i {
 .social-icons ul li a {
     border: 0 none;
     border-radius: 0;
-    padding: 0px;
     color: white;
 }
 
@@ -2795,4 +2794,21 @@ height: 100%;
 }
 .comment-item-body{
     width: 100%;
+}
+
+
+.header_inbox_bar{
+   position: relative;
+}
+.dropdown-menu {
+ position: absolute;
+ left: 0;
+}
+
+.long-text {
+    max-width: 100%; /* Độ rộng của phần tử chứa đoạn văn */
+    white-space: nowrap; /* Ngăn không cho đoạn văn xuống dòng */
+    overflow: hidden; /* Ẩn phần văn bản vượt quá độ rộng */
+    text-overflow: ellipsis; /* Hiển thị dấu ba chấm khi văn bản bị ẩn */
+    display: inline-block; /* Hiển thị phần tử như một khối cách trái */
 }

@@ -20,5 +20,8 @@ class RoleSeeder extends Seeder
             [['role_name' => "admin",'role_display_name' =>"Quản trị hệ thống"], 
             ['role_name' => "content",'role_display_name' =>"Chỉnh sửa nội dung"]]
         );
+        DB::table('user_roles')->insert( 
+            ['ur_user_id' => 1,'ur_role_id' =>1]
+        );
     }
 }

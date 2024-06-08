@@ -5,10 +5,11 @@ $(function () {
             const dataUrl = $(this).data("url");
             const text = $(this).val();
             const self = $(this); // Lưu trữ đối tượng jQuery trong biến self để sử dụng trong hàm success
+            const pathName=window.location.pathname
             $.ajax({
                 type: 'post',
                 url: dataUrl,
-                data: { comment_text: text },
+                data: { comment_text: text ,pathName},
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
@@ -49,10 +50,11 @@ $(function () {
             const dataUrl = $(this).data("url");
             const text = $(this).val();
             const self = $(this); // Lưu trữ đối tượng jQuery trong biến self để sử dụng trong hàm success
+            const pathName=window.location.pathname
             $.ajax({
                 type: 'post',
                 url: dataUrl,
-                data: { comment_text: text },
+                data: { comment_text: text,pathName },
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },

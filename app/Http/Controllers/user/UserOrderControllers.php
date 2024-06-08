@@ -4,11 +4,13 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\Notification;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\product;
 use App\Models\Size;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -41,11 +43,14 @@ class UserOrderControllers extends Controller
             'od_shippingPrice' => 25000,
             'od_dateShipping' => date('Y-m-d H:i:s', strtotime('+' . rand(0, 7) . ' days')),
         ]);
-        
+        Notification::create([
+            "n_title"=>'Bạn có một đơn hàng mới!',
+            "n_subtitle"=>"Ngày đặt hàng".\Carbon\Carbon::parse($order ->created_at)->locale('vi')->isoFormat('dddd, DD/MM/YYYY')  ,
+            "n_image"=>"https://imaxmobile.vn/media/data/icon-giao-hang-toan-quoc.jpeg",
+            "n_link"=>"/admin/order"
+        ]);
         $order->save(); // Lưu đơn hàng mới vào cơ sở dữ liệu để lấy được ID
         foreach($carts as $cartItem){
-        
-
             // Tạo một chi tiết đơn hàng mới
             $orderDetail = new OrderDetail([
                 'od_detail_productId' => $cartItem->cart_productId,
@@ -55,7 +60,6 @@ class UserOrderControllers extends Controller
                 'od_detail_size' => $cartItem->cart_size,
             ]);
             $orderDetail->save(); // Lưu chi tiết đơn hàng mới vào cơ sở dữ liệu
-
                 // cập nhật số lượng trong product
              // Tìm sản phẩm trong cơ sở dữ liệu dựa trên ID của sản phẩm trong giỏ hàng
                         $foundProduct = product::find($cartItem->cart_productId);
@@ -91,10 +95,8 @@ class UserOrderControllers extends Controller
 
     public function isCanceled($oid){
         try {
-            DB::beginTransaction();
-            $orderDetail = OrderDetail::find($oid);
-            $order = Order::find($orderDetail->od_detail_orderId);  
-          
+            DB::beginTransaction(); 
+            $order = Order::find($oid);  
             foreach($order->OrderDetail as $orderDetailItem){  
                 $foundProduct = Product::find($orderDetailItem->od_detail_productId); 
                 // Cập nhật số lượng sản phẩm đã bán và số lượng tồn kho
@@ -113,6 +115,17 @@ class UserOrderControllers extends Controller
             }
             $order->od_is_canceled = true; 
             $order->save();
+            // Tạo một đối tượng Carbon cho ngày hiện tại
+            $currentDate = Carbon::now();
+            // Định dạng ngày tháng năm theo định dạng cụ thể và cài đặt ngôn ngữ là tiếng Việt
+            $formattedDate = $currentDate->locale('vi')->isoFormat('dddd, DD/MM/YYYY');
+            Notification::create([
+                'n_user_id'=>$order->od_user_id,
+                "n_title"=>'Đơn hàng của bạn đã bị hủy!',
+                "n_subtitle"=>"Ngày hủy ".$formattedDate  ,
+                "n_image"=>"https://imaxmobile.vn/media/data/icon-giao-hang-toan-quoc.jpeg",
+                "n_link"=>"/"
+            ]);
             DB::commit(); 
             return response()->json(['code' => 200, 'message' => 'success']);
         } catch (\Exception $e) {

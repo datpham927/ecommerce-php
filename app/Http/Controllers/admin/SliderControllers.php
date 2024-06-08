@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin; 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FormSliderRequest;
+use App\Models\Notification;
 use App\Models\slider;
 use App\Models\product;
 use App\Models\User;
@@ -24,8 +25,7 @@ class SliderControllers extends Controller
         $this->product = $product;
     }
     
-    public function index(){  
-        
+    public function index(){   
         $sliders=$this->slider->latest()->paginate(5);
         return view("admin.slider.index",compact("sliders"));
     }

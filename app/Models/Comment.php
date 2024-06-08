@@ -16,4 +16,7 @@ class Comment extends Model
     public function commentChildren(){
         return $this->hasMany(Comment::class,'comment_parent_id')->orderBy("created_at","desc");
     }
+    public function product(){
+        return $this->belongsTo(product::class,'comment_product_id');
+    }
 }
