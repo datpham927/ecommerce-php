@@ -5,6 +5,7 @@ namespace App\Http\Controllers\user;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Notification;
+use App\Models\product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +29,7 @@ class CommentControllers extends Controller
                 "n_image"=>$comment->product->product_thumb,
                 "n_link"=>$request->pathName
             ]);
+         
             DB::commit();
              return response()->json([
                  'code' => 200,

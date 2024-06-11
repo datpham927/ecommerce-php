@@ -12,7 +12,20 @@ class UserProductControllers extends Controller
    
     public function detailProduct($slug,$id)
     {
+           
        $detailProduct =product::find($id);
+       // cập nhật rating product
+       $comments= Comment::where("comment_parent_id",0)->get();
+       $countComment=$comments->count();
+       if($countComment>0){
+          $totalRating=0;
+          foreach ($comments as $cmt) { 
+            $totalRating+=$cmt->comment_rating;
+          }
+          $detailProduct->update([
+              "product_ratings"=>$totalRating/$countComment
+          ]);
+       }
        $title_page=$detailProduct->product_name;
        $relatedProducts =product::
        where('product_isPublished', true)
