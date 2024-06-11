@@ -23,25 +23,8 @@
                     @endif
                 </div>
                 <div style="display: flex; justify-content: space-between;">
-                    <div class="product-rating">
-                        @php $rating = $product->product_ratings; @endphp
-
-                        @foreach(range(1,5) as $i)
-                        <span class="fa-stack" style="width:1em">
-                            <i class="far fa-star fa-stack-1x"></i>
-
-                            @if($rating >0)
-                            @if($rating >0.5)
-                            <i class="fas fa-star fa-stack-1x"></i>
-                            @else
-                            <i class="fas fa-star-half fa-stack-1x"></i>
-                            @endif
-                            @endif
-                            @php $rating--; @endphp
-                        </span>
-                        @endforeach
-
-                    </div>
+                    @php $rating = $product->product_ratings; @endphp
+                    @include("utils.formatRating",['rating'=>$rating])
                     <div class="product-sold">
                         Đã bán {{$product->product_sold}}
                     </div>

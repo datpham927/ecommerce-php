@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("comment_product_id");
             $table->string("comment_user_id"); 
             $table->string("comment_content"); 
+            $table->string("comment_rating"); 
             $table->integer("comment_parent_id")->default(0); 
             $table->timestamps();
         });

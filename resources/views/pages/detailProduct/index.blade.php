@@ -57,11 +57,12 @@ $(document).ready(function() {
 
 @section("body")
 <div class="container">
+<div class="row" style="margin-top: 15px;">
     @include('pages.detailProduct.top') 
     @include('pages.detailProduct.relatedProduct')
     @include('pages.detailProduct.productAttribute')
     @include('pages.detailProduct.productDescription')
-    @include('pages.detailProduct.productDescription')
     @include('pages.detailProduct.productComment')
+</div>
 </div>
 @endsection

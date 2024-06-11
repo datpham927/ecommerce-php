@@ -4104,7 +4104,8 @@ textarea.input-group-sm>.input-group-btn>.btn {
 
 .nav>li>a:hover,
 .nav>li>a:focus {
-    text-decoration: none
+    text-decoration: none;
+    background-color: none;
 }
 
 .nav>li.disabled>a {
@@ -4193,6 +4194,10 @@ textarea.input-group-sm>.input-group-btn>.btn {
     }
     .nav-tabs.nav-justified>li>a {
         margin-bottom: 0
+    }
+    .product-top img { 
+        height: 247px !important;
+        display: block;
     }
 }
 

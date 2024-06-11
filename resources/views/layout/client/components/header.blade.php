@@ -18,54 +18,60 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="social-icons pull-right">
-                        <ul class="nav navbar-nav">
+                        <ul class="nav navbar-nav" style="display: flex">
                             @php
-                                use App\Models\Notification;
-                                $notifications = Notification::where(["n_user_id" => null])->get();
+                            use App\Models\Notification;
+                            $notifications = Notification::where(["n_user_id" => null])->get();
                             @endphp
-                            <li id="header_inbox_bar" class="dropdown">
-                                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <li   style="display: flex; align-content: center; margin-right:10px ">
+                                <div class="btn-notification" >
                                     <ion-icon name="notifications"></ion-icon>
                                     <span class="badge bg-important">{{ count($notifications) }}</span>
-                                </a>
-                                <span>Thông báo</span>
-                                <ul class="dropdown-menu extended inbox">
-                                    @if(count($notifications) == 0)
-                                        <div style="display: flex; height: 400px; align-items: center; justify-content: center; background-color: white;">
+                                      <span style="font-size: 13px;margin: 10px;"> Thông báo</span>
+                                    <ul class="box-notification" >
+                                        @if(count($notifications) == 0)
+                                        <div
+                                            style="display: flex; height: 400px; align-items: center; justify-content: center; background-color: white;">
                                             <div style="display: flex; flex-direction: column; align-items: center;">
-                                                <img style='width: 100px;' src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/cart/9bdd8040b334d31946f4.png" />
+                                                <img style='width: 100px;'
+                                                    src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/cart/9bdd8040b334d31946f4.png" />
                                                 <span style="margin: 10px 0;">Không có thông báo nào</span>
                                             </div>
                                         </div>
-                                    @else
-                                        <li>
-                                            <p class="red">Bạn có {{ count($notifications) }} thông báo</p>
+                                        @else
+                                        <li  class="item-notification active">
+                                            <p   style="color:rgb(136, 136, 136);font-size: 14px ;margin: 0;">Bạn có {{ count($notifications) }} thông báo</p>
                                         </li>
                                         @foreach($notifications as $notification)
-                                            <li>
-                                                <a href="{{ $notification->n_link }}">
-                                                    <span class="photo"><img alt="avatar" src="{{ $notification->n_image }}"></span>
-                                                    <span class="subject long-text" style="max-width: 200px!important;">
-                                                        <span class="from">{{ $notification->n_title }}</span>
+                                        <li class="item-notification not-seen">
+                                            <a href="{{ $notification->n_link }}" style="display: flex;">
+                                                <img alt="avatar" style="height: 50px;border-radius: 3px;"
+                                                    src="{{ $notification->n_image }}">
+                                                <div style="margin-left: 10px;">
+                                                    <span class="subject long-text" style="max-width: 200px!important; color:black;line-height: 100%; font-size: 14px;">
+                                                        {{ $notification->n_title }}
                                                     </span>
-                                                    <span class="message text-ellipsis long-text" style="max-width: 200px!important;">
+                                                    <span class="message text-ellipsis long-text"
+                                                        style="max-width: 200px!important; color:rgb(136, 136, 136);line-height: 100%;font-size: 14px">
                                                         {{ $notification->n_subtitle }}
                                                     </span>
-                                                </a>
-                                            </li>
+                                                </div>
+                                            </a>
+                                        </li>
                                         @endforeach
-                                    @endif
-                                </ul>
+                                        @endif
+                                    </ul>
+                                </div>
                             </li>
                             <li style="display: flex; align-items: center;">
                                 @if (Auth::check())
-                                    <a href="{{ route('user.profile') }}">
-                                        <i class="fa fa-user"></i><span>{{ Auth::user()->user_name }}</span>
-                                    </a>
+                                <a href="{{ route('user.profile') }}" style="padding: 0;">
+                                    <i class="fa fa-user"></i><span>{{ Auth::user()->user_name }}</span>
+                                </a>
                                 @else
-                                    <a href="{{ route('user.login') }}">
-                                        <span>Đăng nhập</span>
-                                    </a>
+                                <a href="{{ route('user.login') }}" style="padding: 0;">
+                                    <span>Đăng nhập</span>
+                                </a>
                                 @endif
                             </li>
                         </ul>
@@ -90,7 +96,8 @@
                 <div class="col-sm-8 col-custom-80">
                     <form action="{{ route('product.search_result') }}" method="GET">
                         <div class="search_box pull-right">
-                            <input type="text" name="text" style="font-size: 14px;" placeholder="Nhập từ khóa tìm kiếm...">
+                            <input type="text" name="text" style="font-size: 14px;"
+                                placeholder="Nhập từ khóa tìm kiếm...">
                             <button class="btn btn-primary" type="submit">Tìm Kiếm</button>
                         </div>
                     </form>
@@ -99,17 +106,11 @@
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
                             @if(Auth::check() && Auth::user()->user_type == 'customer')
-                                <li>
-                                    <a href="{{ route('cart.view_Cart') }}">
-                                        <i class="fa fa-shopping-cart"></i><span>Giỏ hàng</span>
-                                    </a>
-                                </li>
-                            @else
-                                <li>
-                                    <a href="{{ route('cart.view_Cart') }}">
-                                        <i class="fa fa-shopping-cart"></i><span>Giỏ hàng</span>
-                                    </a>
-                                </li>
+                            <li>
+                                <a href="{{ route('cart.view_Cart') }}">
+                                    <i class="fa fa-shopping-cart"></i><span>Giỏ hàng</span>
+                                </a>
+                            </li> 
                             @endif
                         </ul>
                     </div>

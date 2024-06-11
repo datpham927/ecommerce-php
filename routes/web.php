@@ -51,8 +51,6 @@ Route::prefix('admin')->group(function () {
             Route::post('/add', [DeliveryControllers::class, 'add'])->name("delivery.add");
             Route::put('/update/{id}', [DeliveryControllers::class, 'update'])->name("delivery.update");
         });
-        
-        
         // quản lý nhân viên
         Route::prefix('/staff')->group(function () {
             Route::get('/', [StaffControllers::class, 'index'])->name("staff.index") ;

@@ -52,7 +52,13 @@ CKEDITOR.replace('my-editor', options);
                 <select class="form-control @error('product_category_id') is-invalid @enderror" id="product_category_id"
                     name="product_category_id">
                     <option value='-1'>Chọn danh mục</option>
-                    {!!$htmlOptionCategory!!}
+                    @foreach ($categories as $category)
+                    <option value="{{ $category->id }}"
+                        {{ $product->product_category_id == $category->id ? 'selected' : '' }}>
+                        {{ $category->category_name }}
+                    </option>
+                    @endforeach
+
                 </select>
                 @error('product_category_id')
                 <div class="alert alert-danger">{{ $message }}</div>
@@ -153,22 +159,22 @@ CKEDITOR.replace('my-editor', options);
                     <div class='attribute-input'
                         style="display: flex;margin-top: 10px; row-gap: 20px; display: flex; flex-direction: row; gap: 20px;">
                         <div style="display: flex; width: 100%; gap:20px ;  height: 100%;">
-                        <div style="width: 100%;">
-                            <input type="text" value="{{$attribute->attribute_name}}"
-                                class="form-control @error('product_attribute_keys') is-invalid @enderror"
-                                id="product_attribute_keys" name="product_attribute_keys[]" />
-                            @error('product_attribute_keys')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div style="width: 100%;">
-                            <input type="text" value="{{$attribute->attribute_description}}"
-                                class="form-control @error('product_attribute_names') is-invalid @enderror"
-                                id="product_attribute_names" name="product_attribute_names[]" />
-                            @error('product_attribute_names')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
+                            <div style="width: 100%;">
+                                <input type="text" value="{{$attribute->attribute_name}}"
+                                    class="form-control @error('product_attribute_keys') is-invalid @enderror"
+                                    id="product_attribute_keys" name="product_attribute_keys[]" />
+                                @error('product_attribute_keys')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div style="width: 100%;">
+                                <input type="text" value="{{$attribute->attribute_description}}"
+                                    class="form-control @error('product_attribute_names') is-invalid @enderror"
+                                    id="product_attribute_names" name="product_attribute_names[]" />
+                                @error('product_attribute_names')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
                         <div style="display: flex; height: 100%; margin: auto ; cursor: pointer;"
                             class='remove_input_attribute'>

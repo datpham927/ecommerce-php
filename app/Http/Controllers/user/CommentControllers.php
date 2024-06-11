@@ -19,6 +19,7 @@ class CommentControllers extends Controller
                  "comment_product_id" => $pid,
                  "comment_user_id" => Auth::user()->id,
                  "comment_content" => $request->comment_text,
+                 "comment_rating" => $request->comment_rating,
                  "comment_parent_id" => 0 
              ]); 
              Notification::create([
