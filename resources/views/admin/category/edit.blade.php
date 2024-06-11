@@ -21,13 +21,7 @@
                         <div class="alert alert-danger ">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="form-group">
-                        <label for="category_parent_id">Chọn danh mục cha</label>
-                        <select class="form-control" id="category_parent_id" name="category_parent_id">
-                            <option value='0'>Danh mục cha</option>
-                            {!!$htmlOption!!}
-                        </select>
-                    </div>
+                    
                     <button type="submit" class="btn btn-primary">Cập nhật</button>
                 </form>
 

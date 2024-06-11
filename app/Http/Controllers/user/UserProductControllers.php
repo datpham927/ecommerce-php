@@ -23,7 +23,7 @@ class UserProductControllers extends Controller
         'comment_product_id'=>$id,
         'comment_parent_id'=>0,
        ])->orderBy("created_at","desc")->latest()->paginate(5);
-       return view('pages.detailProduct',compact("detailProduct",'relatedProducts','title_page','comments'));
+       return view('pages.detailProduct.index',compact("detailProduct",'relatedProducts','title_page','comments'));
     }
    //  tìm kiếm sản phẩm
    public function searchResult(Request $request)

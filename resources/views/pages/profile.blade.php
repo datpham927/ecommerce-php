@@ -1,4 +1,4 @@
-@extends("layout.client")
+@extends("layout.client.index")
 
 @section("body")
 <div class="container " style="padding-top: 20px;">

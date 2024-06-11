@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\admin; 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FormSliderRequest;
+use App\Models\Category;
+use App\Models\Notification;
 use App\Models\slider;
 use App\Models\product;
 use App\Models\User;
@@ -24,8 +26,7 @@ class SliderControllers extends Controller
         $this->product = $product;
     }
     
-    public function index(){  
-        
+    public function index(){   
         $sliders=$this->slider->latest()->paginate(5);
         return view("admin.slider.index",compact("sliders"));
     }
@@ -34,7 +35,8 @@ class SliderControllers extends Controller
    
 
     public function create(){  
-          return view("admin.slider.add",);
+        $categories=Category::get();
+          return view("admin.slider.add",compact("categories"));
     }
     
     public function store(FormSliderRequest  $request, slider $slider)
@@ -44,6 +46,7 @@ class SliderControllers extends Controller
         $slug = Str::of($sliderName)->slug('-');
         // Tạo một mảng chứa dữ liệu slider
         $sliderData = [
+            "slider_category_id"=>$request->input("slider_category_id"),
             'slider_name' => $sliderName,
             'slider_description' => $request->input("slider_description"),
         ];
@@ -61,9 +64,9 @@ class SliderControllers extends Controller
 
     
     public function edit($id){
-        
+        $categories= Category::get();
         $slider=$this->slider::find($id);  
-        return view("admin.slider.edit",compact("slider"));
+        return view("admin.slider.edit",compact("slider",'categories'));
     }
     public function update(FormSliderRequest $request,$id){
         

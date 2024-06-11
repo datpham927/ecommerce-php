@@ -11,7 +11,7 @@ class UploadImageControllers extends Controller
     use StoreImageTrait;
     public function uploadImage(Request $request){
         try {
-            $fileImage = $request->file('image');
+            $fileImage = $request->file('image'); 
             $image = $this->HandleTraitUploadMultiple($fileImage, 'customer-storage');
             return response()->json(['code' => 200, 'image' => $image["file_path"]]);
         } catch (\Throwable $th) {

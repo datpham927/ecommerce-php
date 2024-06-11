@@ -1,7 +1,7 @@
-@extends("layout.client")
+@extends("layout.client.index")
 
 @section("footer")
-@include("layout.components.footer")
+@include("layout.client.components.footer")
 @endsection
 
 

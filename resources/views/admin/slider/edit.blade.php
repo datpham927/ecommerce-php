@@ -2,7 +2,7 @@
 
 
 @section("title")
-<title>Thêm slider</title>
+<title>Cập nhật slider</title>
 @endsection
 
 
@@ -22,7 +22,8 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <form action="{{route('slider.store')}}" method="post" enctype="multipart/form-data">
+                <form action="{{route('slider.update',['id'=>$slider->id])}}" method="post"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="slider_name">Tên slider</label>
@@ -42,6 +43,25 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
+
+                    <div style='width: 100%;'>
+                        <label for="slider_category_id">Danh mục</label>
+                        <select class="form-control @error('slider_category_id') is-invalid @enderror"
+                            id="slider_category_id" name="slider_category_id">
+                            <option value='-1'>Chọn danh mục</option>
+                            @foreach ($categories as $category)
+                            <option value="{{ $category->id }}"
+                                {{ $product->slider_category_id == $category->id ? 'selected' : '' }}>
+                                {{ $category->category_name }}
+                            </option>
+                            @endforeach
+
+                        </select>
+                        @error('slider_category_id')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     <div class="form-group">
                         <label for="slider_image">
                             Thêm hình ảnh

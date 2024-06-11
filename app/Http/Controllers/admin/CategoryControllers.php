@@ -24,7 +24,6 @@ class CategoryControllers extends Controller
         $this->slider =  $slider;
     }
     public function index(){  
-        
         $categories=$this->category->latest()->paginate(5);
         $quantityProduct=$this->product->where('product_category_id')->count();
         return view("admin.category.index",compact("categories"));
@@ -56,9 +55,7 @@ class CategoryControllers extends Controller
             "province" => 'required',
             "ward" => 'required'
         ];
-        $request->validate($rules, $messages);
-            
-        dd($request->data);
+        $request->validate($rules, $messages); 
             // Gửi thông báo thành công
             // session()->flash('success', 'Thêm danh mục thành công!');
             return back()->with('success', 'Thêm danh mục thành công!');
@@ -71,9 +68,8 @@ class CategoryControllers extends Controller
     public function edit(Request $request,$id){
         
         $category=$this->category::find($id);
-        $htmlOption= $this->getCategories($category->category_parent_id);
         
-        return view("admin.category.edit",compact("htmlOption","category"));
+        return view("admin.category.edit",compact("category"));
     }
     public function update(Request $request,$id){
         
@@ -87,7 +83,6 @@ class CategoryControllers extends Controller
            $category=$this->category::find($id);
            $category->update([
                 'category_name' =>$request->input('category_name'),
-                'category_parent_id' =>$request->input("category_parent_id") ,
                 'category_slug' => $slug,
             ]);
             session()->flash('success', 'Cập nhật danh mục thành công!');
@@ -95,11 +90,7 @@ class CategoryControllers extends Controller
     }
     public function delete($id){
         
-        try{ 
-            $foundChildrenCategory=$this->category->where("category_parent_id",$id)->get();
-           if($foundChildrenCategory->isNotEmpty()){ 
-             return response()->json(['code' => 200, 'message' => 'Vui lòng xóa hết danh mục con!']);
-           }
+        try{  
            $foundProduct=$this->product->where("product_category_id",$id)->get();
            if($foundProduct->isNotEmpty()){
             session()->flash('error', 'Vui lòng xóa hết sản phẩm thuộc danh mục!');
