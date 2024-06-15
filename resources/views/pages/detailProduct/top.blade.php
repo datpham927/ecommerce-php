@@ -71,7 +71,7 @@
                             </div>
                         </div>
 
-                        @if(Auth::check() && Auth::user()->user_type == 'customer')
+                        @if(!Auth::check() || ( Auth::check()&& Auth::user()->user_type === 'customer'))
                         <button type="submit" class="btn-add-cart" style="border-radius: 2px; outline: none;">
                             <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng
                         </button>

@@ -5,7 +5,7 @@
                 @if($product->product_discount > 0)
                 <san class="product-discount">{{$product->product_discount }}%</san>
                 @endif
-                <img src='{{$product->product_thumb}}' />
+                <img src='{{$product->product_thumb}}' alt="" />
             </div>
             <div class="product-content">
                 <div class="product-title text-ellipsis long-text ">
@@ -30,6 +30,6 @@
                     </div>
                 </div>
             </div>
+        </a>
     </div>
-    </a>
 </div>

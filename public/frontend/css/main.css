@@ -1549,7 +1549,7 @@ h2.title {
 }
 
 #cart_items .cart_info .image {
-    padding-left: 30px;
+    padding-left: 10px;
 }
 
 #cart_items .cart_info .cart_description h4 {
@@ -2823,6 +2823,15 @@ height: 100%;
     text-overflow: ellipsis; /* Hiển thị dấu ba chấm khi văn bản bị ẩn */
     display: inline-block; /* Hiển thị phần tử như một khối cách trái */
 }
+#cart{
+    position:relative;
+    display: flex; 
+    color: white;
+    align-items: center;
+    cursor: pointer;
+    
+}
+ 
 .btn-notification{
     position:relative;
     display: flex; 

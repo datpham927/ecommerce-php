@@ -15,7 +15,7 @@
                 @if(count($products_by_categoryId) > 0)
                 <div class="row">
                     @foreach($products_by_categoryId as $product)
-                    @include('components.productItem', ['comment' => $product])
+                    @include('components.productItem')
                     @endforeach
                 </div>
                 @else
@@ -25,6 +25,7 @@
                     <span style="margin: 10px 0; font-size: 20px;">Không có sản phẩm nào</span>
                 </div>
                 @endif
+            @include('components.pagination',['list'=>$products_by_categoryId,'title'=>'Không có sản phẩm nào!'])
             </div>
         </div>
     </div>

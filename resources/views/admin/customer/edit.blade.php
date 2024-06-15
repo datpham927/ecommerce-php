@@ -64,7 +64,7 @@
                             style="display: flex;justify-content: space-between;">
                             <div class="col" style="min-width: 200px; ">
                                 <label for="city">Chọn thành phố</label>
-                                <select class="form-control choose city" id="city" name="city" required>
+                                <select class="form-control choose city"  name="city" required>
                                     <option value=''>Chọn thành phố</option>
                                     @foreach($cities as $city) 
                                     <option value='{{$city->matp}}'   {{ $customer->user_city_id === $city->matp ? 'selected' : '' }} >{{$city->name}}</option>
@@ -73,7 +73,7 @@
                             </div>
                             <div class="col" style="min-width: 200px; ">
                                 <label for="province">Quận huyện</label>
-                                <select class="form-control choose province" id="province" name="province" required>
+                                <select class="form-control choose province" name="province" required>
                                 @foreach($provinces as $province)
                                     <option value='{{$province->maqh}}'  {{ $customer->user_province_id === $province->maqh ? 'selected' : '' }}>{{$province->name}}</option>
                                     @endforeach
@@ -81,7 +81,7 @@
                             </div>
                             <div class="col" style="min-width: 200px; ">
                                 <label for="ward">Chọn xã phường</label>
-                                <select class="form-control ward" id="ward" name="ward" required>
+                                <select class="form-control ward"  name="ward" required>
                                 @foreach($wards as $ward)
                                     <option value='{{$ward->xaid}}'  {{ $customer->user_ward_id === $ward->xaid ? 'selected' : '' }}>{{$ward->name}}</option>
                                     @endforeach

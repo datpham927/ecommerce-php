@@ -14,7 +14,7 @@
             <div class="col-sm-9">
                 @if(count($products_by_brandId) > 0)
                         @foreach($products_by_brandId as $product)
-                            @include('components.productItem', ['comment' => $product])
+                            @include('components.productItem')
                         @endforeach
                 @else
                     <div style="display: flex; flex-direction: column; align-items: center;">
@@ -22,6 +22,7 @@
                         <span style="margin: 10px 0; font-size: 20px;">Không có sản phẩm nào</span>
                     </div>
                 @endif
+            @include('components.pagination',['list'=>$products_by_brandId,'title'=>'Không có sản phẩm nào!'])
             </div>
         </div>
     </div>

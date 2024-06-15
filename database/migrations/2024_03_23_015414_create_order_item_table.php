@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('order_details', function (Blueprint $table) {
+        Schema::create('order_items', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('od_detail_productId')->nullable;
-            $table->boolean('od_detail_orderId');
-            $table->integer('od_detail_quantity')->nullable;
-            $table->double('od_detail_price');
-            $table->string('od_detail_size');
+            $table->integer('od_item_productId')->nullable;
+            $table->boolean('od_item_orderId');
+            $table->integer('od_item_quantity')->nullable;
+            $table->double('od_item_price');
+            $table->string('od_item_size');
             $table->timestamps();
         });
     }
