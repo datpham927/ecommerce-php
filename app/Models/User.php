@@ -40,7 +40,22 @@ class User extends Authenticatable
         return $this->hasMany(Order::class, 'od_user_id','id');
     }
 
-
+    public function carts()
+    {
+        return $this->hasMany(Cart::class, 'cart_user_id','id');
+    }
+    public function city()
+    {
+        return $this->hasOne(City::class, 'matp','user_city_id');
+    }
+    public function province()
+    {
+        return $this->hasOne(Province::class, 'maqh','user_province_id');
+    }
+    public function ward()
+    {
+        return $this->hasOne(Wards::class, 'xaid','user_ward_id');
+    }
     public function roles()
     {
         return $this->belongsToMany(

@@ -26,17 +26,32 @@
                     @csrf
                     <div class="form-group">
                         <label for="slider_name">Tên slider</label>
-                        <input type="text"  value="{{old('slider_name')}}" class="form-control @error('slider_name') is-invalid @enderror"
-                            id="slider_name" name="slider_name" placeholder="Nhập tên thương hiệu" />
+                        <input type="text" value="{{old('slider_name')}}"
+                            class="form-control @error('slider_name') is-invalid @enderror" id="slider_name"
+                            name="slider_name" placeholder="Nhập tên thương hiệu" />
                         @error('slider_name')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="slider_description">Mô tả slider</label>
-                        <input type="text" value="{{old('slider_description')}}" class="form-control @error('slider_description') is-invalid @enderror"
+                        <input type="text" value="{{old('slider_description')}}"
+                            class="form-control @error('slider_description') is-invalid @enderror"
                             id="slider_description" name="slider_description" placeholder="Nhập tên thương hiệu" />
                         @error('slider_description')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div style='width: 100%;'>
+                        <label for="slider_category_id">Danh mục</label>
+                        <select class="form-control @error('slider_category_id') is-invalid @enderror"
+                            id="slider_category_id" name="slider_category_id">
+                            <option value='-1'>Chọn danh mục</option>
+                            @foreach ($categories as $category)
+                            <option value='{{$category->id}}'>{{$category->category_name}}</option>
+                            @endforeach
+                        </select>
+                        @error('slider_category_id')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>

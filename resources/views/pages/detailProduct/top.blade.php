@@ -1,5 +1,5 @@
-<div class="row" style="margin-top: 15px;">
-    <div class="col-sm-12 padding-right" style="background-color: white; padding: 5px 0;">
+<div class='container' style="background-color: white;margin-top: 20px;padding: 20px;">
+    <div class="col-sm-12" style="background-color: white;">
         <div class="product-details">
             <div class="col-sm-5">
                 <div class="view-product">
@@ -15,22 +15,8 @@
                     </div>
                     <h2 style="margin: 10px 0;font-size: 25px;">{{ $detailProduct->product_name }}</h2>
                     <div style="display: flex;align-items: center;">
-                        <div class="product-rating" style="display: flex;">
-                            @php $rating = $detailProduct->product_ratings; @endphp
-                            @foreach(range(1, 5) as $i)
-                            <span class="fa-stack" style="width:1em;margin:0;margin-right: 3px">
-                                <i class="far fa-star fa-stack-1x"></i>
-                                @if($rating > 0)
-                                @if($rating > 0.5)
-                                <i class="fas fa-star fa-stack-1x"></i>
-                                @else
-                                <i class="fas fa-star-half fa-stack-1x"></i>
-                                @endif
-                                @endif
-                                @php $rating--; @endphp
-                            </span>
-                            @endforeach
-                        </div>
+                        @php $rating = $detailProduct->product_ratings; @endphp
+                        @include("utils.formatRating",['rating'=>$rating])
                         <div
                             style="font-size: 16px; margin-left: 10px;padding-left: 10px;border-left: 1px solid rgba(0,0,0,.14);">
                             {{ $detailProduct->product_sold }} <span class="title" style="font-size: 12px">Đã
@@ -84,12 +70,16 @@
                                 phẩm có sẵn
                             </div>
                         </div>
+
+                        @if(!Auth::check() || ( Auth::check()&& Auth::user()->user_type === 'customer'))
                         <button type="submit" class="btn-add-cart" style="border-radius: 2px; outline: none;">
                             <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng
                         </button>
+                        @endif
+
                     </form>
                 </div>
-                
+
                 <div id="similar-product" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         @foreach($detailProduct->Image->chunk(4) as $images)

@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class City extends Model
 {
     use HasFactory;
-    protected $fillable=[
-        'name','type'
-    ];
+    protected $guarded = [];
     protected $primaryKey='matp';
     protected $table='devvn_tinhthanhpho';
 }

@@ -51,7 +51,9 @@ CKEDITOR.replace('my-editor', options);
                 <select class="form-control @error('product_category_id') is-invalid @enderror" id="product_category_id"
                     name="product_category_id">
                     <option value='-1'>Chọn danh mục</option>
-                    {!!$htmlOptionCategory!!}
+                    @foreach ($categories as $category)
+                   <option value='{{$category->id}}'>{{$category->category_name}}</option>
+                   @endforeach
                 </select>
                 @error('product_category_id')
                 <div class="alert alert-danger">{{ $message }}</div>

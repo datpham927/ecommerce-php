@@ -95,7 +95,7 @@ a#scrollUp i {
 }
 
 .social-icons ul li a i {
-    padding: 11px 15px;
+    padding: 11px 5px;
     transition: all 0.9s ease 0s;
     -moz-transition: all 0.9s ease 0s;
     -webkit-transition: all 0.9s ease 0s;
@@ -1132,7 +1132,7 @@ h2.title {
 }
 
 .product-details {
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     overflow: hidden;
     margin-top: 10px;
 }
@@ -1549,7 +1549,7 @@ h2.title {
 }
 
 #cart_items .cart_info .image {
-    padding-left: 30px;
+    padding-left: 10px;
 }
 
 #cart_items .cart_info .cart_description h4 {
@@ -2447,8 +2447,9 @@ textarea {
     border-bottom-left-radius: 2px;
 }
 
-.product-top img {
+.product-top img { 
     width: 100%;
+    height: 100%;
     display: block;
 }
 
@@ -2705,20 +2706,29 @@ height: 100%;
     height: 100%;
       object-fit: fill;
  }
-.comment-input input{
-    height: 40px;
+.wrapper-comment-input{
+    display: flex;
+    align-items: center;
     width: 100%;
-    padding: 30px;
     border-radius: 10px ;
-    outline: none;
     border: 1px solid #757575;
     overflow: hidden;
+
+}
+
+.comment-input input{
+    width: 100%;
+    width: 100%;
+    padding: 20px;
+    outline: none;
+    border: none;
+
     
 }
 .comment-item{
     display: flex;
     padding: 10px;
-    border-left:1px solid #F0F2F5 ;
+    border-bottom:1px solid #F0F2F5 ;
     margin: 20px 0;
 }
 .comment-item-avatar{ 
@@ -2741,8 +2751,7 @@ height: 100%;
  .comment-item-content{
     width: 100%;
     padding: 5px 15px;
-    background-color: #F0F2F5;
-    border-radius: 10px;
+    border-radius: 10px; 
     font-size: 13px;
     overflow: hidden;
  }
@@ -2768,17 +2777,19 @@ height: 100%;
     justify-content: center;
 }
 .btn-rep-comment,.btn-delete-comment{
-    margin: 0 5px;
+    margin-right:5px;
+    padding: 5px 15px;
+    border-radius: 4px;
     border: none;
-    background: none;
 }
 
 .btn-rep-comment:hover,.btn-delete-comment:hover{
-    text-decoration-line: underline;
-    color: #ee4d2d !important;
+    background-color: #ff6b4e ;
+    color: white  !important;
 }
 
 .input-comment-rep{
+    margin-top: 5px;
     height: 20px;
     width: 100%;
     padding: 20px;
@@ -2812,3 +2823,116 @@ height: 100%;
     text-overflow: ellipsis; /* Hiển thị dấu ba chấm khi văn bản bị ẩn */
     display: inline-block; /* Hiển thị phần tử như một khối cách trái */
 }
+#cart{
+    position:relative;
+    display: flex; 
+    color: white;
+    align-items: center;
+    cursor: pointer;
+    
+}
+ 
+.btn-notification{
+    position:relative;
+    display: flex; 
+    font-size: 20px;
+    color: white;
+    align-items: center;
+    cursor: pointer;
+}
+.btn-notification:hover .box-notification {
+    display: block;
+}
+
+.box-notification {
+    position: absolute;
+    width: 300px;
+    background-color: white;
+    height: 350px; /* Sử dụng max-height để cho phép nội dung cuộn */
+    padding: 0;  
+    top:30px;
+    right: 30px;
+    z-index: 999;
+    border-radius: 10px;
+    overflow-y: auto; /* Hiển thị thanh cuộn dọc khi cần */
+    display: none;
+}
+
+.item-notification {
+    padding: 10px; 
+     width: 100%;
+    
+}
+.item-notification.not-seen{
+    background: #FEF3EF;
+    
+}
+
+
+.badge {
+    position: absolute;
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: #777;
+    border-radius: 10px;
+    left: 10px;
+    top: 2px;
+}
+
+ body {
+    margin: 20px auto;
+    font-family: "Lato";
+    font-weight: 300;
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 2.75rem;
+  }
+  
+  div.all-rating-widgets {
+    display: flex;
+    justify-content: center;
+  }
+  
+  div.rating-wrapper {
+    display: flex;
+    align-items: first baseline;
+    flex-direction: column;
+    font-size: 1.5rem;
+    margin: 0 20px;
+  }
+  
+  div.star-wrapper {
+    font-size: 2rem;
+  }
+  
+  div.star-wrapper i {
+    cursor: pointer;
+  }
+  
+  div.star-wrapper i.yellow {
+    color: #fdd835;
+  }
+  
+  div.star-wrapper i.vote-recorded {
+    color: #f57c00;
+  }
+  
+  p.v-data {
+    background: #ccc;
+    padding: 0.5rem;
+  }
+  
+
+  .comment-children-container{
+    border-top: 1px solid #F0F2F5;
+  }

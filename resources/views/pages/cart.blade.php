@@ -2,8 +2,7 @@
 
 @section("footer")
 @include("layout.client.components.footer")
-@endsection
-
+@endsection 
 
 
 @section("body")

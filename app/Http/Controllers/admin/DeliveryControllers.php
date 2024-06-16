@@ -21,6 +21,8 @@ class DeliveryControllers extends Controller
        public function selectDelivery(Request $request) {
         $output = '';
         // Lấy mã code và chuẩn hóa độ dài mã code
+        // trong database lưu 001 mà $request->input('code') = 1 
+        //  nên phải chuẩn hóa độ dài thành 001
         $code = str_pad($request->input('code'), $request->input('action') === 'city' ? 2 : 3, '0', STR_PAD_LEFT);
         if ($request->input('action') === 'city') {
             $provinces = Province::where('matp', $code)->orderBy("maqh",'asc')->get();

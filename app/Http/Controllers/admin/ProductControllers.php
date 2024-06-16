@@ -67,24 +67,19 @@ class ProductControllers extends Controller
     
  
      
-     function getCategory($parent_id=0){
-        $recursive = new CategoryRecursive($this->category);
-        return $recursive->categoryRecursive($parent_id);
-      }
+     
 
     public function create(){ 
-        
         $brands= $this->brand->get();
-        $htmlOptionCategory= $this->getCategory("");
-        return view("admin.product.add",compact('brands',"htmlOptionCategory") );
+        $categories= $this->category->get();
+        return view("admin.product.add",compact('brands',"categories") );
     }
        
 
   
 
     public function store(FormAddProductRequest $request){
-        try {
-            
+        try { 
             DB::beginTransaction();
         // *********    insert table Product  *********  
         $dataProduct= array();
@@ -166,10 +161,10 @@ class ProductControllers extends Controller
             $images=$this->image->where('image_product_id',$product["id"])->get();
             $attributes=$this->attribute->where('attribute_product_id',$product["id"])->get();
             $sizes= $this->size->where('size_product_id',$product["id"])->get();
-            $htmlOptionCategory= $this->getCategory($product['product_category_id']);
+            $categories= $this->category->get();
             $brands= $this->brand->get();
            return view('admin.product.edit',compact('product','images','attributes',
-                                                    'brands','htmlOptionCategory','sizes'));
+                                                    'brands','categories','sizes'));
     }
     public function update(FormEditProductRequest $request,$id){
         try {

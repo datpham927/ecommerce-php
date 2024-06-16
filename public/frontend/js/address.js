@@ -3,21 +3,21 @@ $(function() {
         const action = $(this).attr('name');
         const code = $(this).val();
         $(".ward").html('<option value="0">Chọn xã phường</option>'); // Xóa nội dung của phần tử #ward
-        var result = '';
-        if (action == 'city') {
+        let result = '';
+        if (action === 'city') {
              result = "province";
         } else {
             result = "ward";
         }
         $.ajax({
             type: 'POST',
-            url: '/admin/delivery/select-delivery',
+            url: 'profile/select-address',
             data: { action: action, code: code },
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function(response) {
-                console.log( $("." + result))
+                console.log(response);
                 $("." + result).html(response);
             },
             error: function(error) {
@@ -25,20 +25,5 @@ $(function() {
                 alert('Đã xảy ra lỗi!');
             }
         });
-    });
-    $(".freeship").change(function(){
-        const dataUrl = $(this).data("url");
-        const feeship=$(this).val();
-        $.ajax({
-            method: "put",
-            url: dataUrl,
-            data: { feeship: feeship },
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }, 
-            error: function(error) {
-                alert('Đã xảy ra lỗi!');
-            }
-        });
-    });
+    });  
 });

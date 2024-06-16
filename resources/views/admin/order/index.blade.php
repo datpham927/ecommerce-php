@@ -60,7 +60,7 @@
                     @foreach($orders as $orderItem)
                     <tr>
                         <td style="text-align: center;">{{$orderItem->id}}</td>
-                        <td style="text-align: center; color: chocolate;">
+                        <td style="color: chocolate;">
                             @if ($orderItem['od_is_delivering'] &&
                             $orderItem['od_is_success']&&!$orderItem['od_is_canceled'])
                             Giao hàng thành công
@@ -77,12 +77,12 @@
                             @endif
                         </td>
                         <td>
-                            @foreach($orderItem->OrderDetail as $orderDetailItem)
+                            @foreach($orderItem->OrderItem as $OrderItemItem)
                             <div style="display: flex">
                                 <p class="text-ellipsis long-text" style="max-width: 350px !important;;">
-                                    {{$orderDetailItem->product->product_name}}
+                                    {{$OrderItemItem->product->product_name}}
                                 </p>
-                                <span style="color:blue"> x {{$orderDetailItem->od_detail_quantity}}</span> </p>
+                                <span style="color:blue"> x {{$OrderItemItem->od_item_quantity}}</span> </p>
                             </div>
                             @endforeach
 
@@ -90,8 +90,8 @@
                         <td style="text-align: center;">
                             <?php
                                 $totalPrice = 0;
-                                foreach($orderItem->OrderDetail as $orderDetail) {
-                                    $totalPrice += $orderDetail->od_detail_quantity * $orderDetail->od_detail_price;
+                                foreach($orderItem->OrderItem as $OrderItem) {
+                                    $totalPrice += $OrderItem->od_item_quantity * $OrderItem->od_item_price;
                                 }
                                 echo  number_format($totalPrice , 0, ',', '.')."₫";
                             ?>
@@ -101,14 +101,14 @@
                                 <a href='{{route('admin.order.detail', ['oid' => $orderItem->id])}}'
                                     style="cursor: pointer;">Xem chi tiết</a>
 
-                                    @can(config("permission.access.edit-order"))
+                                @can(config("permission.access.edit-order"))
                                 @if (!in_array($active, ['order', 'canceled', 'success']))
                                 <a style="cursor: pointer;" class="btn-confirm-status-order" data-url="{{ route(
                                         $active == 'confirm' ? 'admin.order.status.confirmation' :
                                         ($active == 'confirm-delivery' ? 'admin.order.status.confirm_delivery' :
                                       'admin.order.status.delivered'  ), ['oid' => $orderItem->id]) }}">
                                     Xác nhận
-                                </a> 
+                                </a>
                                 @endif
                                 @endcan
 
@@ -124,7 +124,7 @@
             </table>
         </div>
         <footer class="panel-footer">
-             @include('components.pagination',['list'=>$orders,'title'=>'Không có đơn hàng nào!'])
+            @include('components.pagination',['list'=>$orders,'title'=>'Không có đơn hàng nào!'])
         </footer>
     </div>
 </div>

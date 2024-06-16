@@ -21,9 +21,9 @@ return new class extends Migration
             $table->string('user_password')->default("");
             $table->string('user_address')->nullable();
             $table->string('user_mobile')->nullable();
-            $table->string('user_image_url')->nullable();
+            $table->string('user_image_url')->default('https://intomau.com/Content/upload/images/quynh-aka-cuoi-mim-chi.jpg');
             $table->boolean('user_is_block')->default(0);
-            $table->string('user_type')->default('customer'); // admin/employee
+            $table->string('user_type')->default('customer'); // admin - employee - customer
             $table->rememberToken(); 
             $table->timestamps();
         });

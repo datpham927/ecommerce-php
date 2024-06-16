@@ -813,12 +813,26 @@ pre code {
     .container {
         width: 750px
     }
+    
 }
-
+@media(max-width:991px) {
+    .container {
+        width: 750px
+    }
+    .product-top img{
+        width:  125px !important  ;   
+        height: 157px !important
+     }
+}
 @media(min-width:992px) {
     .container {
         width: 970px
     }
+    .product-top img{
+        width:  204px !important  ;   
+        height: 257px !important
+     }
+   
 }
 
 @media(min-width:1200px) {
@@ -4104,7 +4118,8 @@ textarea.input-group-sm>.input-group-btn>.btn {
 
 .nav>li>a:hover,
 .nav>li>a:focus {
-    text-decoration: none
+    text-decoration: none;
+    background-color: none;
 }
 
 .nav>li.disabled>a {
@@ -4194,6 +4209,7 @@ textarea.input-group-sm>.input-group-btn>.btn {
     .nav-tabs.nav-justified>li>a {
         margin-bottom: 0
     }
+    
 }
 
 .nav-tabs.nav-justified>li>a {

@@ -43,7 +43,6 @@ Route::middleware(['auth-admin'])->group(function () {
 Route::prefix('admin')->group(function () { 
         Route::get('/dashboard', [SystemControllers::class, 'showDashboard'])->name('admin.dashboard');
         Route::get('/logout', [AdminLoginControllers::class, 'logout'])->name('admin.logout');
-        
         Route::prefix('/delivery')->group(function () {
             Route::get('/', [DeliveryControllers::class, 'index'])->name("delivery.index");
             Route::get('/city', [DeliveryControllers::class, 'city']);
@@ -51,8 +50,6 @@ Route::prefix('admin')->group(function () {
             Route::post('/add', [DeliveryControllers::class, 'add'])->name("delivery.add");
             Route::put('/update/{id}', [DeliveryControllers::class, 'update'])->name("delivery.update");
         });
-        
-        
         // quản lý nhân viên
         Route::prefix('/staff')->group(function () {
             Route::get('/', [StaffControllers::class, 'index'])->name("staff.index") ;
@@ -135,12 +132,12 @@ Route::prefix('admin')->group(function () {
             Route::get('/delivered', [OrderControllers::class, 'index'])->name("admin.order.delivered")->middleware('can:list_order');
             Route::get('/success', [OrderControllers::class, 'index'])->name("admin.order.success")->middleware('can:list_order');
             Route::get('/canceled', [OrderControllers::class, 'index'])->name("admin.order.canceled")->middleware('can:list_order');
-            Route::get('/detail/{oid}', [OrderControllers::class, 'getOrderDetailByAdmin'])->name("admin.order.detail")->middleware('can:list_order');
+            Route::get('/detail/{oid}', [OrderControllers::class, 'getOrderItemByAdmin'])->name("admin.order.detail")->middleware('can:list_order');
             //    xác nhận đơn hàng
-            Route::put('/is-confirm/{oid}', [OrderControllers::class, 'isConfirm'])->name("admin.order.status.confirmation")->middleware('can:edit_order');
-            Route::put('/is-confirm-delivery/{oid}', [OrderControllers::class, 'isConfirmDelivery'])->name("admin.order.status.confirm_delivery")->middleware('can:edit_order');
-            Route::put('/is-delivered/{oid}', [OrderControllers::class, 'isDelivered'])->name("admin.order.status.delivered")->middleware('can:edit_order');
-            Route::post('/is-canceled/{oid}', [OrderControllers::class, 'isCanceled'])->name("order.is_canceled")->middleware('can:edit_order');
+            Route::put('/is-confirm/{oid}', [OrderControllers::class, 'confirmOrderStatus'])->name("admin.order.status.confirmation")->middleware('can:edit_order');
+            Route::put('/is-confirm-delivery/{oid}', [OrderControllers::class, 'confirmOrderStatus'])->name("admin.order.status.confirm_delivery")->middleware('can:edit_order');
+            Route::put('/is-delivered/{oid}', [OrderControllers::class, 'confirmOrderStatus'])->name("admin.order.status.delivered")->middleware('can:edit_order');
+            Route::post('/is-canceled/{oid}', [OrderControllers::class, 'confirmOrderStatus'])->name("order.is_canceled")->middleware('can:edit_order');
         }); 
 });
 });
@@ -156,6 +153,8 @@ Route::prefix('/')->group(function () {
         Route::post('/store-register',[UserLoginControllers::class,'storeRegister'])->name('user.store_register');
         Route::get('/profile', [UserLoginControllers::class, 'showProfile'])->middleware('auth')->name("user.profile");
         Route::post('/profile/update', [UserLoginControllers::class, 'update'])->middleware('auth')->name("user.update");
+        Route::post('profile/select-address', [DeliveryControllers::class, 'selectDelivery']);
+    
     }); 
     Route::prefix('/category')->group(function () { 
         Route::get('/danh-muc-san-pham/{slug}/{cid}', [HomeControllers::class, 'showCategoryHome'])->name("category.show_product_home");
@@ -187,6 +186,8 @@ Route::prefix('/')->group(function () {
          Route::get('/view-checkout', [UserOrderControllers::class, 'viewCheckout'])->name("order.view_checkout");
          Route::put('/is-canceled/{oid}', [UserOrderControllers::class, 'isCanceled'])->name("order.isCanceled");
     }); 
+
+
 
     Route::prefix('/comment')->middleware('auth')->group(function () { 
         Route::post('/add/{pid}', [CommentControllers::class, 'create'])->name("comment.add");

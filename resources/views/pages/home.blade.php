@@ -54,6 +54,20 @@
                         @endif
                     </div>
                 </div>
+
+                <div class="recommended_items" style="margin: 30px 0">
+                    <!--recommended_items-->
+                    <div style="width: 100%; padding: 0 10px;">
+                        <h2 class="title" style="margin: 0;">Sản phẩm bán chạy</h2>
+                    </div>
+                    <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            @foreach($HotSellingProducts as $itemProducts)
+                                @include('components.productItem',['product'=>$itemProducts])
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>

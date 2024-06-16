@@ -15,7 +15,6 @@ class OrderControllers extends Controller
 {
     public function index(Request $request)
 {
-    
     // Xác định trạng thái đơn hàng và lấy danh sách đơn hàng tương ứng
     // Lấy phần cuối của URL
     $lastSegment = Str::afterLast(request()->url(), '/');
@@ -51,88 +50,43 @@ class OrderControllers extends Controller
     return view('admin.order.index', compact('orders', 'active'));
 }
 
-
-// public function confirmOrderStatus($oid){
-//     try {
-//         $currentUrl = Request::url();
-//         $segmentBeforeLast = Str::beforeLast($currentUrl, '/');
-//         $lastSegment = Str::afterLast($segmentBeforeLast, '/');
-//         $order = Order::find($oid);
-//         // Thêm định dạng ngày tháng năm
-//         $formattedDate = Carbon::now()->locale('vi')->isoFormat('dddd, DD/MM/YYYY');
-//         $updates=[
-//             'confirm' => ['od_is_confirm' => true],
-//             'confirm-delivery' => ['od_is_confirm_delivery' => true],
-//             'delivering' => ['od_is_delivering' => true],
-//             'success' => ['od_is_success' => true],
-//         ];
-//         $orderNotification= config("constants.Order-notification-title");
-//         $order = Order::find($oid);
-//         if (array_key_exists($lastSegment, $updates)) {
-//             $order->update($updates[$lastSegment]);
-//             Notification::create([
-//                 'n_user_id' => $order->od_user_id,
-//                 "n_title" => $orderNotification[$lastSegment],
-//                 "n_subtitle" =>$formattedDate,
-//                 "n_image" => "https://imaxmobile.vn/media/data/icon-giao-hang-toan-quoc.jpeg",
-//                 "n_link" => "/"
-//             ]);
-//         }
-//         return Response::json(['code' => 200, 'message' => 'true']);
-        
-//     } catch (\Exception $e) {
-//         // Ghi log lỗi
-//         Log::error($e->getMessage());
-//         // Trả về phản hồi lỗi
-//         return Response::json(['code' => 500, 'message' => 'failed']);
-//     }
-// }
-
-
-public function isConfirm($oid){
+public function confirmOrderStatus(Request $request,$oid){
     try {
+        $currentUrl = $request->url();
+        $segmentBeforeLast = Str::beforeLast($currentUrl, '/');
+        $lastSegment = Str::afterLast($segmentBeforeLast, '/');
         $order = Order::find($oid);
-        $order->od_is_confirm = true;
-        $order->save();
-        return response()->json(['code' => 200, 'message' => 'true']);
+        // Thêm định dạng ngày tháng năm
+        $formattedDate = Carbon::now()->locale('vi')->isoFormat('dddd, DD/MM/YYYY');
+        $updates=[
+            'is-confirm' => ['od_is_confirm' => true],
+            'is-confirm-delivery' => ['od_is_confirm_delivery' => true], 
+            'is-delivered' => ['od_is_delivering' => true,'od_is_success' => true],
+        ];
+        $orderNotification= config("constants.Order-notification");
+        $order = Order::find($oid);
+        if (array_key_exists($lastSegment, $updates)) {
+            $order->update($updates[$lastSegment]);
+              Notification::create([
+                'n_user_id' => $order->od_user_id,
+                "n_title" => $orderNotification[$lastSegment]['message'],
+                "n_subtitle" =>$formattedDate,
+                "n_image" => "https://imaxmobile.vn/media/data/icon-giao-hang-toan-quoc.jpeg",
+                "n_link" => $orderNotification[$lastSegment]['link']
+            ]);
+            return Response::json(['code' => 200, 'message' => 'true']);
+        }
+        return Response::json(['code' => 202, 'message' => 'false']);
     } catch (\Exception $e) {
-        // Log error
+        // Ghi log lỗi
         Log::error($e->getMessage());
-        // Send error response
-        return response()->json(['code' => 500, 'message' => 'failed']);
+        // Trả về phản hồi lỗi
+        return Response::json(['code' => 500, 'message' => 'failed']);
     }
 }
-public function isConfirmDelivery($oid){
-    try {
-        $order = Order::find($oid);
-        $order->od_is_confirm_delivery = true;
-        $order->save();
-        return response()->json(['code' => 200, 'message' => 'true']);
-    } catch (\Exception $e) {
-        // Log error
-        Log::error($e->getMessage());
-        // Send error response
-        return response()->json(['code' => 500, 'message' => 'failed']);
-    }
-}
-public function isDelivered($oid){
-    try {
-        $order = Order::find($oid);
-        $order->od_is_delivering = true;
-        $order->od_is_success = true;
-        $order->save();
-        return response()->json(['code' => 200, 'message' => 'true']);
-    } catch (\Exception $e) {
-        // Log error
-        Log::error($e->getMessage());
-        // Send error response
-        return response()->json(['code' => 500, 'message' => 'failed']);
-    }
-}
-
-public function getOrderDetailByAdmin($oid){
-        $orderDetail=Order::find($oid);
-        return view('admin.order.detail',compact('orderDetail'));
+public function getOrderItemByAdmin($oid){
+        $OrderDetail=Order::find($oid);
+        return view('admin.order.detail',compact('OrderDetail'));
 }
 
 }

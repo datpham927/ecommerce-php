@@ -9,10 +9,22 @@ return [
         'success' => ['od_is_canceled' => false, 'od_is_confirm' => true, 'od_is_confirm_delivery' => true, 'od_is_delivering' => true, 'od_is_success' => true],
         'canceled' => ['od_is_canceled' => true],
     ],
-    'Order-notification-title'=>[
-        'confirm' => "Đơn hàng của bạn đã được xác nhận!",
-        'confirm-delivery' => "Đơn hàng của bạn đã được xác nhận để vận chuyển!",
-        'delivering' => "Đơn hàng của bạn đang được vận chuyển",
-        'success' => ['od_is_success' => true],
+    'Order-notification'=>[
+        'is-confirm' =>[
+            'message'=> "Đơn hàng của bạn đã được xác nhận!",
+            'link'=>"/order/confirm-delivery"
+        ],
+        'is-confirm-delivery' => [
+            'message'=> "Đơn hàng của bạn đã được xác nhận để vận chuyển!",
+             'link'=>"/order/delivering"
+        ],
+        'is-delivering' =>[
+            'message'=>  "Đơn hàng của bạn đang được vận chuyển",
+             'link'=>"/order/delivering"
+        ],
+        'is-delivered' => [
+            'message'=> "Đơn hàng của bạn đã được giao",
+            'link'=>"/order/success"
+        ],
     ]
 ];

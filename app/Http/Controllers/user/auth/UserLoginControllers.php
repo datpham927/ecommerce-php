@@ -96,7 +96,7 @@ public function update(Request $request) {
         'user_province_id' => $request->province,
         'user_ward_id' => $request->ward,
     ]); 
-    return  redirect()->back()->with(['success'=>'Cập nhật thànhc công']);
+    return  redirect()->back()->with(['success'=>'Cập nhật thành công']);
 }
 
 }

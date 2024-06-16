@@ -6,7 +6,6 @@
         <!--category-productsr-->
 
         @foreach($categories as $category)
-        @if($category->category_parent_id == 0)
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
@@ -16,7 +15,6 @@
             </div>
 
         </div>
-        @endif
         @endforeach
 
     </div>

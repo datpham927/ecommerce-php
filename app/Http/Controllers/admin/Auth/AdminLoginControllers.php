@@ -20,13 +20,7 @@ class AdminLoginControllers extends Controller
      function storeLogin(Request $request)
      {
         $user_name = $request->input('user_name');
-        $user_password = $request->input('user_password');
-        // được sử dụng để thử xác thực thông tin
-        //  người dùng với vai trò cụ thể 
-        //  (trong trường hợp này là vai trò admin)
-        //  Auth::guard('admin'):  Laravel sẽ sử dụng bảng admins 
-        //    trong cơ sở dữ liệu để tìm kiếm và xác thực người dùng.
-        // thêm class Admin extends Model implements Authenticatable
+        $user_password = $request->input('user_password'); 
         if (Auth::attempt(['user_name' => $user_name, 'password' => $user_password])) {
             return redirect()->route('admin.dashboard');
         }
