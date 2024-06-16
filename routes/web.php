@@ -14,6 +14,7 @@ use App\Http\Controllers\admin\CustomerControllers;
 use App\Http\Controllers\admin\DeliveryControllers;
 use App\Http\Controllers\admin\UploadImageControllers;
 use App\Http\Controllers\CrawlerControllers;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\user\auth\UserLoginControllers;
 use App\Http\Controllers\user\CartControllers;
 use App\Http\Controllers\user\CommentControllers;
@@ -38,6 +39,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/admin', [AdminLoginControllers::class, 'login'])->name('admin.login');
 Route::post('/admin/store-login', [AdminLoginControllers::class, 'storeLogin'])->name('admin.storeLogin');
 Route::post('/upload-image', [UploadImageControllers ::class, 'uploadImage'])->name("upload_image");
+Route::put('/is-watched/{nid}', [NotificationController ::class, 'isWatched'])->name("notification.is-watched");
 
 Route::middleware(['auth-admin'])->group(function () {
 Route::prefix('admin')->group(function () { 

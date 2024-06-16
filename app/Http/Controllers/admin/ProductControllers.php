@@ -12,6 +12,7 @@ use App\Models\attribute;
 use App\Models\brand;
 use App\Models\Category;
 use App\Models\Images;
+use App\Models\Notification;
 use App\Models\Product;
 use App\Models\Size;
 use App\Models\User;
@@ -145,6 +146,14 @@ class ProductControllers extends Controller
               ]);
           }
        }
+       Notification::create([
+        'n_user_id' => null,
+        'n_title' => 'Có một sản phẩm mới',
+        'n_subtitle' => $newProduct->product_name,
+        'n_image' => $newProduct->product_thumb,
+        'n_link' => '/product/' . $newProduct->product_slug . '/' . $newProduct->id
+    ]);
+    
        DB::commit();
        return back()->with('success', 'Thêm sản phẩm thành công!');
         } catch (\Throwable $exception) {

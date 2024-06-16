@@ -47,6 +47,7 @@
     <script src="{{asset('backend/js/user_.js')}}"></script>
     <script src="{{asset('backend/js/delivery.js')}}"></script>
     <script src="{{asset('backend/js/multi-select.js')}}"></script>
+    <script src="{{asset('frontend/js/notification.js')}}"></script>
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @yield("js")
@@ -90,86 +91,20 @@
             <div class="nav notify-row" id="top_menu">
                 <!--  notification start -->
                 <ul class="nav top-menu">
-                    <!-- settings start -->
-                    <!-- <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <i class="fa fa-tasks"></i>
-                            <span class="badge bg-success">8</span>
-                        </a>
-                        <ul class="dropdown-menu extended tasks-bar">
-                            <li>
-                                <p class="">You have 8 pending tasks</p>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="task-info clearfix">
-                                        <div class="desc pull-left">
-                                            <h5>Target Sell</h5>
-                                            <p>25% , Deadline 12 June’13</p>
-                                        </div>
-                                        <span class="notification-pie-chart pull-right" data-percent="45">
-                                            <span class="percent"></span>
-                                        </span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="task-info clearfix">
-                                        <div class="desc pull-left">
-                                            <h5>Product Delivery</h5>
-                                            <p>45% , Deadline 12 June’13</p>
-                                        </div>
-                                        <span class="notification-pie-chart pull-right" data-percent="78">
-                                            <span class="percent"></span>
-                                        </span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="task-info clearfix">
-                                        <div class="desc pull-left">
-                                            <h5>Payment collection</h5>
-                                            <p>87% , Deadline 12 June’13</p>
-                                        </div>
-                                        <span class="notification-pie-chart pull-right" data-percent="60">
-                                            <span class="percent"></span>
-                                        </span>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="task-info clearfix">
-                                        <div class="desc pull-left">
-                                            <h5>Target Sell</h5>
-                                            <p>33% , Deadline 12 June’13</p>
-                                        </div>
-                                        <span class="notification-pie-chart pull-right" data-percent="90">
-                                            <span class="percent"></span>
-                                        </span>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <li class="external">
-                                <a href="#">See All Tasks</a>
-                            </li>
-                        </ul>
-                    </li> -->
-                    <!-- settings end -->
-                    <!-- inbox dropdown start-->
                     @php
                     use App\Models\Notification;
-                    $notifications = Notification::where(["n_user_id" => null])->get();
+                    $notifications = Notification::where(["n_user_id" => null])->orderBy('created_at','desc')->get();
+                    $notifications_notseen = Notification::where([
+                    'n_user_id' => null,
+                    'n_is_watched' => false
+                    ])->count();
                     @endphp
-                    <li id="header_inbox_bar" class="dropdown"  >
+                    <li id="header_inbox_bar" class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <i class="fa fa-envelope-o"></i>
-                            <span class="badge bg-important">{{count($notifications)}}</span>
+                            <span class="badge bg-important">{{$notifications_notseen??0}}</span>
                         </a>
-                        <ul class="dropdown-menu extended inbox" >
+                        <ul class="dropdown-menu extended inbox">
                             @if(count($notifications)==0)
                             <div
                                 style=" display: flex;height: 400px;  align-items: center;justify-content: center; background-color: white;">
@@ -183,10 +118,10 @@
                             <li>
                                 <p class="red">Bạn có {{ count($notifications) }} thông báo</p>
                             </li>
-
                             @foreach($notifications as $notification)
                             <li>
-                                <a href="{{ $notification->n_link }}">
+                                <a href="{{ $notification->n_link }}"class='btn-notification {{!$notification->n_is_watched ?"not-seen":""}}'
+                                    data-url="{{route('notification.is-watched',['nid'=>$notification->id])}}">
                                     <span class="photo"><img alt="avatar" src="{{ $notification->n_image }}"></span>
                                     <span class="subject long-text" style="max-width: 200px!important;">
                                         <span class="from">{{ $notification->n_title }}</span>
@@ -199,48 +134,7 @@
                             @endforeach
                             @endif
                         </ul>
-
                     </li>
-                    <!-- inbox dropdown end -->
-                    <!-- notification dropdown start -->
-                    <!-- <li id="header_notification_bar" class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-
-                            <i class="fa fa-bell-o"></i>
-                            <span class="badge bg-warning">3</span>
-                        </a>
-                        <ul class="dropdown-menu extended notification">
-                            <li>
-                                <p>Notifications</p>
-                            </li>
-                            <li>
-                                <div class="alert alert-info clearfix">
-                                    <span class="alert-icon"><i class="fa fa-bolt"></i></span>
-                                    <div class="noti-info">
-                                        <a href="#"> Server #1 overloaded.</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="alert alert-danger clearfix">
-                                    <span class="alert-icon"><i class="fa fa-bolt"></i></span>
-                                    <div class="noti-info">
-                                        <a href="#"> Server #2 overloaded.</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="alert alert-success clearfix">
-                                    <span class="alert-icon"><i class="fa fa-bolt"></i></span>
-                                    <div class="noti-info">
-                                        <a href="#"> Server #3 overloaded.</a>
-                                    </div>
-                                </div>
-                            </li>
-
-                        </ul>
-                    </li> -->
-                    <!-- notification dropdown end -->
                 </ul>
                 <!--  notification end -->
             </div>
