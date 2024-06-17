@@ -36,7 +36,7 @@ class UserOrderControllers extends Controller
         });
         // Use the null coalescing operator to handle the feeship
         $feeship = $foundFeeship ?? 0;
-        return view('pages.checkout', compact('carts', 'user', 'totalPrice', 'feeship'));
+        return view('client.pages.checkout', compact('carts', 'user', 'totalPrice', 'feeship'));
     }
     
     public function addOrder(Request $request)
@@ -187,6 +187,6 @@ class UserOrderControllers extends Controller
         $orders = $query->get();
         $active = $lastSegment;
         // Trả về view 'pages.order.orderList' với dữ liệu đơn hàng và active
-        return view('pages.order.orderList', compact('orders', 'active'));
+        return view('client.pages.order.orderList', compact('orders', 'active'));
     }
 }

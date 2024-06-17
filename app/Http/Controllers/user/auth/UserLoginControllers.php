@@ -24,7 +24,7 @@ class UserLoginControllers extends Controller
         if (Auth::check()) { 
             return redirect()->back();
         }
-        return view('pages.login');
+        return view('client.pages.login');
      }
      
      function storeLogin(Request $request)
@@ -46,7 +46,7 @@ class UserLoginControllers extends Controller
         if ($adminId!= null) { 
             return redirect()->back();
         }
-        return view('pages.register');
+        return view('client.pages.register');
      }
      public function storeRegister(Request $request)
     {
@@ -82,7 +82,7 @@ class UserLoginControllers extends Controller
         $provinces= Province::orderBy("maqh",'asc')->get();
         $wards= Wards::orderBy("xaid",'asc')->get();
         $user=Auth::user();
-        return view('pages.profile',compact("user",'cities','provinces','wards'));
+        return view('client.pages.profile',compact("user",'cities','provinces','wards'));
      }
 
 

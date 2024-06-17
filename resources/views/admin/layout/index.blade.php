@@ -77,11 +77,11 @@
 
     <section id="container">
         <!--header start-->
-        @include("layout.admin.components.header")
+        @include("admin.layout.components.header")
         <!--header end-->
         <!--sidebar start-->
         <aside>
-            @include("layout.admin.components.sidebar")
+            @include("admin.layout.components.sidebar")
         </aside>
         <!--sidebar end-->
         <!--main content start-->

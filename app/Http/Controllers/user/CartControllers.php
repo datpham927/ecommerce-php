@@ -50,7 +50,7 @@ class CartControllers extends Controller
     {
         $userId = Session::get('user_id');
         $carts = Cart::where('cart_user_id', $userId)->get();
-        return view('pages.cart',compact("carts"));
+        return view('client.pages.cart',compact("carts"));
     }
     
     public function increase($cid)

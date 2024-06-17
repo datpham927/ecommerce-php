@@ -1,8 +1,8 @@
-@extends("layout.client.index")
+@extends("client.layout.index")
 
 
 @section("footer")
-@include("layout.client.components.footer")
+@include("client.layout.components.footer")
 @endsection
 
 
@@ -14,7 +14,7 @@
             @if(count($products)>0)
             <div class="features_items">
                 @foreach($products as $product)
-                @include('components.productItem',['col'=>'col-sm-2'])
+                @include('client.components.productItem',['col'=>'col-sm-2'])
                 @endforeach
             </div>
             @endif
