@@ -21,18 +21,25 @@
                         <ul class="nav navbar-nav" style="display: flex">
                             @php
                             use App\Models\Notification;
-                            $notifications =[];
+
+                            $notifications = collect();
+                            $notifications_notseen = 0;
+
                             if (Auth::check()) {
-                            $userId = Auth::user()->id;
+                            $userId = Auth::id();
+
                             $notifications = Notification::where('n_user_id', $userId)
+                            ->orWhere('n_type', 'system')
                             ->orderBy('created_at', 'desc')
                             ->get();
-                            $notifications_notseen = Notification::where([
-                            'n_user_id' => $userId,
-                            'n_is_watched' => false
-                            ])->count();
+                            $notifications_notseen = Notification::where(function($query) use ($userId) {
+                            $query->where('n_user_id', $userId)
+                            ->orWhere('n_type', 'system');
+                            })->where('n_is_watched', false)
+                            ->count();
                             }
                             @endphp
+
                             <li style="display: flex; align-content: center; margin-right:10px ">
                                 <div class="btn-notification">
                                     <ion-icon name="notifications"></ion-icon>

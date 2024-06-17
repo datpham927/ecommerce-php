@@ -26,5 +26,92 @@ return [
             'message'=> "Đơn hàng của bạn đã được giao",
             'link'=>"/order/success"
         ],
+    ],
+
+'sidebars' => [
+        [
+            'label' => "Tổng quan",
+            'router_name' => 'admin.dashboard',
+            'can' => null
+        ],
+        [
+            'label' => "Quản lý slider",
+            'router_name' => 'slider.index',
+            'can' => 'list_slider'
+        ],
+        [
+            'label' => "Danh mục sản phẩm",
+            'router_name' => 'category.index',
+            'can' => 'list_category'
+        ],
+        [
+            'label' => "Thương hiệu sản phẩm",
+            'router_name' => 'brand.index',
+            'can' => 'list_brand'
+        ],
+        [
+            'label' => "Phí vận chuyển",
+            'router_name' => 'delivery.index',
+            'can' => null,
+        ],
+        [
+            'label' => "Quản lý sản phẩm",
+            'router_name' => 'javascript:;',
+            'can' => 'list_product',
+            'sub_menu' => [
+                [
+                    'label' => "Thêm sản phẩm",
+                    'router_name' => 'product.add',
+                    'can' => 'add_product'
+                ],
+                [
+                    'label' => "Danh sách sản phẩm",
+                    'router_name' => 'product.index',
+                    'can' => 'list_product'
+                ],
+                [
+                    'label' => "Sản phẩm nháp",
+                    'router_name' => 'product.draft',
+                    'can' => 'list_product'
+                ],
+                [
+                    'label' => "Sản phẩm đã xóa",
+                    'router_name' => 'product.deleted',
+                    'can' => 'list_product'
+                ],
+            ]
+        ],
+        [
+            'label' => "Quản lý đơn hàng",
+            'router_name' => 'admin.order.index',
+            'can' => 'list_order'
+        ],
+        [
+            'label' => "Quản lý người dùng",
+            'router_name' => 'javascript:;',
+            'can' => 'list_customer',
+            'sub_menu' => [
+                [
+                    'label' => "Quản lý nhân viên",
+                    'router_name' => 'staff.index',
+                    'can' => 'list_staff'
+                ],
+                [
+                    'label' => "Quản lý khách hàng",
+                    'router_name' => 'customer.index',
+                    'can' => 'list_customer'
+                ],
+                [
+                    'label' => "Quản lý vai trò",
+                    'router_name' => 'role.index',
+                    'can' => "list_staff"
+                ],
+                [
+                    'label' => "Thêm permission",
+                    'router_name' => 'permission.add',
+                    'can' => "list_staff"
+                ],
+            ]
+        ],
     ]
-];
+    ];

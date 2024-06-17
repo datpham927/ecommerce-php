@@ -150,7 +150,7 @@ class ProductControllers extends Controller
         'n_user_id' => null,
         'n_title' => 'Có một sản phẩm mới',
         'n_subtitle' => $newProduct->product_name,
-        'n_image' => $newProduct->product_thumb,
+        'n_image' => $newProduct->product_thumb,'n_type' =>"system",
         'n_link' => '/product/' . $newProduct->product_slug . '/' . $newProduct->id
     ]);
     

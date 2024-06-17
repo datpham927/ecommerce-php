@@ -1,4 +1,4 @@
-@extends("layout.admin")
+@extends("layout.admin.index")
 
 @section("content")
 <div class="panel panel-default">

@@ -1,4 +1,4 @@
-@extends("layout.admin")
+@extends("layout.admin.index")
 
 
 @section("title")
@@ -81,7 +81,7 @@
                         <td><span class="text-ellipsis" style="text-align: center;">{{$feeship->City->name}}</span></td>
                         <td><span class="text-ellipsis" style="text-align: center;">{{$feeship->Province->name}}</span>
                         </td>
-                        <td><span class="text-ellipsis" style="text-align: center;">{{$feeship->Ward->name}}</span></td>
+                        <td><span class="text-ellipsis" style="text-align: center;">{{$feeship->Ward->name??""}}</span></td>
                         <td><input class="form-control freeship"
                         type="number"
                                 data-url="{{route('delivery.update',['id'=>$feeship->id])}}"
