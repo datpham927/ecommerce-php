@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderMail;
 use App\Models\Cart;
 use App\Models\Feeship;
 use App\Models\Notification;
@@ -15,6 +16,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
@@ -63,7 +65,7 @@ class UserOrderControllers extends Controller
             'od_shipping_price' =>  $request["feeship"],
             'od_date_shipping' => now()->addDays(rand(0, 7)),
             // 'od_is_pay' => false,
-            // 'od_paymentMethod' => 'CASH',
+            'od_paymentMethod' => 'CASH',
         ]);
         $order->save();
 
@@ -103,6 +105,7 @@ class UserOrderControllers extends Controller
             // Remove cart item
             $cartItem->delete();
         }
+        Mail::to('datp1907@gmail.com')->cc('dpshopvn@gmail.com')->send(new OrderMail($order));
         DB::commit();
         return redirect()->route('order.order_list')->with('success', 'Đặt hàng thành công!');
     } catch (\Throwable $exception) {

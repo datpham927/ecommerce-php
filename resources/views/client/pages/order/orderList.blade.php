@@ -1,4 +1,4 @@
-@extends('pages.order.container')
+@extends('client.pages.order.container')
 
 
 @section("view")
@@ -44,7 +44,7 @@
         <div style="display: flex;flex-direction: column;align-items: end;justify-content: end;">
             <p style="font-size: 20px;">Tổng tiền: <span style="color: #FE6133;">
                     <?php
-                $totalPrice=0;
+                        $totalPrice=0;
                       foreach($orderItem->OrderItem as $item) {
                         $totalPrice+=$item->od_item_quantity*$item->od_item_price;
                       }
