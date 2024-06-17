@@ -36,7 +36,7 @@ class UserProductControllers extends Controller
         'comment_product_id'=>$id,
         'comment_parent_id'=>0,
        ])->orderBy("created_at","desc")->latest()->paginate(5);
-       return view('pages.detailProduct.index',compact("detailProduct",'relatedProducts','title_page','comments'));
+       return view('client.pages.detailProduct.index',compact("detailProduct",'relatedProducts','title_page','comments'));
     }
    //  tìm kiếm sản phẩm
    public function searchResult(Request $request)
@@ -46,6 +46,6 @@ class UserProductControllers extends Controller
                            ->orWhere('product_description', 'like', '%' . $query . '%')
                            ->latest()->paginate(18);
 
-       return view('pages.searchResult',  compact("products","query"));
+       return view('client.pages.searchResult',  compact("products","query"));
    }
 }

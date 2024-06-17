@@ -1,5 +1,5 @@
 
-@extends("layout.admin.index")
+@extends("admin.layout.index")
 
 @section("content")
 <h1>Tổng quan</h1>

@@ -1,7 +1,7 @@
-@extends("layout.client.index")
+@extends("client.layout.index")
 
 @section("footer")
-@include("layout.client.components.footer")
+@include("client.layout.components.footer")
 @endsection
 
 @section("css")
@@ -58,11 +58,11 @@ $(document).ready(function() {
 @section("body")
 <div class="container">
 <div class="row" style="margin-top: 15px;">
-    @include('pages.detailProduct.top') 
-    @include('pages.detailProduct.relatedProduct')
-    @include('pages.detailProduct.productAttribute')
-    @include('pages.detailProduct.productDescription')
-    @include('pages.detailProduct.productComment')
+    @include('client.pages.detailProduct.top') 
+    @include('client.pages.detailProduct.relatedProduct')
+    @include('client.pages.detailProduct.productAttribute')
+    @include('client.pages.detailProduct.productDescription')
+    @include('client.pages.detailProduct.productComment')
 </div>
 </div>
 @endsection

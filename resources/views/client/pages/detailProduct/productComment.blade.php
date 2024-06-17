@@ -31,7 +31,7 @@
             @endif
             <div class="comment-content">
                 @foreach($comments as $comment)
-                @include('components.commentItem', ['comment' => $comment, 'product_id' => $detailProduct->id])
+                @include('client.components.commentItem', ['comment' => $comment, 'product_id' => $detailProduct->id])
                 @endforeach
             </div>
             @include('components.pagination', ['list' => $comments, 'title' => 'Không có đánh giá nào!'])

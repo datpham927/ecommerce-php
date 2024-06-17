@@ -1,4 +1,4 @@
-@extends("layout.client.index")
+@extends("client.layout.index")
 
 @section('js')
 <script src="{{asset('frontend/js/address.js')}}"></script>
