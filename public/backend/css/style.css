@@ -438,7 +438,6 @@ ul.top-menu>li>a {
 
 .dropdown-menu.extended.inbox li a,
 .dropdown-menu.extended.tasks-bar li a {
-    background: #f1f2f7;
     border-radius: 5px;
     -webkit-border-radius: 5px;
     padding: 10px;
@@ -446,7 +445,10 @@ ul.top-menu>li>a {
     float: left;
     width: 100%;
 }
+.btn-notification.not-seen{
+    background: #f1f2f7  ;
 
+}
 .dropdown-menu.extended li p {
     margin: 0;
     padding: 10px 0;

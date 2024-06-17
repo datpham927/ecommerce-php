@@ -44,7 +44,7 @@ class UserProductControllers extends Controller
        $query = $request->input('text');
        $products = product::where('product_name', 'like', '%' . $query . '%')
                            ->orWhere('product_description', 'like', '%' . $query . '%')
-                           ->get();
+                           ->latest()->paginate(18);
 
        return view('pages.searchResult',  compact("products","query"));
    }

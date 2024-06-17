@@ -1,4 +1,4 @@
-<div class="col-sm-3" style="padding: 12px;">
+<div class="{{ $col ?? 'col-sm-3' }}" style="padding: 12px;">
     <div class="product-item" style="margin: 0 -5px ;">
         <a href="{{route('product.detail',['slug'=>$product->product_slug,'pid'=>$product->id])}}">
             <div class="product-top">

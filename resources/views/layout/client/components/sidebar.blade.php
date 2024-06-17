@@ -8,10 +8,10 @@
         @foreach($categories as $category)
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4 class="panel-title">
+                <div class="panel-title">
                     <a
                         href="{{ route('category.show_product_home', ['cid' => $category->id, 'slug' => $category->category_slug]) }}">{{$category->category_name}}</a>
-                </h4>
+                </div>
             </div>
 
         </div>

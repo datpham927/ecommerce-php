@@ -59,6 +59,7 @@ class DeliveryControllers extends Controller
             // Validate the request data
             $request->validate($rules, $messages);
             // Check if a Feeship record already exists
+           
             $foundFeeship = Feeship::where([
                 'matp' => $request->city,
                 'maqh' => $request->province,

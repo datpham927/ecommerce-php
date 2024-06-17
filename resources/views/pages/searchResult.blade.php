@@ -13,21 +13,12 @@
             <h2 style="font-weight: 400; margin-left: 20px; font-size: 20px;">Kết quả tìm kiếm "{{$query}}"</h2>
             @if(count($products)>0)
             <div class="features_items">
-                <!--features_items-->
-                <!-- <h2 class="title text-center">Features Items</h2> -->
                 @foreach($products as $product)
-                @include('components.productItem')
+                @include('components.productItem',['col'=>'col-sm-2'])
                 @endforeach
             </div>
-
-            @else
-            <div style="display: flex; flex-direction: column; align-items: center;">
-                <img style='width: 200px;'
-                    src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/cart/9bdd8040b334d31946f4.png" />
-                <span style="margin: 10px 0; font-size: 20px;">Không có sản phẩm nào</span>
-
-            </div>
             @endif
+            @include('components.pagination',['list'=>$products,'title'=>'Không có sản phẩm nào!'])
         </div>
 
     </div>

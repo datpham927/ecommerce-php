@@ -50,7 +50,7 @@
                         <span style="font-size: 14px;">{{$commentChildren->comment_content}}</span>
                     </div>
                     <div style="display: flex; font-size: 10px; margin: 3px 0; align-items: center;">
-                        @if(Auth::user()->id == $commentChildren->user->id)
+                        @if(Auth::check()&& Auth::user()->id == $commentChildren->user->id)
                         <button class="btn-delete-comment"
                             data-url="{{route('comment.delete', ['cid' => $commentChildren->id])}}"
                             style="font-weight: 700; color: #65676B; cursor: pointer;">Xóa</button>

@@ -60,6 +60,7 @@
     <script src="{{asset('frontend/js/main.js')}}"></script>
     <script src="{{asset('frontend/js/product.js')}}"></script>
     <script src="{{asset('frontend/js/order.js')}}"></script>
+    <script src="{{asset('frontend/js/notification.js')}}"></script>
     
     @yield('js')
 

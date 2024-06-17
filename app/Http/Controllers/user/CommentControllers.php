@@ -53,42 +53,49 @@ class CommentControllers extends Controller
      }
      
 
-     public function createCommentChildren(Request $request, $pid,$cid) {
-        try {  
+     public function createCommentChildren(Request $request, $pid, $cid) {
+        try {
             DB::beginTransaction();
+    
             $comment = Comment::create([
                 "comment_product_id" => $pid,
                 "comment_user_id" => Auth::user()->id,
                 "comment_content" => $request->comment_text,
                 "comment_parent_id" => $cid
-            ]); 
+            ]);
+    
+            $userParentCmt = Comment::find($cid);
             Notification::create([
+                'n_user_id' => $userParentCmt->comment_user_id,
                 "n_title" => (Auth::user()->user_name ?? Auth::user()->user_email) . ' đã phản hồi bình luận của bạn!',
                 "n_subtitle" => $comment->product->product_name,
                 "n_image" => Auth::user()->user_image_url,
                 "n_link" => $request->pathName
             ]);
+    
             DB::commit();
+    
             return response()->json([
                 'code' => 200,
                 'message' => "Bình luận thành công!",
                 'data' => [
-                   "user" => Auth::user(),
-                   "comment"=>[
-                      "id"=> $comment->id,
-                       "comment_content" => $comment->comment_content,
-                       "create_at" =>Carbon::parse($comment->created_at)->locale('vi')->diffForHumans()
-                   ]
+                    "user" => Auth::user(),
+                    "comment" => [
+                        "id" => $comment->id,
+                        "comment_content" => $comment->comment_content,
+                        "created_at" => Carbon::parse($comment->created_at)->locale('vi')->diffForHumans()
+                    ]
                 ] // Trả về dữ liệu của bình luận mới được tạo
             ]);
         } catch (\Throwable $th) {
             DB::rollBack();
-           return response()->json([
-               'code' => 500,
-               'message' => $th->getMessage(), 
-           ]);
+            return response()->json([
+                'code' => 500,
+                'message' => $th->getMessage(),
+            ]);
         }
     }
+    
     public function delete($cid) {
      try {
         $comment = Comment::find($cid);

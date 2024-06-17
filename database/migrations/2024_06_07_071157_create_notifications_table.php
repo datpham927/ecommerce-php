@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string("n_subtitle"); 
             $table->string("n_link"); 
             $table->string("n_image"); 
+            $table->string("n_type")->default('user');// system 
             $table->boolean("n_is_watched")->default(false); 
             $table->timestamps();
         });
