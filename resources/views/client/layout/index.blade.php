@@ -43,7 +43,7 @@
 <!--/head-->
 
 <body>
-    @include("layout.client.components.header")
+    @include("client.layout.components.header")
     <div class='body-container'>
         <!--/slider-->
         @yield('slider')
@@ -60,6 +60,7 @@
     <script src="{{asset('frontend/js/main.js')}}"></script>
     <script src="{{asset('frontend/js/product.js')}}"></script>
     <script src="{{asset('frontend/js/order.js')}}"></script>
+    <script src="{{asset('frontend/js/notification.js')}}"></script>
     
     @yield('js')
 

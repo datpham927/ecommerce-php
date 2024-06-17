@@ -1,7 +1,7 @@
-@extends("layout.client.index")
+@extends("client.layout.index")
 
 @section("footer")
-@include("layout.client.components.footer")
+@include("client.layout.components.footer")
 @endsection
 
 @section("body")
@@ -9,13 +9,13 @@
     <div class="container" >
         <div class="row">
             <div class="col-sm-3">
-                @include("layout.client.components.sidebar")
+                @include("client.layout.components.sidebar")
             </div>
             <div class="col-sm-9"> 
                 @if(count($products_by_categoryId) > 0)
                 <div class="row">
                     @foreach($products_by_categoryId as $product)
-                    @include('components.productItem', ['comment' => $product])
+                    @include('client.components.productItem')
                     @endforeach
                 </div>
                 @else
@@ -25,6 +25,7 @@
                     <span style="margin: 10px 0; font-size: 20px;">Không có sản phẩm nào</span>
                 </div>
                 @endif
+            @include('components.pagination',['list'=>$products_by_categoryId,'title'=>'Không có sản phẩm nào!'])
             </div>
         </div>
     </div>

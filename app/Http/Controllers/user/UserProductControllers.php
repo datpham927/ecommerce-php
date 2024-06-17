@@ -12,7 +12,20 @@ class UserProductControllers extends Controller
    
     public function detailProduct($slug,$id)
     {
+           
        $detailProduct =product::find($id);
+       // cập nhật rating product
+       $comments= Comment::where("comment_parent_id",0)->get();
+       $countComment=$comments->count();
+       if($countComment>0){
+          $totalRating=0;
+          foreach ($comments as $cmt) { 
+            $totalRating+=$cmt->comment_rating;
+          }
+          $detailProduct->update([
+              "product_ratings"=>$totalRating/$countComment
+          ]);
+       }
        $title_page=$detailProduct->product_name;
        $relatedProducts =product::
        where('product_isPublished', true)
@@ -23,7 +36,7 @@ class UserProductControllers extends Controller
         'comment_product_id'=>$id,
         'comment_parent_id'=>0,
        ])->orderBy("created_at","desc")->latest()->paginate(5);
-       return view('pages.detailProduct.index',compact("detailProduct",'relatedProducts','title_page','comments'));
+       return view('client.pages.detailProduct.index',compact("detailProduct",'relatedProducts','title_page','comments'));
     }
    //  tìm kiếm sản phẩm
    public function searchResult(Request $request)
@@ -31,8 +44,8 @@ class UserProductControllers extends Controller
        $query = $request->input('text');
        $products = product::where('product_name', 'like', '%' . $query . '%')
                            ->orWhere('product_description', 'like', '%' . $query . '%')
-                           ->get();
+                           ->latest()->paginate(18);
 
-       return view('pages.searchResult',  compact("products","query"));
+       return view('client.pages.searchResult',  compact("products","query"));
    }
 }

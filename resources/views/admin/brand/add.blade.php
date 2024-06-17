@@ -1,5 +1,4 @@
-@extends("layout.admin")
-
+@extends("admin.layout.index")
 
 @section("title")
 <title>Thêm thương hiệu</title>

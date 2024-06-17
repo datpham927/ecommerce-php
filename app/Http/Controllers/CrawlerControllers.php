@@ -139,8 +139,7 @@ class CrawlerControllers extends Controller
           }
           // Kiểm tra kết quả
         //   dd($newSizes);
-          // -------------  attribute  ------------- 
-          $dataSizes = [];
+          // -------------  attribute  -------------  
           $attributes = $crawler->filter("#2b > .main_details div ul li ");
         //   dd("count",count($attributes));
           // Kiểm tra số lượng phần tử

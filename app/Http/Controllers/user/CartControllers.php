@@ -23,14 +23,14 @@ class CartControllers extends Controller
         }
         
         $data = [ 
-            "cart_userId" => $userId,
-            "cart_productId" => $request->input("productId_hidden"),
+            "cart_user_id" => $userId,
+            "cart_product_id" => $request->input("productId_hidden"),
             "cart_quantity" =>$request->input("quantity"),
             "cart_size" => $request->input("size_hidden"),
         ];
         // Check if the product is already in the cart for the user
-        $foundCart = Cart::where('cart_productId', $data["cart_productId"])
-                         ->where('cart_userId', $userId)
+        $foundCart = Cart::where('cart_product_id', $data["cart_product_id"])
+                         ->where('cart_user_id', $userId)
                          ->where('cart_size', $data['cart_size'])
                          ->first();
         
@@ -49,8 +49,8 @@ class CartControllers extends Controller
     public function viewListCart()
     {
         $userId = Session::get('user_id');
-        $carts = Cart::where('cart_userId', $userId)->get();
-        return view('pages.cart',compact("carts"));
+        $carts = Cart::where('cart_user_id', $userId)->get();
+        return view('client.pages.cart',compact("carts"));
     }
     
     public function increase($cid)
@@ -61,7 +61,7 @@ class CartControllers extends Controller
     
             // Tìm kích thước sản phẩm trong cơ sở dữ liệu
             $foundProductSize = Size::where([
-                "size_product_id" => $foundCart->cart_productId,
+                "size_product_id" => $foundCart->cart_product_id,
                 "size_name" => $foundCart->cart_size,
             ])->first();  
             // Kiểm tra xem số lượng sản phẩm trong giỏ hàng đã vượt quá số lượng tồn kho hay không

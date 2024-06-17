@@ -1,4 +1,8 @@
-@extends("layout.client.index")
+@extends("client.layout.index")
+
+@section('js')
+<script src="{{asset('frontend/js/address.js')}}"></script>
+@endsection
 
 @section("body")
 <div class="container " style="padding-top: 20px;">
@@ -58,36 +62,30 @@
                         </div>
                     </div>
                     <div class="row mt-3" style="margin-top: 20px;">
-                        <div class="row row-cols-1 row-cols-md-3 mb-3"
+                    <div class="row row-cols-1 row-cols-md-3 mb-3"
                             style="display: flex;justify-content: space-between;">
                             <div class="col" style="min-width: 200px; ">
                                 <label for="city">Chọn thành phố</label>
-                                <select class="form-control choose city" id="city" name="city" required>
+                                <select class="form-control choose city"   name="city" required>
                                     <option value=''>Chọn thành phố</option>
-                                    @foreach($cities as $city)
-                                    <option value='{{$city->matp}}'
-                                        {{ $user->user_city_id === $city->matp ? 'selected' : '' }}>{{$city->name}}
-                                    </option>
+                                    @foreach($cities as $city) 
+                                    <option value='{{$city->matp}}'   {{ $user->user_city_id === $city->matp ? 'selected' : '' }} >{{$city->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col" style="min-width: 200px; ">
                                 <label for="province">Quận huyện</label>
-                                <select class="form-control choose province" id="province" name="province" required>
-                                    @foreach($provinces as $province)
-                                    <option value='{{$province->maqh}}'
-                                        {{ $user->user_province_id === $province->maqh ? 'selected' : '' }}>
-                                        {{$province->name}}</option>
+                                <select class="form-control choose province"  name="province" required>
+                                @foreach($provinces as $province)
+                                    <option value='{{$province->maqh}}'  {{ $user->user_province_id === $province->maqh ? 'selected' : '' }}>{{$province->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col" style="min-width: 200px; ">
                                 <label for="ward">Chọn xã phường</label>
-                                <select class="form-control ward" id="ward" name="ward" required>
-                                    @foreach($wards as $ward)
-                                    <option value='{{$ward->xaid}}'
-                                        {{ $user->user_ward_id === $ward->xaid ? 'selected' : '' }}>{{$ward->name}}
-                                    </option>
+                                <select class="form-control ward"  name="ward" required>
+                                @foreach($wards as $ward)
+                                    <option value='{{$ward->xaid}}'  {{ $user->user_ward_id === $ward->xaid ? 'selected' : '' }}>{{$ward->name}}</option>
                                     @endforeach
                                 </select>
                             </div>

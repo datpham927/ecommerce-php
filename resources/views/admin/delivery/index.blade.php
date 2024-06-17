@@ -1,4 +1,4 @@
-@extends("layout.admin")
+@extends("admin.layout.index")
 
 
 @section("title")
@@ -26,7 +26,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="city">Chọn thành phố</label>
-                        <select class="form-control choose city" id="city" name="city" required>
+                        <select class="form-control choose city"  name="city" required>
                             <option value=''>Chọn thành phố</option>
                             @foreach($cities as $city)
                             <option value='{{$city->matp}}'>{{$city->name}}</option>
@@ -35,13 +35,13 @@
                     </div>
                     <div class="form-group">
                         <label for="province">Quận huyện</label>
-                        <select class="form-control choose province" id="province" name="province" required>
+                        <select class="form-control choose province" name="province" required>
                             <option value=''>Chọn quận huyện</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="ward">Chọn xã phường</label>
-                        <select class="form-control ward" id="ward" name="ward" required>
+                        <select class="form-control ward"  name="ward" required>
                             <option value="">Chọn xã phường</option>
                         </select>
                     </div>
@@ -81,7 +81,7 @@
                         <td><span class="text-ellipsis" style="text-align: center;">{{$feeship->City->name}}</span></td>
                         <td><span class="text-ellipsis" style="text-align: center;">{{$feeship->Province->name}}</span>
                         </td>
-                        <td><span class="text-ellipsis" style="text-align: center;">{{$feeship->Ward->name}}</span></td>
+                        <td><span class="text-ellipsis" style="text-align: center;">{{$feeship->Ward->name??""}}</span></td>
                         <td><input class="form-control freeship"
                         type="number"
                                 data-url="{{route('delivery.update',['id'=>$feeship->id])}}"

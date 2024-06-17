@@ -1549,7 +1549,7 @@ h2.title {
 }
 
 #cart_items .cart_info .image {
-    padding-left: 30px;
+    padding-left: 10px;
 }
 
 #cart_items .cart_info .cart_description h4 {
@@ -2823,6 +2823,15 @@ height: 100%;
     text-overflow: ellipsis; /* Hiển thị dấu ba chấm khi văn bản bị ẩn */
     display: inline-block; /* Hiển thị phần tử như một khối cách trái */
 }
+#cart{
+    position:relative;
+    display: flex; 
+    color: white;
+    align-items: center;
+    cursor: pointer;
+    
+}
+ 
 .btn-notification{
     position:relative;
     display: flex; 
@@ -2846,13 +2855,17 @@ height: 100%;
     z-index: 999;
     border-radius: 10px;
     overflow-y: auto; /* Hiển thị thanh cuộn dọc khi cần */
+    box-shadow:rgba(0, 0, 0, .28) 0px 6px 12px 0px;
     display: none;
 }
 
 .item-notification {
-    padding: 10px; 
+    padding: 5px 10px; 
      width: 100%;
     
+}
+.item-notification:hover{
+    background-color: rgb(242,235,230);
 }
 .item-notification.not-seen{
     background: #FEF3EF;

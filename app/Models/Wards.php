@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Wards extends Model
 {
     use HasFactory;
-    protected $fillable=[
-        'name','type','maqh'
-    ];
+    protected $guarded = [];
     protected $primaryKey='xaid';
     protected $table='devvn_xaphuongthitran';
 }

@@ -1,11 +1,11 @@
-<div class="col-sm-3" style="padding: 12px;">
+<div class="{{ $col ?? 'col-sm-3' }}" style="padding: 12px;">
     <div class="product-item" style="margin: 0 -5px ;">
         <a href="{{route('product.detail',['slug'=>$product->product_slug,'pid'=>$product->id])}}">
             <div class="product-top">
                 @if($product->product_discount > 0)
                 <san class="product-discount">{{$product->product_discount }}%</san>
                 @endif
-                <img src='{{$product->product_thumb}}' />
+                <img src='{{$product->product_thumb}}' alt="" />
             </div>
             <div class="product-content">
                 <div class="product-title text-ellipsis long-text ">
@@ -30,6 +30,6 @@
                     </div>
                 </div>
             </div>
+        </a>
     </div>
-    </a>
 </div>

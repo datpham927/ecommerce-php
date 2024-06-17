@@ -12,7 +12,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "symfony/dom-crawler": "^7.1",
-        "tinymce/tinymce": "*",
+        "tinymce/tinymce": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

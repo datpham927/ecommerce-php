@@ -4,9 +4,10 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\Feeship;
 use App\Models\Notification;
 use App\Models\Order;
-use App\Models\OrderDetail;
+use App\Models\OrderItem;
 use App\Models\product;
 use App\Models\Size;
 use App\Models\User;
@@ -20,96 +21,115 @@ use Illuminate\Support\Str;
 class UserOrderControllers extends Controller
 {
     public function viewCheckout(){
-        $user=Auth::user();
-        $carts = Cart::where('cart_userId', $user->id)->get();
-        $totalPrice= 0;
-        foreach($carts as $cartItem){
-            $totalPrice+=$cartItem->cart_quantity*$cartItem->product->product_price;
-        }
-        return view('pages.checkout',compact("carts",'user','totalPrice'));
+        $user = Auth::user();
+        // Eager load products with cart items to reduce the number of queries
+        $carts = Cart::with('product')->where('cart_user_id', $user->id)->get();
+        // Retrieve feeship in one query using whereIn for better performance
+        $foundFeeship = Feeship::where([
+            'matp' => $user->user_city_id,
+            'maqh' => $user->user_province_id,
+            'xaid' => $user->user_ward_id
+        ])->value('feeship');
+        // Calculate total price within the collection
+        $totalPrice = $carts->sum(function($cartItem) {
+            return $cartItem->cart_quantity * $cartItem->product->product_price;
+        });
+        // Use the null coalescing operator to handle the feeship
+        $feeship = $foundFeeship ?? 0;
+        return view('client.pages.checkout', compact('carts', 'user', 'totalPrice', 'feeship'));
     }
     
-    
-    public function addOrder(){
-        try {
+    public function addOrder(Request $request)
+{
+    try {
         DB::beginTransaction();
-        $user=Auth::user();
-        $userId=$user->id; 
-        $carts = Cart::where('cart_userId', $userId)->get();
-           // Tạo một đơn hàng mới
-           $order = new Order([
+        $user = Auth::user();
+        $userId = $user->id;
+        $carts = Cart::with('product')->where('cart_user_id', $userId)->get();
+        if(!$request["user_address"] ){
+            return redirect()->back()->with('error', 'Vui lòng cập nhât thông tin trước khi đặt hàng! ');
+        }
+        if(!$request["user_address_detail"] ||!$request["user_phone"]){
+            return redirect()->back()->with('error', 'Vui lòng nhập thông tin đầy đủ! ');
+        }
+
+        // Create a new order
+        $order = new Order([
             'od_user_id' => $userId,
-            'od_shippingAddress' => $user['user_address'],
-            'od_shippingPrice' => 25000,
-            'od_dateShipping' => date('Y-m-d H:i:s', strtotime('+' . rand(0, 7) . ' days')),
+            'od_user_name' =>$request["user_name"],
+            'od_user_phone' => $request["user_phone"],
+            'od_shipping_address' => $request["user_address"],
+            'od_shipping_address_detail' => $request["user_address_detail"] ,
+            'od_shipping_price' =>  $request["feeship"],
+            'od_date_shipping' => now()->addDays(rand(0, 7)),
+            // 'od_is_pay' => false,
+            // 'od_paymentMethod' => 'CASH',
         ]);
+        $order->save();
+
+        // Create a new notification
         Notification::create([
-            "n_title"=>'Bạn có một đơn hàng mới!',
-            "n_subtitle"=>"Ngày đặt hàng".\Carbon\Carbon::parse($order ->created_at)->locale('vi')->isoFormat('dddd, DD/MM/YYYY')  ,
-            "n_image"=>"https://imaxmobile.vn/media/data/icon-giao-hang-toan-quoc.jpeg",
-            "n_link"=>"/admin/order"
+            "n_title" => 'Bạn có một đơn hàng mới!',
+            "n_subtitle" => "Ngày đặt hàng " . \Carbon\Carbon::parse($order->created_at)->locale('vi')->isoFormat('dddd, DD/MM/YYYY'),
+            "n_image" => "https://imaxmobile.vn/media/data/icon-giao-hang-toan-quoc.jpeg",
+            "n_link" => "/admin/order"
         ]);
-        $order->save(); // Lưu đơn hàng mới vào cơ sở dữ liệu để lấy được ID
-        foreach($carts as $cartItem){
-            // Tạo một chi tiết đơn hàng mới
-            $orderDetail = new OrderDetail([
-                'od_detail_productId' => $cartItem->cart_productId,
-                'od_detail_orderId' => $order->id, // Sử dụng ID của đơn hàng mới tạo
-                'od_detail_quantity' => $cartItem->cart_quantity,
-                'od_detail_price' => $cartItem->product->product_price,
-                'od_detail_size' => $cartItem->cart_size,
+
+        foreach ($carts as $cartItem) {
+            // Create a new order detail
+            $OrderItem = new OrderItem([
+                'od_item_productId' => $cartItem->cart_product_id,
+                'od_item_orderId' => $order->id,
+                'od_item_quantity' => $cartItem->cart_quantity,
+                'od_item_price' => $cartItem->product->product_price,
+                'od_item_size' => $cartItem->cart_size,
             ]);
-            $orderDetail->save(); // Lưu chi tiết đơn hàng mới vào cơ sở dữ liệu
-                // cập nhật số lượng trong product
-             // Tìm sản phẩm trong cơ sở dữ liệu dựa trên ID của sản phẩm trong giỏ hàng
-                        $foundProduct = product::find($cartItem->cart_productId);
-                        // Cập nhật số lượng sản phẩm đã bán và số lượng tồn kho
-                        $foundProduct->product_sold += $cartItem->cart_quantity;
-                        $foundProduct->product_stock -= $cartItem->cart_quantity;
-                        $foundProduct->save();
+            $OrderItem->save();
 
-                        // Cập nhật số lượng sản phẩm trong kích thước
-                        $foundProductSize = Size::where([
-                            "size_product_id" => $cartItem->cart_productId,
-                            "size_name" => $cartItem->cart_size,
-                        ])->first();
-
-                        if ($foundProductSize) {
-                            $foundProductSize->size_product_quantity -= $cartItem->cart_quantity;
-                            $foundProductSize->save();
-                        }
-
-                        // Xóa sản phẩm khỏi giỏ hàng
-                        $foundProductCart = Cart::find($cartItem->id);
-                        $foundProductCart->delete();
-
+            // Update product quantity and stock
+            $product = $cartItem->product;
+            $product->product_sold += $cartItem->cart_quantity;
+            $product->product_stock -= $cartItem->cart_quantity;
+            $product->save();
+            // Update product size quantity
+            $productSize = Size::where([
+                'size_product_id' => $cartItem->cart_product_id,
+                'size_name' => $cartItem->cart_size,
+            ])->first();
+            if ($productSize) {
+                $productSize->size_product_quantity -= $cartItem->cart_quantity;
+                $productSize->save();
+            }
+            // Remove cart item
+            $cartItem->delete();
         }
-        DB::commit(); // Hoàn thành giao dịch
-        return redirect()->route("order.order_list")->with('success', 'Đặt hàng thành công!');
-        } catch (\Throwable $exception) {
-            DB::rollBack(); // Hoàn tác giao dịch (không lưu)
-            dd("Message: " . $exception->getMessage() . ", Line: " . $exception->getLine());
-        }
-    
+        DB::commit();
+        return redirect()->route('order.order_list')->with('success', 'Đặt hàng thành công!');
+    } catch (\Throwable $exception) {
+        DB::rollBack();
+        dd($exception->getMessage());
+        return redirect()->back()->with('error', 'Đặt hàng thất bại! ' . $exception->getMessage());
     }
+}
+
 
     public function isCanceled($oid){
         try {
             DB::beginTransaction(); 
             $order = Order::find($oid);  
-            foreach($order->OrderDetail as $orderDetailItem){  
-                $foundProduct = Product::find($orderDetailItem->od_detail_productId); 
+            foreach($order->OrderItem as $OrderItemItem){  
+                $foundProduct = Product::find($OrderItemItem->od_item_productId); 
                 // Cập nhật số lượng sản phẩm đã bán và số lượng tồn kho
-                $foundProduct->product_sold -= $orderDetailItem->od_detail_quantity;
-                $foundProduct->product_stock += $orderDetailItem->od_detail_quantity; 
+                $foundProduct->product_sold -= $OrderItemItem->od_item_quantity;
+                $foundProduct->product_stock += $OrderItemItem->od_item_quantity; 
                 $foundProduct->save();
                 // Cập nhật số lượng sản phẩm trong kích thước
                 $foundProductSize = Size::where([
-                    "size_product_id" => $orderDetailItem->od_detail_productId, 
-                    "size_name" => $orderDetailItem->od_detail_size,  
+                    "size_product_id" => $OrderItemItem->od_item_productId, 
+                    "size_name" => $OrderItemItem->od_item_size,  
                 ])->first();
                 if ($foundProductSize) {
-                    $foundProductSize->size_product_quantity += $orderDetailItem->od_detail_quantity;  
+                    $foundProductSize->size_product_quantity += $OrderItemItem->od_item_quantity;  
                     $foundProductSize->save();
                 }
             }
@@ -167,6 +187,6 @@ class UserOrderControllers extends Controller
         $orders = $query->get();
         $active = $lastSegment;
         // Trả về view 'pages.order.orderList' với dữ liệu đơn hàng và active
-        return view('pages.order.orderList', compact('orders', 'active'));
+        return view('client.pages.order.orderList', compact('orders', 'active'));
     }
 }

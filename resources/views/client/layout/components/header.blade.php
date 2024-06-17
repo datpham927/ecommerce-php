@@ -21,14 +21,31 @@
                         <ul class="nav navbar-nav" style="display: flex">
                             @php
                             use App\Models\Notification;
-                            $notifications = Notification::where(["n_user_id" => null])->get();
+
+                            $notifications = collect();
+                            $notifications_notseen = 0;
+
+                            if (Auth::check()) {
+                            $userId = Auth::id();
+
+                            $notifications = Notification::where('n_user_id', $userId)
+                            ->orWhere('n_type', 'system')
+                            ->orderBy('created_at', 'desc')
+                            ->get();
+                            $notifications_notseen = Notification::where(function($query) use ($userId) {
+                            $query->where('n_user_id', $userId)
+                            ->orWhere('n_type', 'system');
+                            })->where('n_is_watched', false)
+                            ->count();
+                            }
                             @endphp
-                            <li   style="display: flex; align-content: center; margin-right:10px ">
-                                <div class="btn-notification" >
+
+                            <li style="display: flex; align-content: center; margin-right:10px ">
+                                <div class="btn-notification">
                                     <ion-icon name="notifications"></ion-icon>
-                                    <span class="badge bg-important">{{ count($notifications) }}</span>
-                                      <span style="font-size: 13px;margin: 10px;"> Thông báo</span>
-                                    <ul class="box-notification" >
+                                    <span class="badge bg-important">{{ $notifications_notseen??0}}</span>
+                                    <span style="font-size: 13px;margin: 10px;"> Thông báo</span>
+                                    <ul class="box-notification">
                                         @if(count($notifications) == 0)
                                         <div
                                             style="display: flex; height: 400px; align-items: center; justify-content: center; background-color: white;">
@@ -39,16 +56,21 @@
                                             </div>
                                         </div>
                                         @else
-                                        <li  class="item-notification active">
-                                            <p   style="color:rgb(136, 136, 136);font-size: 14px ;margin: 0;">Bạn có {{ count($notifications) }} thông báo</p>
+                                        <li style="padding: 10px;">
+                                            <p style="color:rgb(136, 136, 136);font-size: 14px ;margin: 0;">Bạn có
+                                                {{ count($notifications) }} thông báo</p>
                                         </li>
                                         @foreach($notifications as $notification)
-                                        <li class="item-notification not-seen">
-                                            <a href="{{ $notification->n_link }}" style="display: flex;">
+                                        <li
+                                            class="item-notification {{$notification->n_is_watched==false?"not-seen":""}}">
+                                            <a href="{{ $notification->n_link }}" class="btn-notification"
+                                                style="display: flex;"
+                                                data-url="{{route('notification.is-watched',['nid'=>$notification->id])}}">
                                                 <img alt="avatar" style="height: 50px;border-radius: 3px;"
                                                     src="{{ $notification->n_image }}">
                                                 <div style="margin-left: 10px;">
-                                                    <span class="subject long-text" style="max-width: 200px!important; color:black;line-height: 100%; font-size: 14px;">
+                                                    <span class="subject long-text"
+                                                        style="max-width: 200px!important; color:black;line-height: 100%; font-size: 14px;">
                                                         {{ $notification->n_title }}
                                                     </span>
                                                     <span class="message text-ellipsis long-text"
@@ -105,14 +127,20 @@
                 <div class="col-custom-20 col-sm-2">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            @if(Auth::check() && Auth::user()->user_type == 'customer')
+                            @if(!Auth::check() || (Auth::check() && Auth::user()->user_type === 'customer'))
                             <li>
-                                <a href="{{ route('cart.view_Cart') }}">
-                                    <i class="fa fa-shopping-cart"></i><span>Giỏ hàng</span>
+                                <a href="{{ route('cart.view_Cart') }}" id="cart">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    @if(Auth::check())
+                                    <p class="badge bg-important" style="top: -8px; left: 6px; font-size: 12px;">
+                                        {{ count(Auth::user()->carts) }}</p>
+                                    @endif
+                                    <span style="margin-left: 10px;">Giỏ hàng</span>
                                 </a>
-                            </li> 
+                            </li>
                             @endif
                         </ul>
+
                     </div>
                 </div>
             </div>

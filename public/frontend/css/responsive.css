@@ -37,6 +37,9 @@
     .shop-menu ul li a span {
         display: none;
     }
+    .logo span{
+        display: none;
+    }
     #slider-carousel .item {
         padding-left: 30px;
     }
