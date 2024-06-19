@@ -85,8 +85,8 @@ public function confirmOrderStatus(Request $request,$oid){
     }
 }
 public function getOrderItemByAdmin($oid){
-        $OrderDetail=Order::find($oid);
-        return view('admin.order.detail',compact('OrderDetail'));
+        $order=Order::find($oid);
+        return view('admin.order.detail',compact('order'));
 }
 
 }
