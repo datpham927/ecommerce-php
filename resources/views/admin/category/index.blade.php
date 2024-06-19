@@ -33,7 +33,6 @@
                     <tr>
                         <th>ID</th>
                         <th>Tên danh mục</th>
-                        <th>Danh mục cha</th>
                         <th style="text-align: center;">Thao tác</th>
                     </tr>
                 </thead>
@@ -42,11 +41,6 @@
                     <tr>
                         <td>{{$category->id}}</td>
                         <td><span class="text-ellipsis">{{$category->category_name}}</span></td>
-                        <td>
-                            <span class="text-ellipsis">
-                                {{$category->parentCategory?$category->parentCategory->category_name :"Không có"}}
-                            </span>
-                        </td>
                         <td style="display: flex; justify-content: center; gap: 30px;">
                             @can(config("permission.access.edit-category"))
                             <a href="{{route('category.edit',['id'=>$category->id])}}" class="btn btn-default">Edit</a>
