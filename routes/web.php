@@ -12,6 +12,7 @@ use App\Http\Controllers\admin\SliderControllers;
 use App\Http\Controllers\admin\StaffControllers;
 use App\Http\Controllers\admin\CustomerControllers;
 use App\Http\Controllers\admin\DeliveryControllers;
+use App\Http\Controllers\admin\SettingControllers;
 use App\Http\Controllers\admin\UploadImageControllers;
 use App\Http\Controllers\CrawlerControllers;
 use App\Http\Controllers\NotificationController;
@@ -43,6 +44,8 @@ Route::put('/is-watched/{nid}', [NotificationController ::class, 'isWatched'])->
 
 Route::middleware(['auth-admin'])->group(function () {
 Route::prefix('admin')->group(function () { 
+        Route::get('/setting', [SettingControllers::class, 'index'])->name('admin.setting');
+        Route::put('/setting/store', [SettingControllers::class, 'store'])->name('admin.setting.store');
         Route::get('/dashboard', [SystemControllers::class, 'showDashboard'])->name('admin.dashboard');
         Route::get('/logout', [AdminLoginControllers::class, 'logout'])->name('admin.logout');
         Route::prefix('/delivery')->group(function () {

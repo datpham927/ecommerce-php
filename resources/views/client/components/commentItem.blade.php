@@ -1,6 +1,6 @@
 <div class="comment-item">
     <div class="comment-item-avatar">
-        <img src="{{$comment->user->user_image_url}}" alt="User Avatar" />
+        <img src="{{$comment->user->user_image_url??""}}" alt="User Avatar" />
     </div>
     <div class="comment-item-body">
         <div class="comment-item-content">

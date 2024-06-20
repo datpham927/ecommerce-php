@@ -1634,6 +1634,12 @@ p {
     line-height: 1.4
 }
 
+@media (max-width:767px) {
+.product-top img{
+    width: 100% !important;
+    height: 100% !important;
+}
+}
 @media (min-width:768px) {
     .lead {
         font-size: 21px
@@ -4283,7 +4289,8 @@ tbody.collapse.in {
 
 .dropdown,
 .dropup {
-    position: relative
+    position: relative;
+    cursor: pointer;
 }
 
 .dropdown-toggle:focus {
