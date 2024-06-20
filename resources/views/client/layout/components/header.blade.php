@@ -35,6 +35,7 @@ $setting = setting::first();
                             <li style="font-size: 10px; margin-top:10px">
                                 <span><i class="fa fa-phone"></i> {{$setting->setting_phone}}</span>
                             </li>
+                            //sds
                             @endif
 
                             @if($setting->setting_email)
