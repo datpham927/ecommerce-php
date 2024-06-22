@@ -74,15 +74,13 @@ a#scrollUp i {
     margin-left: -15px;
 }
 
-.contactinfo ul li a {
+.contactinfo ul li span {
     font-size: 12px;
+    margin-right: 20px;
     color: white;
     font-family: 'Roboto', sans-serif;
 }
-
-.contactinfo ul li a:hover {
-    background: inherit;
-}
+ 
 
 .social-icons ul li a {
     border: 0 none;
@@ -2939,4 +2937,16 @@ height: 100%;
 
   .comment-children-container{
     border-top: 1px solid #F0F2F5;
+  }
+
+  .nav-stacked li span {
+    color: #8C8C88;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    padding: 5px 0;
+  } 
+
+  .single-widget{
+    text-align: center;
   }

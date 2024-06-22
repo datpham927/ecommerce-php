@@ -71,7 +71,6 @@ class CustomerControllers extends Controller
             $data = [
                 "user_email" => $request->user_email,
                 "user_mobile" => $request->user_mobile,
-                
                 "user_name" => $request->user_name,
                 "user_city_id" => $request->city,
                 "user_province_id" =>$request->province,

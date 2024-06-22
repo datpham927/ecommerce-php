@@ -22,7 +22,7 @@
             <div class="col-sm-4">
             </div>
             <div class="col-sm-3">
-            @can(config("permission.access.add-brand"))
+                @can(config("permission.access.add-brand"))
                 <button class="btn btn-sm btn-info">
                     <a href="{{route('brand.add')}}" style="color:white">
                         Thêm thương hiệu

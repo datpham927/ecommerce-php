@@ -820,8 +820,8 @@ pre code {
         width: 750px
     }
     .product-top img{
-        width:  125px !important  ;   
-        height: 157px !important
+        width:  125px   ;   
+        height: 157px
      }
 }
 @media(min-width:992px) {

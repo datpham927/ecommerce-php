@@ -1,8 +1,15 @@
+@php
+use App\Models\setting;
+$setting = setting::first();
+@endphp
+
 <header class="header fixed-top clearfix">
     <!--logo start-->
     <div class="brand">
-        <a href="index.html" class="logo">
-            LOGO
+        <a href="{{route('admin.dashboard')}}" class="logo">
+            <img src="{{$setting->setting_logo}}" style="width: 50px;" />
+            <span
+                style="font-size: 16px; color: white; margin-top: 10px;text-transform: uppercase;">{{$setting->setting_company_name}}</span>
         </a>
         <div class="sidebar-toggle-box">
             <div class="fa fa-bars"></div>
@@ -24,7 +31,7 @@
             ])->count();
             @endphp
             <li id="header_inbox_bar" class="dropdown">
-                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                <a data-toggle="dropdown" href="#">
                     <i class="fa fa-envelope-o"></i>
                     <span class="badge bg-important">{{$notifications_notseen??0}}</span>
                 </a>
@@ -77,11 +84,11 @@
                     </span>
 
                     </span>
-                    <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu extended logout">
                     <li><a href="#"><i class=" fa fa-suitcase"></i>Hồ sơ</a></li>
-                    <li><a href="#"><i class="fa fa-cog"></i> Cài đặt</a></li>
+                    <li><a href="{{route('admin.setting')}}"><i class="fa fa-cog"></i> Cài đặt</a></li>
+                   
                     <li><a href="{{route('admin.logout')}}"><i class="fa fa-key"></i>Đăng xuất</a></li>
                 </ul>
             </li>

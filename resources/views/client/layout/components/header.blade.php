@@ -1,44 +1,55 @@
+@php
+use App\Models\setting;
+use App\Models\Notification;
+
+$notifications = collect();
+$notifications_notseen = 0;
+if (Auth::check()) {
+$userId = Auth::id();
+
+$notifications = Notification::where('n_user_id', $userId)
+->orWhere('n_type', 'system')
+->orderBy('created_at', 'desc')
+->get();
+$notifications_notseen = Notification::where(function($query) use ($userId) {
+$query->where('n_user_id', $userId)
+->orWhere('n_type', 'system');
+})->where('n_is_watched', false)
+->count();
+}
+
+$setting = setting::first();
+@endphp
+
 <header id="header">
     <!--header-->
     <div class="header_top">
         <!--header_top-->
         <div class="container">
             <div class="row">
+
                 <div class="col-sm-6">
                     <div class="contactinfo">
                         <ul class="nav nav-pills">
-                            <li style="font-size: 10px;">
-                                <a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a>
+                            @if($setting->setting_phone)
+                            <li style="font-size: 10px; margin-top:10px">
+                                <span><i class="fa fa-phone"></i> {{$setting->setting_phone}}</span>
                             </li>
-                            <li style="font-size: 10px;">
-                                <a href="#"><i class="fa fa-envelope"></i> info@domain.com</a>
+                            //sds
+                            @endif
+
+                            @if($setting->setting_email)
+                            <li style="font-size: 10px;margin-top:10px">
+                                <span><i class="fa fa-envelope"></i> {{$setting->setting_email}}</span>
                             </li>
+                            @endif
+
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="social-icons pull-right">
                         <ul class="nav navbar-nav" style="display: flex">
-                            @php
-                            use App\Models\Notification;
-
-                            $notifications = collect();
-                            $notifications_notseen = 0;
-
-                            if (Auth::check()) {
-                            $userId = Auth::id();
-
-                            $notifications = Notification::where('n_user_id', $userId)
-                            ->orWhere('n_type', 'system')
-                            ->orderBy('created_at', 'desc')
-                            ->get();
-                            $notifications_notseen = Notification::where(function($query) use ($userId) {
-                            $query->where('n_user_id', $userId)
-                            ->orWhere('n_type', 'system');
-                            })->where('n_is_watched', false)
-                            ->count();
-                            }
-                            @endphp
 
                             <li style="display: flex; align-content: center; margin-right:10px ">
                                 <div class="btn-notification">
@@ -110,8 +121,8 @@
                 <div class="col-sm-2 logo-min">
                     <div class="logo pull-left">
                         <a href="/" style="display: flex; align-items: center; text-decoration: none;">
-                            <img style="width: 50px;" src="{{ asset('frontend/images/home/logo.png') }}" alt="" />
-                            <span style="font-size: 16px; color: white; margin-top: 10px;">DATPSHOP</span>
+                            <img style="width: 50px;" src="{{ $setting->setting_logo}}" alt="" />
+                            <span style="font-size: 16px; color: white; margin-top: 10px;text-transform: uppercase;">{{$setting->setting_company_name}}</span>
                         </a>
                     </div>
                 </div>

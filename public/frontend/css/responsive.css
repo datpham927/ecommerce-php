@@ -246,7 +246,7 @@
     .contactinfo {
         text-align: center;
     }
-    .contactinfo ul li a {
+    .contactinfo ul li span {
         padding-right: 15px;
         padding-left: 0;
     }
