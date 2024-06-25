@@ -15,6 +15,7 @@ use App\Http\Controllers\admin\DeliveryControllers;
 use App\Http\Controllers\admin\SettingControllers;
 use App\Http\Controllers\admin\UploadImageControllers;
 use App\Http\Controllers\CrawlerControllers;
+use App\Http\Controllers\MomoControllers;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\user\auth\UserLoginControllers;
 use App\Http\Controllers\user\CartControllers;
@@ -200,3 +201,7 @@ Route::prefix('/')->group(function () {
         Route::delete('/delete/{cid}', [CommentControllers::class, 'delete'])->name("comment.delete");
     }); 
 }); 
+
+// -- payment
+Route::get('/return/momo',[MomoControllers::class,'momo_return'])->name('momo.momo_return');
+Route::get('/return/momo_ipn',[MomoControllers::class,'momo_ipn'])->name('momo.momo_ipn');

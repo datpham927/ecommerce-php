@@ -52,7 +52,7 @@
                         <th>Mã Đơn hàng</th>
                         <th>Trạng thái</th>
                         <th>Tên sản phẩm/số lượng</th>
-                        <th>Khách hàng phải trả</th>
+                        <th>Thanh toán</th>
                         <th style="text-align: center;">Thao tác</th>
                     </tr>
                 </thead>
@@ -88,13 +88,7 @@
 
                         </td>
                         <td style="text-align: center;">
-                            <?php
-                                $totalPrice = 0;
-                                foreach($orderItem->OrderItem as $OrderItem) {
-                                    $totalPrice += $OrderItem->od_item_quantity * $OrderItem->od_item_price;
-                                }
-                                echo  number_format($totalPrice , 0, ',', '.')."₫";
-                            ?>
+                            {{$orderItem->od_is_pay==true?"Đã thanh toán":"Chưa thanh toán"}}
                         </td>
                         <td>
                             <div style="display: flex; flex-direction: column; text-align: center; font-size: 13px;">

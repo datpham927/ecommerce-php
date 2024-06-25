@@ -55,17 +55,18 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="form-group">
+                    <div class="form-group add-avatar" style="margin-top: 10px;">
                         <label for="slider_image">
-                            Thêm hình ảnh
+                            Chọn ảnh 
                             <img src="{{asset('backend/images/image_logo2.png')}}" style='width: 30px; height: 30px;' />
-                            <input type="file" class="@error('slider_image') is-invalid @enderror"
-                                value="{{old('slider_image')}}" id="slider_image" style="display: none;"
-                                name="slider_image" />
+                            <input type="file" class="user-avatar @error('slider_image') is-invalid @enderror"
+                                value="{{old('slider_image')}}" data-url='{{route("upload_image")}}' id="slider_image"
+                                style="display: none;" name="slider_image" />
                         </label>
                         @error('slider_image')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
+                        <div> <img src='' style="width: 200px; margin-top: 5px;" /></div>
                     </div>
                     <button type="submit" class="btn btn-primary">Thêm</button>
                 </form>

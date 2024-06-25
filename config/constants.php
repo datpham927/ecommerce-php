@@ -89,7 +89,7 @@ return [
         [
             'label' => "Quản lý người dùng",
             'router_name' => 'javascript:;',
-            'can' => 'list_customer',
+            'can' => null,
             'sub_menu' => [
                 [
                     'label' => "Quản lý nhân viên",

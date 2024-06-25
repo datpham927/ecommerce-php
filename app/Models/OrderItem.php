@@ -13,10 +13,10 @@ class OrderItem extends Model
     protected $guarded = [];
 public function Product()
 {
-    return $this->belongsTo(product::class, 'od_item_productId');
+    return $this->belongsTo(product::class, 'od_item_product_id');
 }
 public function Order()
 {
-    return $this->belongsTo(Order::class, 'od_item_orderId');
+    return $this->belongsTo(Order::class, 'od_item_order_id');
 }
 }

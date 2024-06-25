@@ -51,9 +51,7 @@
                     </div>
                 </div>
                 @endforeach
-
                 @can(config("permission.access.list-setting"))
-
                 <div style="text-align: center;">
                     <button type="submit" class="btn btn-primary">Cập nhật</button>
                 </div>

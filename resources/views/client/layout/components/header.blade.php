@@ -31,14 +31,13 @@ $setting = setting::first();
                 <div class="col-sm-6">
                     <div class="contactinfo">
                         <ul class="nav nav-pills">
-                            @if($setting->setting_phone)
+                            @if(!empty($setting->setting_phone))
                             <li style="font-size: 10px; margin-top:10px">
                                 <span><i class="fa fa-phone"></i> {{$setting->setting_phone}}</span>
                             </li>
-                            //sds
                             @endif
 
-                            @if($setting->setting_email)
+                            @if(!empty($setting->setting_email))
                             <li style="font-size: 10px;margin-top:10px">
                                 <span><i class="fa fa-envelope"></i> {{$setting->setting_email}}</span>
                             </li>
@@ -121,8 +120,8 @@ $setting = setting::first();
                 <div class="col-sm-2 logo-min">
                     <div class="logo pull-left">
                         <a href="/" style="display: flex; align-items: center; text-decoration: none;">
-                            <img style="width: 50px;" src="{{ $setting->setting_logo}}" alt="" />
-                            <span style="font-size: 16px; color: white; margin-top: 10px;text-transform: uppercase;">{{$setting->setting_company_name}}</span>
+                            <img style="width: 50px;" src="{{ $setting->setting_logo??""}}" alt="" />
+                            <span style="font-size: 16px; color: white; margin-top: 10px;text-transform: uppercase;">{{$setting->setting_company_name??""}}</span>
                         </a>
                     </div>
                 </div>

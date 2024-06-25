@@ -181,6 +181,8 @@ class ProductControllers extends Controller
             DB::beginTransaction();
         // *********    insert table Product  *********  
         $dataProduct= array();
+        $pid = Str::uuid(); // Generate a UUID
+        $dataProduct['id']=$pid ;
         $dataProduct['product_name']=$request->input('product_name');
         $dataProduct['product_slug']=  Str::of($request->input('product_name'))->slug('-');
         $dataProduct['product_price']=$request->input('product_price');

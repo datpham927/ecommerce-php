@@ -51,7 +51,7 @@
                             <option value='-1'>Chọn danh mục</option>
                             @foreach ($categories as $category)
                             <option value="{{ $category->id }}"
-                                {{ $product->slider_category_id == $category->id ? 'selected' : '' }}>
+                                {{$category->slider_category_id == $category->id ? 'selected' : '' }}>
                                 {{ $category->category_name }}
                             </option>
                             @endforeach
@@ -62,18 +62,18 @@
                         @enderror
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group add-avatar" style="margin-top: 10px;">
                         <label for="slider_image">
-                            Thêm hình ảnh
+                            Chọn ảnh
                             <img src="{{asset('backend/images/image_logo2.png')}}" style='width: 30px; height: 30px;' />
-                            <input type="file" class="@error('slider_image') is-invalid @enderror"
-                                value="{{old('slider_image')}}" id="slider_image" style="display: none;"
-                                name="slider_image" />
+                            <input type="file" class="user-avatar @error('slider_image') is-invalid @enderror"
+                                value="{{old('slider_image')}}" data-url='{{route("upload_image")}}' id="slider_image"
+                                style="display: none;" name="slider_image" />
                         </label>
                         @error('slider_image')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
-                        <div> <img src='{{$slider->slider_image}}' style="width: 200px;" /></div>
+                        <div> <img src='{{$slider->slider_image}}' style="width: 200px; margin-top: 5px;" /></div>
                     </div>
                     <button type="submit" class="btn btn-primary">Cập nhật</button>
                 </form>

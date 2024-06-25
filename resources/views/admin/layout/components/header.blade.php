@@ -7,9 +7,9 @@ $setting = setting::first();
     <!--logo start-->
     <div class="brand">
         <a href="{{route('admin.dashboard')}}" class="logo">
-            <img src="{{$setting->setting_logo}}" style="width: 50px;" />
+            <img src="{{$setting->setting_logo??""}}" style="width: 50px;" />
             <span
-                style="font-size: 16px; color: white; margin-top: 10px;text-transform: uppercase;">{{$setting->setting_company_name}}</span>
+                style="font-size: 16px; color: white; margin-top: 10px;text-transform: uppercase;">{{$setting->setting_company_name??""}}</span>
         </a>
         <div class="sidebar-toggle-box">
             <div class="fa fa-bars"></div>
