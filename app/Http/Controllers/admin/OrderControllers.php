@@ -61,7 +61,7 @@ public function confirmOrderStatus(Request $request,$oid){
         $updates=[
             'is-confirm' => ['od_is_confirm' => true],
             'is-confirm-delivery' => ['od_is_confirm_delivery' => true], 
-            'is-delivered' => ['od_is_delivering' => true,'od_is_success' => true],
+            'is-delivered' => ['od_is_delivering' => true,'od_is_success' => true,'od_is_pay'=>true],
         ];
         $orderNotification= config("constants.Order-notification");
         $order = Order::find($oid);

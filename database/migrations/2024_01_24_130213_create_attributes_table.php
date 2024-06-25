@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigIncrements('id'); 
             $table->string('attribute_name');
             $table->string('attribute_description');
-            $table->integer('attribute_product_id');
+            $table->string('attribute_product_id');
             $table->timestamps();
         });
     }

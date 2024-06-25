@@ -37,7 +37,7 @@
                             @foreach($newProducts->chunk(4) as $itemProducts)
                             <div class="item {{ $loop->first ? 'active' : '' }}">
                                 @foreach($itemProducts as $product)
-                                @include('client.components.productItem')
+                                    @include('client.components.productItem')
                                 @endforeach
                             </div>
 

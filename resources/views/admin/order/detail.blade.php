@@ -92,7 +92,7 @@
         </div>
 
         <div style="display: flex;flex-direction: column;align-items: end;justify-content: end;">
-            <p style="font-size: 20px;">Thanh toán: <span style="color: #FE6133;">
+            <p style="font-size: 20px;"> {{$order->od_is_pay==true?"Đã thanh toán: ":"Thanh toán: "}} <span style="color: #FE6133;">
                     <?php
                         $totalPrice=0;
                       foreach($order->OrderItem as $item) {

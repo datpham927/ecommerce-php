@@ -12,6 +12,7 @@ use App\Models\OrderItem;
 use App\Models\product;
 use App\Models\Size;
 use App\Models\User;
+use App\Classes\Momo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,10 +23,18 @@ use Illuminate\Support\Str;
 
 class UserOrderControllers extends Controller
 {
+    protected $momo;
+     function __construct(Momo $momo)
+{
+     $this->momo=$momo;
+}
     public function viewCheckout(){
         $user = Auth::user();
         // Eager load products with cart items to reduce the number of queries
         $carts = Cart::with('product')->where('cart_user_id', $user->id)->get();
+        if($carts->count()==0){
+            return back();
+        }
         // Retrieve feeship in one query using whereIn for better performance
         $foundFeeship = Feeship::where([
             'matp' => $user->user_city_id,
@@ -44,19 +53,46 @@ class UserOrderControllers extends Controller
     public function addOrder(Request $request)
 {
     try {
-        DB::beginTransaction();
-        $user = Auth::user();
-        $userId = $user->id;
-        $carts = Cart::with('product')->where('cart_user_id', $userId)->get();
         if(!$request["user_address"] ){
             return redirect()->back()->with('error', 'Vui lòng cập nhât thông tin trước khi đặt hàng! ');
         }
         if(!$request["user_address_detail"] ||!$request["user_phone"]){
             return redirect()->back()->with('error', 'Vui lòng nhập thông tin đầy đủ! ');
         }
+        if(!$request["od_paymentMethod"]){
+            return redirect()->back()->with('error', 'Vui lòng chọn phương thức thanh toán! ');
+        }
+        DB::beginTransaction();
+          $order=$this->handleOrder($request);
+        DB::commit();
+        // pay by online
+        //check information and redirect momo
+        if($request["od_paymentMethod"]!='CASH'){
+            $response= $this->paymentMethod($order,$request["od_paymentMethod"]);
+            if($response['resultCode']==0){
+                return redirect()->away($response['payUrl']);
+            }
+        }
+        Mail::to('datp1907@gmail.com')->cc('dpshopvn@gmail.com')->send(new OrderMail($order));
+        return redirect()->route('order.order_list')->with('success', 'Đặt hàng thành công!');
+    } catch (\Throwable $exception) {
+        DB::rollBack();
+        dd($exception);
+        return redirect()->back()->with('error', 'Đặt hàng thất bại! ' . $exception->getMessage());
+    }
+}
 
+public function handleOrder($request){
+        $user = Auth::user();
+        $userId = $user->id;
+        $carts = Cart::with('product')->where('cart_user_id', $userId)->get();
+        if($carts->count()==0){
+             return back();
+        }
+        $pid = Str::uuid();
         // Create a new order
         $order = new Order([
+            'id'=>$pid,
             'od_user_id' => $userId,
             'od_user_name' =>$request["user_name"],
             'od_user_phone' => $request["user_phone"],
@@ -64,30 +100,21 @@ class UserOrderControllers extends Controller
             'od_shipping_address_detail' => $request["user_address_detail"] ,
             'od_shipping_price' =>  $request["feeship"],
             'od_date_shipping' => now()->addDays(rand(0, 7)),
-            // 'od_is_pay' => false,
+            'od_price_total' =>  $request["od_price_total"],
+            'od_is_pay' => 0,
             'od_paymentMethod' => 'CASH',
         ]);
-        $order->save();
-
-        // Create a new notification
-        Notification::create([
-            "n_title" => 'Bạn có một đơn hàng mới!',
-            "n_subtitle" => "Ngày đặt hàng " . \Carbon\Carbon::parse($order->created_at)->locale('vi')->isoFormat('dddd, DD/MM/YYYY'),
-            "n_image" => "https://imaxmobile.vn/media/data/icon-giao-hang-toan-quoc.jpeg",
-            "n_link" => "/admin/order"
-        ]);
-
+        $order->save();  
         foreach ($carts as $cartItem) {
             // Create a new order detail
             $OrderItem = new OrderItem([
-                'od_item_productId' => $cartItem->cart_product_id,
-                'od_item_orderId' => $order->id,
+                'od_item_product_id' => $cartItem->cart_product_id,
+                'od_item_order_id' => $order->id,
                 'od_item_quantity' => $cartItem->cart_quantity,
                 'od_item_price' => $cartItem->product->product_price,
                 'od_item_size' => $cartItem->cart_size,
             ]);
-            $OrderItem->save();
-
+            $OrderItem->save(); 
             // Update product quantity and stock
             $product = $cartItem->product;
             $product->product_sold += $cartItem->cart_quantity;
@@ -104,31 +131,40 @@ class UserOrderControllers extends Controller
             }
             // Remove cart item
             $cartItem->delete();
-        }
-        Mail::to('datp1907@gmail.com')->cc('dpshopvn@gmail.com')->send(new OrderMail($order));
-        DB::commit();
-        return redirect()->route('order.order_list')->with('success', 'Đặt hàng thành công!');
-    } catch (\Throwable $exception) {
-        DB::rollBack();
-        dd($exception->getMessage());
-        return redirect()->back()->with('error', 'Đặt hàng thất bại! ' . $exception->getMessage());
-    }
+        } 
+        // Create a new notification
+        Notification::create([
+            "n_title" => 'Bạn có một đơn hàng mới!',
+            "n_subtitle" => "Ngày đặt hàng " . \Carbon\Carbon::parse($order->created_at)->locale('vi')->isoFormat('dddd, DD/MM/YYYY'),
+            "n_image" => "https://imaxmobile.vn/media/data/icon-giao-hang-toan-quoc.jpeg",
+            "n_link" => "/admin/order"
+        ]);
+
+        return  $order;
 }
 
+    public function paymentMethod($order,$od_paymentMethod){
+         switch ($od_paymentMethod) { 
+             case 'MOMO':
+                  return $this->momo->method($order); 
+            default:
+                break;
+         } 
+    }
 
     public function isCanceled($oid){
         try {
             DB::beginTransaction(); 
             $order = Order::find($oid);  
             foreach($order->OrderItem as $OrderItemItem){  
-                $foundProduct = Product::find($OrderItemItem->od_item_productId); 
+                $foundProduct = Product::find($OrderItemItem->od_item_product_id); 
                 // Cập nhật số lượng sản phẩm đã bán và số lượng tồn kho
                 $foundProduct->product_sold -= $OrderItemItem->od_item_quantity;
                 $foundProduct->product_stock += $OrderItemItem->od_item_quantity; 
                 $foundProduct->save();
                 // Cập nhật số lượng sản phẩm trong kích thước
                 $foundProductSize = Size::where([
-                    "size_product_id" => $OrderItemItem->od_item_productId, 
+                    "size_product_id" => $OrderItemItem->od_item_product_id, 
                     "size_name" => $OrderItemItem->od_item_size,  
                 ])->first();
                 if ($foundProductSize) {

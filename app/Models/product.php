@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class product extends Model
 {
     protected $guarded = [];
+    protected $keyType = 'string';
+    public $incrementing = false;
     use HasFactory;
     use SoftDeletes;
 

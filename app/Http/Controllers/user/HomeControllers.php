@@ -17,6 +17,7 @@ class HomeControllers extends Controller
         $brands = brand::orderby('id','desc')->get();
         $sliders = Slider::orderby('id','desc')->get();
         $products=product::where("product_isPublished",true)->orderby('product_discount','desc')->limit(4)->get(); 
+         
         $newProducts=product::where("product_isPublished",true)->orderby('created_at','desc')->limit(16)->get();
         $HotSellingProducts=product::where("product_isPublished",true)->orderby('product_sold','desc')->limit(8)->get();  
         return view('client.pages.home',compact("categories",'brands','products','sliders' ,'newProducts','HotSellingProducts'));

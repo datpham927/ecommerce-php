@@ -156,6 +156,8 @@ class CrawlerControllers extends Controller
           }
         // -------------  product ------------- 
         $dataProduct=[];
+        $pid = Str::uuid(); // Generate a UUID
+        $dataProduct['id']=$pid ;
         $dataProduct["product_name"]= $crawler->filter(".product-title h1")->text();
         $dataProduct["product_slug"]=  Str::of($crawler->filter(".product-title h1")->text())->slug('-');
         $dataProduct["product_brand_id"]= rand(1, 10);
@@ -174,13 +176,13 @@ class CrawlerControllers extends Controller
                     Images::create([
                         "image_name"=> "link",
                         "image_url"=> $image["src"],
-                        "image_product_id"=>$product->id
+                        "image_product_id"=>$pid
                     ]);
                 }
                 //   ---------------   insert attribute   ---------------
                 foreach ($dataAttributes as $attribute) {
                     attribute::create([
-                        "attribute_product_id"=>$product->id,
+                        "attribute_product_id"=>$pid ,
                         'attribute_name' =>  $attribute['attribute_name'],
                         'attribute_description' =>  $attribute['attribute_description']
                     ]);
@@ -188,7 +190,7 @@ class CrawlerControllers extends Controller
             //   ---------------   insert attribute   ---------------
             foreach ($newSizes as $size) {
                  Size::create([
-                    "size_product_id"=>$product->id,
+                    "size_product_id"=>$pid ,
                     'size_name' => $size['size_name'],
                     'size_product_quantity' => $size['size_product_quantity']
                 ]);
