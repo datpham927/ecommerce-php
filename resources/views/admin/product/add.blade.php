@@ -38,7 +38,7 @@ CKEDITOR.replace('my-editor', options);
         <div class="form-group">
             <label for="product_name">Tên sản phẩm</label>
             <input value="{{old('product_name')}}" type="text"
-                class="form-control @error('product_name') is-invalid @enderror" id="product_name"
+                class="form-control @error('product_name') is-invalid @enderror" 
                 name="product_name" />
             @error('product_name')
             <div class="alert alert-danger">{{ $message }}</div>
@@ -77,9 +77,18 @@ CKEDITOR.replace('my-editor', options);
 
         <div class="form-group" style="display: flex; row-gap: 20px; display: flex; flex-direction: row; gap: 20px;">
             <div class="form-group">
-                <label for="product_price">Đơn giá (VNĐ)</label>
+                <label for="product_origin_price">Giá gốc (VNĐ)</label>
+                <input value="{{old('product_origin_price')}}" type="number"
+                    class="form-control @error('product_origin_price') is-invalid @enderror" 
+                    name="product_origin_price" />
+                @error('product_origin_price')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="product_price">Giá bán (VNĐ)</label>
                 <input value="{{old('product_price')}}" type="number"
-                    class="form-control @error('product_price') is-invalid @enderror" id="product_name"
+                    class="form-control @error('product_price') is-invalid @enderror" 
                     name="product_price" />
                 @error('product_price')
                 <div class="alert alert-danger">{{ $message }}</div>
@@ -87,7 +96,7 @@ CKEDITOR.replace('my-editor', options);
             </div>
             <div class="form-group">
                 <label for="product_discount">Giảm giá (%)</label>
-                <input value="{{old('product_discount')}}" type="number" class="form-control" id="product_name"
+                <input value="{{old('product_discount')}}" type="number" class="form-control" 
                     name="product_discount" />
             </div>
         </div>

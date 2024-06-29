@@ -87,6 +87,7 @@ class ProductControllers extends Controller
         $dataProduct['product_name']=$request->input('product_name');
         $dataProduct['product_slug']=  Str::of($request->input('product_name'))->slug('-');
         $dataProduct['product_price']=$request->input('product_price');
+        $dataProduct['product_origin_price']=$request->input('product_origin_price');
         $dataProduct['product_description']=$request->input('product_description');
         $dataProduct['product_category_id']=$request->input('product_category_id');
         $dataProduct['product_brand_id']=$request->input('product_brand_id');
@@ -186,6 +187,7 @@ class ProductControllers extends Controller
         $dataProduct['product_name']=$request->input('product_name');
         $dataProduct['product_slug']=  Str::of($request->input('product_name'))->slug('-');
         $dataProduct['product_price']=$request->input('product_price');
+        $dataProduct['product_origin_price']=$request->input('product_origin_price');
         $dataProduct['product_description']=$request->input('product_description');
         $dataProduct['product_category_id']=$request->input('product_category_id');
         $dataProduct['product_brand_id']=$request->input('product_brand_id');

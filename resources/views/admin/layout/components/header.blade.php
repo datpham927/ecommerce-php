@@ -30,9 +30,9 @@ $setting = setting::first();
             'n_type' => 'user'
             ])->count();
             @endphp
-            <li id="header_inbox_bar" class="dropdown">
-                <a data-toggle="dropdown" href="#">
-                    <i class="fa fa-envelope-o"></i>
+            <li id="header_notification_bar" class="dropdown">
+                <a data-toggle="dropdown" href="/" style="padding: 10px 12px;">
+                <i class="fa fa-bell-o"></i>
                     <span class="badge bg-important">{{$notifications_notseen??0}}</span>
                 </a>
                 <ul class="dropdown-menu extended inbox">

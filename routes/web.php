@@ -48,6 +48,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/setting', [SettingControllers::class, 'index'])->name('admin.setting');
         Route::put('/setting/store', [SettingControllers::class, 'store'])->name('admin.setting.store');
         Route::get('/dashboard', [SystemControllers::class, 'showDashboard'])->name('admin.dashboard');
+        Route::get('/chart_filter_by_date', [SystemControllers::class, 'chart_filter_by_date'])->name('admin.dashboard.chart_filter_by_date');
         Route::get('/logout', [AdminLoginControllers::class, 'logout'])->name('admin.logout');
         Route::prefix('/delivery')->group(function () {
             Route::get('/', [DeliveryControllers::class, 'index'])->name("delivery.index");

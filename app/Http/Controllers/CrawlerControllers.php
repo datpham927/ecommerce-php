@@ -37,31 +37,31 @@ class CrawlerControllers extends Controller
     //         dd($items);  
     //    }
    public  $categoryLinks = [
-        [
-            'url' => 'https://juno.vn/collections/dam-va-jumpsuit?itm_source=homepage&itm_medium=sbmenu&itm_campaign=quanao&itm_content=dam',
-            'name' => 'Đầm và Jumpsuit',
-            'description' => 'Danh mục chứa các sản phẩm đầm và jumpsuit'
-        ],
-        [
-            'url' => 'https://juno.vn/collections/ao?itm_source=homepage&itm_medium=sbmenu&itm_campaign=quanao&itm_content=ao',
-            'name' => 'Áo',
-            'description' => 'Danh mục chứa các sản phẩm áo'
-        ],
-        [
-            'url' => 'https://juno.vn/collections/quan?itm_source=homepage&itm_medium=sbmenu&itm_campaign=quanao&itm_content=quan',
-            'name' => 'Quần',
-            'description' => 'Danh mục chứa các sản phẩm quần'
-        ],
+        // [
+        //     'url' => 'https://juno.vn/collections/dam-va-jumpsuit?itm_source=homepage&itm_medium=sbmenu&itm_campaign=quanao&itm_content=dam',
+        //     'name' => 'Đầm và Jumpsuit',
+        //     'description' => 'Danh mục chứa các sản phẩm đầm và jumpsuit'
+        // ],
+        // [
+        //     'url' => 'https://juno.vn/collections/ao?itm_source=homepage&itm_medium=sbmenu&itm_campaign=quanao&itm_content=ao',
+        //     'name' => 'Áo',
+        //     'description' => 'Danh mục chứa các sản phẩm áo'
+        // ],
+        // [
+        //     'url' => 'https://juno.vn/collections/quan?itm_source=homepage&itm_medium=sbmenu&itm_campaign=quanao&itm_content=quan',
+        //     'name' => 'Quần',
+        //     'description' => 'Danh mục chứa các sản phẩm quần'
+        // ],
         [
             'url' => 'https://juno.vn/collections/vay?itm_source=homepage&itm_medium=sbmenu&itm_campaign=quanao&itm_content=vay',
             'name' => 'Váy',
             'description' => 'Danh mục chứa các sản phẩm váy'
         ],
-        [
-            'url' => 'https://juno.vn/collections/khoac?itm_source=homepage&itm_medium=sbmenu&itm_campaign=quanao&itm_content=khoac',
-            'name' => 'Áo khoác',
-            'description' => 'Danh mục chứa các sản phẩm áo khoác'
-        ]
+        // [
+        //     'url' => 'https://juno.vn/collections/khoac?itm_source=homepage&itm_medium=sbmenu&itm_campaign=quanao&itm_content=khoac',
+        //     'name' => 'Áo khoác',
+        //     'description' => 'Danh mục chứa các sản phẩm áo khoác'
+        // ]
     ];
     
    
@@ -166,6 +166,7 @@ class CrawlerControllers extends Controller
         $dataProduct["product_discount"]= rand(5, 20);
         $dataProduct["product_thumb"]=$productThumb;
         $dataProduct["product_price"]=intval(preg_replace('/[^\d]/', '', $crawler->filter(".pro-price")->text()));
+        $dataProduct["product_origin_price"]=intval(preg_replace('/[^\d]/', '', $crawler->filter(".pro-price")->text()))-20000;
         $dataProduct["product_stock"]= $productStock;
          try {
             DB::beginTransaction();
