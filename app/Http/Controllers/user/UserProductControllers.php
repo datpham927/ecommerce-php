@@ -14,6 +14,9 @@ class UserProductControllers extends Controller
     {
            
        $detailProduct =product::find($id);
+       //update lượt xem
+       $detailProduct->product_views+=1;
+       $detailProduct->save();
        // cập nhật rating product
        $comments= Comment::where("comment_parent_id",0)->get();
        $countComment=$comments->count();
@@ -26,6 +29,7 @@ class UserProductControllers extends Controller
               "product_ratings"=>$totalRating/$countComment
           ]);
        }
+     
        $title_page=$detailProduct->product_name;
        $relatedProducts =product::
        where('product_isPublished', true)

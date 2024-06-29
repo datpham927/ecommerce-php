@@ -1,10 +1,5 @@
 @extends("client.layout.index")
 
-@section("footer")
-@include("client.layout.components.footer")
-@endsection 
-
-
 @section("body")
 <section id="cart_items">
     @if(count($carts)>0)
