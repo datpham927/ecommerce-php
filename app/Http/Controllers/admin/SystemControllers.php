@@ -17,8 +17,6 @@ class SystemControllers extends Controller
 {
     public function showDashboard(Request $request)
     {
-        // Get today's date
-       
         // function helper xử lý ngày
         $fromDate=handleFilterByDate($request)["fromDate"];
         $toDate=handleFilterByDate($request)["toDate"];
@@ -32,14 +30,11 @@ class SystemControllers extends Controller
         $totalRevenue = $orders->sum('od_price_total');
         $customerCount = $orders->unique('od_user_id')->count();
         $visitorCount = Visitor::whereBetween('created_at', [$fromDate, $toDate])->count();
-        // Return the view with the necessary data
-
         // lượt xem sản phẩm
         $topViewProducts= Product::where('product_isPublished', true)
         ->orderBy('product_views', 'desc')
         ->limit(5)
         ->get();
-    
         $topSoldProducts = OrderItem::select('od_item_product_id', DB::raw('SUM(od_item_quantity) as quantity_sold'))
         ->with('Product') // Eager load the product relationship
         ->join('orders', 'orders.id', '=', 'order_items.od_item_order_id')
@@ -49,7 +44,6 @@ class SystemControllers extends Controller
         ->orderByDesc('quantity_sold')
         ->take(5)
         ->get();
-
         return view('admin.dashboard.index', compact('orderCount', 'totalRevenue', 'customerCount',
                                                  'visitorCount', 'fromDate', 'toDate', 'dateFilter','topViewProducts',
                                                 'topSoldProducts'));

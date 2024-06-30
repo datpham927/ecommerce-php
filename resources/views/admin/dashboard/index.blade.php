@@ -66,7 +66,10 @@
 <!-- //tasks -->
 <div class="agileits-w3layouts-stats">
 
-    <div class="col-md-6 stats-info stats-last widget-shadow">
+    <div class="col-md-6 stats-info stats-last widget-shadow" >
+        <div style="text-align: center; background-color: #8b5c7e; padding:10px 0;">
+            <h4 style="color:white" >Sản phẩm bán chạy</h4>
+        </div>
         <div class="stats-last-agile">
             <table class="table stats-table ">
                 <thead>
@@ -77,7 +80,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach ($topSoldProducts as $index => $item)
+                    @foreach ($topSoldProducts as $index => $item)
                     <tr>
                         <th scope="row">{{ $index + 1 }}</th>
                         <td class="text-ellipsis long-text">{{ $item->Product->product_name }}</td>
@@ -91,6 +94,9 @@
         </div>
     </div>
     <div class="col-md-6 stats-info stats-last widget-shadow">
+    <div style="text-align: center; background-color: #8b5c7e; padding:10px 0;">
+            <h4 style="color:white" >Sản phẩm được xem  nhiều nhất</h4>
+        </div>
         <div class="stats-last-agile">
             <table class="table stats-table ">
                 <thead>
