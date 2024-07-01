@@ -35,7 +35,12 @@ class HomeControllers extends Controller
             ['products.product_category_id', $id],
         ])->latest()->paginate(12);
         $category = Category::find($id);
-        return view('client.pages.showProductByCategory',compact("products_by_categoryId",'categories'));
+
+        $breadcrumb = [
+            
+            ['label' => $category->category_name, 'link' =>null],
+        ];
+        return view('client.pages.showProductByCategory',compact("products_by_categoryId",'categories','breadcrumb'));
     }
 
     function showBrandHome($product_slug,$id){ 
@@ -44,7 +49,11 @@ class HomeControllers extends Controller
             ['products.product_isPublished',true],
             ['products.product_brand_id', $id],
         ])->latest()->paginate(12); 
-        return view('client.pages.showProductByBrand',compact("products_by_brandId",'brands'));
+        $brand = brand::find($id);
+        $breadcrumb = [
+            ['label' => $brand->brand_name, 'link' =>null],
+        ];
+        return view('client.pages.showProductByBrand',compact("products_by_brandId",'brands','breadcrumb'));
     }
     
     

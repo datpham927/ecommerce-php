@@ -5,9 +5,10 @@
 @endsection
 
 @section("body")
+
 <section id="cart_items">
     <div class="container">
-        <h2 style="font-weight: 400; margin-left: 20px; font-size: 20px;">Giỏ hàng</h2>
+        @include("client.components.breadcrumb")
         <div style="display: flex;">
             <div class="col-sm-7">
                 <div class="table-responsive cart_info" style="border: none;">

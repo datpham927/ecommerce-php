@@ -51,7 +51,11 @@ class CartControllers extends Controller
     {
         $userId =Auth::user()->id;
         $carts = Cart::where('cart_user_id', $userId)->get();
-        return view('client.pages.cart',compact("carts"));
+        $breadcrumb = [
+            ['label' => 'Giỏ hàng', 'link' => null],
+        ];
+        
+        return view('client.pages.cart',compact("carts",'breadcrumb'));
     }
     
     public function increase($cid)

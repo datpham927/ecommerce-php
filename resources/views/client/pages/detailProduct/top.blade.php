@@ -1,4 +1,4 @@
-<div class='container' style="background-color: white;margin-top: 20px;padding: 20px;">
+<div class='container' style="background-color: white;padding: 20px;">
     <div class="col-sm-12" style="background-color: white;">
         <div class="product-details">
             <div class="col-sm-5">

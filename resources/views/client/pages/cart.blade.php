@@ -4,7 +4,7 @@
 <section id="cart_items">
     @if(count($carts)>0)
     <div class="container">
-        <h2 style="font-weight: 400;">Giỏ hàng</h2>
+        @include("client.components.breadcrumb")
         <div class="table-responsive cart_info" style="border: none;">
             <table class='table table-condensed'>
                 <thead>

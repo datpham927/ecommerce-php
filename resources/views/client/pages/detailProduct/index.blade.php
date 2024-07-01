@@ -57,7 +57,8 @@ $(document).ready(function() {
 
 @section("body")
 <div class="container">
-<div class="row" style="margin-top: 15px;">
+    <div class="row" >
+    @include("client.components.breadcrumb")
     @include('client.pages.detailProduct.top') 
     @include('client.pages.detailProduct.relatedProduct')
     @include('client.pages.detailProduct.productAttribute')

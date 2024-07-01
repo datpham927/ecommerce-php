@@ -40,7 +40,14 @@ class UserProductControllers extends Controller
         'comment_product_id'=>$id,
         'comment_parent_id'=>0,
        ])->orderBy("created_at","desc")->latest()->paginate(5);
-       return view('client.pages.detailProduct.index',compact("detailProduct",'relatedProducts','title_page','comments'));
+
+       $category=$detailProduct->Category;
+       $breadcrumb = [
+        ['label' =>$category->category_name, 'link' =>route('category.show_product_home', ['cid' => $category->id, 'slug' => $category->category_slug])],
+        ['label' => $detailProduct->product_name, 'link' => null],
+    ];
+       return view('client.pages.detailProduct.index',compact("detailProduct",'relatedProducts',
+       'title_page','comments','breadcrumb'));
     }
    //  tìm kiếm sản phẩm
    public function searchResult(Request $request)
@@ -49,7 +56,9 @@ class UserProductControllers extends Controller
        $products = product::where('product_name', 'like', '%' . $query . '%')
                            ->orWhere('product_description', 'like', '%' . $query . '%')
                            ->latest()->paginate(18);
-
-       return view('client.pages.searchResult',  compact("products","query"));
+            $breadcrumb = [
+            ['label' => 'Tìm kiếm', 'link' => null],
+        ];
+       return view('client.pages.searchResult',  compact("products","query",'breadcrumb'));
    }
 }

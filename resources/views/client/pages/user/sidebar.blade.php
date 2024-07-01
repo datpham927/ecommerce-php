@@ -8,7 +8,7 @@
     <ul class="w-full h-full">
         <li>
             <a aria-current="page"
-                class="flex gap-4 p-2 text-secondary hover:bg-gray-200 cursor-pointer bg-gray-200 active"
+                class="flex gap-4 p-2 text-secondary hover:bg-gray-200 cursor-pointer "
                 href="{{ route('user.profile') }}">
                 <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-vubbuv" focusable="false" aria-hidden="true"
                     viewBox="0 0 24 24" data-testid="PersonIcon" style="color: rgb(155, 155, 155);">

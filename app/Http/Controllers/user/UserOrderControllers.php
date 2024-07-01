@@ -47,7 +47,11 @@ class UserOrderControllers extends Controller
         });
         // Use the null coalescing operator to handle the feeship
         $feeship = $foundFeeship ?? 0;
-        return view('client.pages.checkout', compact('carts', 'user', 'totalPrice', 'feeship'));
+
+        $breadcrumb = [
+            ['label' =>'Thanh toán', 'link' =>null],
+        ];
+        return view('client.pages.checkout', compact('carts', 'user', 'totalPrice', 'feeship','breadcrumb'));
     }
     
     public function addOrder(Request $request)
