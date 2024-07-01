@@ -76,7 +76,6 @@ public function confirmOrderStatus(Request $request,$oid){
             });
             $foundStatistical = statistical::firstOrNew(['order_date' => $today]);
             $foundStatistical->profit += $profit;
-            $foundStatistical->profit += $profit;
             $foundStatistical->sales += $order->od_price_total;
             $foundStatistical->total_order += 1;
             $foundStatistical->quantity+= $quantity ;

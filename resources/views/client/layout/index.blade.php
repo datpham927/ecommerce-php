@@ -37,8 +37,10 @@
     <link rel="apple-touch-icon-precomposed"
         href="{{asset('frontend/images/ico/apple-touch-icon-57-precomposed.png')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
     @yield('css')
+    <link href="{{asset('frontend/css/responsive.css')}}" rel="stylesheet"> 
+    
+    @vite('resources/css/app.css')
 </head>
 <!--/head-->
 
@@ -61,6 +63,7 @@
     <script src="{{asset('frontend/js/product.js')}}"></script>
     <script src="{{asset('frontend/js/order.js')}}"></script>
     <script src="{{asset('frontend/js/notification.js')}}"></script>
+    <script src="{{asset('frontend/js/user_.js')}}"></script>
     
     @yield('js')
 

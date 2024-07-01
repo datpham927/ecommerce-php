@@ -155,6 +155,8 @@ Route::prefix('/')->group(function () {
     Route::prefix('/user')->group(function () { 
         Route::get('/login',[UserLoginControllers::class,'login'])->name('user.login');
         Route::post('/store-login',[UserLoginControllers::class,'storeLogin'])->name('user.store_login');
+        Route::get('login/google', [UserLoginControllers::class, 'redirectToGoogle'])->name('user.login.google');
+        Route::get('login/google/callback', [UserLoginControllers::class, 'handleGoogleCallback']);
         Route::get('/register',[UserLoginControllers::class,'register'])->name('user.register');
         Route::get('/logout',[UserLoginControllers::class,'logout'])->name('user.logout');
         Route::post('/store-register',[UserLoginControllers::class,'storeRegister'])->name('user.store_register');
@@ -162,6 +164,19 @@ Route::prefix('/')->group(function () {
         Route::post('/profile/update', [UserLoginControllers::class, 'update'])->middleware('auth')->name("user.update");
         Route::post('profile/select-address', [DeliveryControllers::class, 'selectDelivery']);
     
+        Route::prefix('/order')->middleware('auth')->group(function () { 
+            // trạng thái
+              Route::get('/', [UserOrderControllers::class, 'showOrder'])->name("order.order_list");
+              Route::get('/confirm', [UserOrderControllers::class, 'showOrder'])->name("order.confirm");
+              Route::get('/confirm-delivery', [UserOrderControllers::class, 'showOrder'])->name("order.confirm_delivery");
+              Route::get('/delivering', [UserOrderControllers::class, 'showOrder'])->name("order.delivering");
+              Route::get('/success', [UserOrderControllers::class, 'showOrder'])->name("order.success");
+              Route::get('/canceled', [UserOrderControllers::class, 'showOrder'])->name("order.canceled");
+            //   ------
+             Route::post('/store', [UserOrderControllers::class, 'addOrder'])->name("order.add_order");
+             Route::get('/view-checkout', [UserOrderControllers::class, 'viewCheckout'])->name("order.view_checkout");
+             Route::put('/is-canceled/{oid}', [UserOrderControllers::class, 'isCanceled'])->name("order.isCanceled");
+        }); 
     }); 
     Route::prefix('/category')->group(function () { 
         Route::get('/danh-muc-san-pham/{slug}/{cid}', [HomeControllers::class, 'showCategoryHome'])->name("category.show_product_home");
@@ -180,19 +195,7 @@ Route::prefix('/')->group(function () {
         Route::post('/decrease/{cid}', [CartControllers::class, 'decrease'])->name("cart.decrease");
         Route::delete('/delete/{cid}', [CartControllers::class, 'delete'])->name("cart.delete");
     }); 
-    Route::prefix('/order')->middleware('auth')->group(function () { 
-        // trạng thái
-          Route::get('/', [UserOrderControllers::class, 'showOrder'])->name("order.order_list");
-          Route::get('/confirm', [UserOrderControllers::class, 'showOrder'])->name("order.confirm");
-          Route::get('/confirm-delivery', [UserOrderControllers::class, 'showOrder'])->name("order.confirm_delivery");
-          Route::get('/delivering', [UserOrderControllers::class, 'showOrder'])->name("order.delivering");
-          Route::get('/success', [UserOrderControllers::class, 'showOrder'])->name("order.success");
-          Route::get('/canceled', [UserOrderControllers::class, 'showOrder'])->name("order.canceled");
-        //   ------
-         Route::post('/store', [UserOrderControllers::class, 'addOrder'])->name("order.add_order");
-         Route::get('/view-checkout', [UserOrderControllers::class, 'viewCheckout'])->name("order.view_checkout");
-         Route::put('/is-canceled/{oid}', [UserOrderControllers::class, 'isCanceled'])->name("order.isCanceled");
-    }); 
+
 
 
 
@@ -202,7 +205,8 @@ Route::prefix('/')->group(function () {
         Route::delete('/delete/{cid}', [CommentControllers::class, 'delete'])->name("comment.delete");
     }); 
 }); 
-
+// auth google
+ 
 // -- payment
 Route::get('/return/momo',[MomoControllers::class,'momo_return'])->name('momo.momo_return');
 Route::get('/return/momo_ipn',[MomoControllers::class,'momo_ipn'])->name('momo.momo_ipn');

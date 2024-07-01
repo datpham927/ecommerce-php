@@ -197,7 +197,7 @@ public function handleOrder($request){
     public function showOrder()
     {
         // Lấy user_id từ session
-        $userId = Session::get('user_id');
+        $userId =Auth::user()->id;
         // Lấy phần cuối của URL
         $lastSegment = Str::afterLast(request()->url(), '/');
         // Xác định trạng thái đơn hàng
@@ -225,7 +225,8 @@ public function handleOrder($request){
         // Lấy danh sách đơn hàng
         $orders = $query->get();
         $active = $lastSegment;
+        $user=Auth::user();
         // Trả về view 'pages.order.orderList' với dữ liệu đơn hàng và active
-        return view('client.pages.order.orderList', compact('orders', 'active'));
+        return view('client.pages.user.order.index', compact('orders', 'active','user'));
     }
 }

@@ -28,6 +28,7 @@ class User extends Authenticatable
         "user_province_id",
         "user_ward_id" ,
         "user_city_id" ,
+        "user_google_id" ,
     ];
     // thêm mới try cập được password
     public function getAuthPassword()

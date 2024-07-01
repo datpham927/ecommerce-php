@@ -1,6 +1,7 @@
-@extends("client.layout.index")
+@extends("client.pages.user.index")
 
-@section("body")
+@section("content")
+
 <section id="cart_items">
     <div class="container">
         <h2 style="font-weight: 400; margin-left: 20px; font-size: 20px;">Đơn hàng của bạn</h2>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Size;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
@@ -13,15 +14,15 @@ class CartControllers extends Controller
 {
     public function addToCart(Request $request)
     {
-        $userId = Session::get('user_id');
-        if(!$userId)   return back()->with('error', 'Vui lòng đăng nhập!');
+        
+        if(!Auth::check())   return back()->with('error', 'Vui lòng đăng nhập!');
         if(!$request->has("size_hidden")){ 
             return back()->with('error', 'Vui lòng chọn kích thước!');
         }
         if($request->input("quantity") == 0){ 
             return back()->with('error', 'Vui lòng chọn số lượng!');
         }
-        
+        $userId =Auth::user()->id;
         $data = [ 
             "cart_user_id" => $userId,
             "cart_product_id" => $request->input("productId_hidden"),
@@ -48,7 +49,7 @@ class CartControllers extends Controller
     }
     public function viewListCart()
     {
-        $userId = Session::get('user_id');
+        $userId =Auth::user()->id;
         $carts = Cart::where('cart_user_id', $userId)->get();
         return view('client.pages.cart',compact("carts"));
     }

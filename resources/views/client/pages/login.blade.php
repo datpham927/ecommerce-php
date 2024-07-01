@@ -31,11 +31,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- //font-awesome icons -->
     <script src="{{asset('js/jquery2.0.3.min.js')}}"></script>
 </head>
+
 <body>
+
     <div style="width: 100%; overflow: hidden; padding: 20px;">
 
         <section class="vh-100">
             <div class="container-fluid h-custom">
+
                 <div class="row " style="display: flex; justify-content: center; align-items: center;">
                     <div class="col-md-9 col-lg-6 col-xl-5">
                         <img style="width: 100%;"
@@ -43,8 +46,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             class="img-fluid" alt="Sample image">
                     </div>
                     <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+
                         <form action="{{route('user.store_login')}}" method="post">
-                        @csrf    
+                            @csrf
                             <!-- Email input -->
                             <div>
                                 <h1 style="font-size: 25px;">Đăng nhập bằng email</h1>
@@ -56,23 +60,28 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <!-- Password input -->
                             <input type="password" required name="user_password" id="form3Example4"
                                 class="form-control form-control-lg" placeholder="Nhập mật khẩu" />
-                                <?php
-                                    use Illuminate\Support\Facades\Session;
-                                    $message = Session::get("message");
-                                    if ($message) {
-                                        echo '<div class="alert alert-danger" style="background:none;border:none; padding:5px 0">'. $message . ' </div>';
-                                        Session::put("message", null);
-                                    }
-                                ?>
-                            <div class="text-center text-lg-start pt-2" style="margin: 20px 0;">
-                                <button  type="submit" class="btn btn-primary btn-lg"
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <div>
+                                    @foreach ($errors->all() as $error)
+                                    <span>{{ $error }}</span>
+                                    @endforeach
+                                </div>
+                            </div>
+                            @endif
+                            <div class="text-center text-lg-start pt-2 " style="margin: 20px 0; display:flex;flex-direction: column;">
+                                <button type="submit" class="btn btn-primary btn-lg"
                                     style="padding-left: 2.5rem; padding-right: 2.5rem;">Đăng nhập</button>
+                                    <a href="{{route('user.login.google')}}" style="margin-top: 10px" class="link-danger">Đăng nhập bằng google 
+                                    <img style="width: 20px;" src="https://i.pinimg.com/originals/74/65/f3/7465f30319191e2729668875e7a557f2.png"/>
+                                    </a>
                                 <p class="small fw-bold pt-1 mb-0" style="margin-top: 5px;">Chưa có tài khoản?
                                     <a href="{{route('user.register')}}" class="link-danger">Tạo tài khoản</a>
                                 </p>
-                            </div>
+                            </div> 
 
                         </form>
+                                 
                     </div>
                 </div>
             </div>
