@@ -7,6 +7,7 @@
 @section("body")
 <section>
     <div class="container" >
+        @include("client.components.breadcrumb")
         <div class="row">
             <div class="col-sm-3">
                 @include("client.layout.components.sidebar")

@@ -28,6 +28,8 @@ return new class extends Migration
             $table->integer('product_discount')->default(0); 
             $table->integer('product_sold')->default(0); 
             $table->float('product_price')->nullable;
+            $table->float('product_views')->default(0);
+            $table->float('product_origin_price')->nullable;
             $table->softDeletes();
             $table->timestamps();
         });

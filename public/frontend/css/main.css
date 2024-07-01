@@ -70,9 +70,7 @@ a#scrollUp i {
 *******Header CSS******
 **************************/
 
-.contactinfo ul li:first-child {
-    margin-left: -15px;
-}
+ 
 
 .contactinfo ul li span {
     font-size: 12px;
@@ -2890,7 +2888,7 @@ height: 100%;
 }
 
  body {
-    margin: 20px auto;
+    margin: 0 auto;
     font-family: "Lato";
     font-weight: 300;
   }
@@ -2949,4 +2947,8 @@ height: 100%;
 
   .single-widget{
     text-align: center;
+  }
+
+  svg {
+    width: 25px;
   }

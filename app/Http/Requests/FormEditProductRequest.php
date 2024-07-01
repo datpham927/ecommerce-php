@@ -26,6 +26,7 @@ class FormEditProductRequest extends FormRequest
         return [
             "product_name" => 'bail|required|min:20',
             "product_price" => 'required', 
+            "product_origin_price" => 'product_origin_price', 
             "product_discount" => 'required', 
             "product_description" => 'required|min:20' ,
             "product_sizes" => 'required|array',
@@ -36,7 +37,8 @@ class FormEditProductRequest extends FormRequest
     public function messages(){
         return [
                 "product_name.required" => 'Vui lòng nhập tên sản phẩm!',
-                "product_price.required" => 'Vui lòng nhập giá sản phẩm!',
+                "product_price.required" => 'Vui lòng nhập giá bán sản phẩm!',
+                "product_price.product_origin_price" => 'Vui lòng nhập giá gốc sản phẩm!',
                 "product_description.required" => 'Vui lòng nhập mô tả sản phẩm!',
                 "product_quantities.required" => 'Vui lòng nhập số lượng sản phẩm!',
                 "product_sizes.required" => 'Vui lòng nhập tên size (vd: L, M, XL...)!',

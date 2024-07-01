@@ -4,22 +4,19 @@
         <div class="row">
             <div class="col-sm-12">
                 <div id="slider-carousel" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
+                    <ul class="carousel-indicators">
                         <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
                         <li data-target="#slider-carousel" data-slide-to="1"></li>
                         <li data-target="#slider-carousel" data-slide-to="2"></li>
-                    </ol>
+                    </ul>
+                    <div class="carousel-inner" style="width: 100%;">
+                        @foreach($sliders as $key => $slider)
+                        <a class="item {{ $key == 0 ? 'active' : '' }}"
+                            href=" {{route('category.show_product_home', ['cid' =>$slider->category->id, 'slug' => $slider->category->category_slug]) }}">
+                            <img src='{{ $slider->slider_image }}' style="display: block; width: 100%;" />
+                        </a>
+                        @endforeach
 
-                    <div style="width: 100%; padding: 0 30px;">
-                        <div class="carousel-inner" style="width: 100%;">
-                            @foreach($sliders as $key => $slider)
-                            <a class="item {{ $key == 0 ? 'active' : '' }}"
-                                href=" {{route('category.show_product_home', ['cid' =>$slider->category->id, 'slug' => $slider->category->category_slug]) }}">
-                                <img src='{{ $slider->slider_image }}' style="display: block; width: 100%;" />
-                            </a>
-                            @endforeach
-
-                        </div>
                     </div>
 
                     <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">

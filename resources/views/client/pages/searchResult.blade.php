@@ -9,6 +9,8 @@
 @section("body")
 <section>
     <div class="container">
+    @include("client.components.breadcrumb")
+
         <div class="row">
             <h2 style="font-weight: 400; margin-left: 20px; font-size: 20px;">Kết quả tìm kiếm "{{$query}}"</h2>
             @if(count($products)>0)

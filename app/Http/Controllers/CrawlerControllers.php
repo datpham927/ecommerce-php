@@ -166,6 +166,7 @@ class CrawlerControllers extends Controller
         $dataProduct["product_discount"]= rand(5, 20);
         $dataProduct["product_thumb"]=$productThumb;
         $dataProduct["product_price"]=intval(preg_replace('/[^\d]/', '', $crawler->filter(".pro-price")->text()));
+        $dataProduct["product_origin_price"]=intval(preg_replace('/[^\d]/', '', $crawler->filter(".pro-price")->text()))-20000;
         $dataProduct["product_stock"]= $productStock;
          try {
             DB::beginTransaction();

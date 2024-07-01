@@ -1,5 +1,5 @@
-@extends('client.pages.order.container')
-
+ 
+@extends('client.pages.user.order.container')
 
 @section("view")
 

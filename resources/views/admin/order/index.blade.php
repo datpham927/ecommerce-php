@@ -12,15 +12,11 @@
                 <div class="col-sm-6" style="display: flex; justify-items: center; text-align: center;">
                     <input type="text" name='code' value="{{ $code ?? '' }}" class="input-sm form-control"
                         style="margin-right: 20px;" placeholder="Nhập mã đơn hàng">
-                    <input id="datepicker" name="date" value="{{ $date ?? '' }}" type="text" placeholder="Ngày đặt hàng"
-                        class="input-sm form-control">
+                    <input  name="date" value="{{ $date ?? '' }}" type="text" placeholder="Ngày đặt hàng"
+                        class="datepicker input-sm form-control">
                 </div>
                 <button class="btn btn-sm btn-default" type="submit">Tìm kiếm</button>
             </form>
-
-
-
-
         </div>
         <div class="table-responsive">
             <div class="col-sm-12">
