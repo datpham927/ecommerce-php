@@ -8,6 +8,7 @@ use App\Models\Notification;
 use App\Models\slider;
 use App\Models\product;
 use App\Models\User;
+use App\Repository\Interfaces\SliderRepositoryInterface;
 use App\Traits\AdminAuthenticationTrait;
 use App\Traits\StoreImageTrait;
 use Illuminate\Http\Request;
@@ -20,14 +21,15 @@ class SliderControllers extends Controller
    
     use StoreImageTrait;
     private $slider,$product;
+    protected $sliderRepository;
     
-    public function __construct(slider $slider,product $product){ 
-        $this->slider = $slider;
+    public function __construct(SliderRepositoryInterface $sliderRepository,product $product){ 
+        $this->sliderRepository = $sliderRepository;
         $this->product = $product;
     }
     
     public function index(){   
-        $sliders=$this->slider->latest()->paginate(5);
+        $sliders=$this->sliderRepository->getAllWithPaginate(5);
         return view("admin.slider.index",compact("sliders"));
     }
     // với sự khác biệt là $this->model->where sử dụng một đối tượng model
@@ -43,7 +45,6 @@ class SliderControllers extends Controller
     {
         
         $sliderName = $request->input("slider_name");
-        $slug = Str::of($sliderName)->slug('-');
         // Tạo một mảng chứa dữ liệu slider
         $sliderData = [
             "slider_category_id"=>$request->input("slider_category_id"),
@@ -54,24 +55,18 @@ class SliderControllers extends Controller
         if($slider_image){
           $sliderData['slider_image']=$slider_image["file_path"];
        } 
-        $this->slider->create($sliderData);
+       $this->sliderRepository->create($sliderData);
         // Gửi thông báo thành công
         return back()->with('success', 'Thêm slider thành công!');
-        
-    }
-    
-
-
-    
+    } 
     public function edit($id){
         $categories= Category::get();
-        $slider=$this->slider::find($id);  
+        $slider=$this->sliderRepository->findById($id);  
         return view("admin.slider.edit",compact("slider",'categories'));
     }
     public function update(FormSliderRequest $request,$id){
-        
             // tìm slider
-            $slider=$this->slider::find($id); 
+           ;  
             $sliderName = $request->input("slider_name");
             // Tạo một mảng chứa dữ liệu slider
             $sliderData = [
@@ -81,7 +76,7 @@ class SliderControllers extends Controller
             $slider_image=$this->handleTraitUpdateImage($request,'slider_image',"slider");
               $sliderData['slider_image']=$slider_image["file_path"];
             // update slider 
-            $slider->update($sliderData);
+            $this->sliderRepository->findByIdAndUpdate($id,$sliderData); 
 
             session()->flash('success', 'Cập nhật slider thành công!');
             return redirect()->route('slider.index'); 
@@ -90,7 +85,7 @@ class SliderControllers extends Controller
 {
     try {
         // Tìm slider bằng id
-        $slider = $this->slider->find($id);
+        $slider = $this->sliderRepository->findById($id);
         // Kiểm tra nếu slider không tồn tại
         if (!$slider) {
             return response()->json(['code' => 404, 'message' => 'Slider không tồn tại']);
@@ -101,13 +96,11 @@ class SliderControllers extends Controller
         }
         // Xóa slider khỏi cơ sở dữ liệu
         $slider->delete();
-
         // Trả về phản hồi thành công
         return response()->json(['code' => 200, 'message' => 'Xóa slider thành công!']);
     } catch (\Exception $e) {
         // Ghi log lỗi
         Log::error($e->getMessage());
-
         // Trả về phản hồi lỗi
         return response()->json(['code' => 500, 'message' => 'Đã xảy ra lỗi']);
     }

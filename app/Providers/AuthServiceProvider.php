@@ -94,3 +94,5 @@ Gate::define('delete_order', [OrderPolicy::class, 'delete']);
 
     }
 }
+
+

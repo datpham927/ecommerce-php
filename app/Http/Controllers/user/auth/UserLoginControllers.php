@@ -7,6 +7,7 @@ use App\Models\City;
 use App\Models\Province;
 use App\Models\User;
 use App\Models\Wards;
+use App\Repository\Interfaces\UserRepositoryInterface;
 use App\Traits\StoreImageTrait;
 use Exception;
 use Illuminate\Http\Request;
@@ -21,10 +22,11 @@ class UserLoginControllers extends Controller
 {
     
    use StoreImageTrait;
-    protected $user; 
-    function __construct(User $user){
-        $this->user=$user;
-    } 
+   protected $userRepository;
+   public function __construct(UserRepositoryInterface $userRepository)
+   {
+       $this->userRepository = $userRepository;
+   }
     function login(){
         
         if (Auth::check()) { 
@@ -45,8 +47,7 @@ class UserLoginControllers extends Controller
      }
      
      function register(){ 
-        $userId =Auth::user()->id;
-        if ($userId!= null) { 
+        if (Auth::check()) { 
             return redirect()->back();
         }
         return view('client.pages.register');
@@ -68,7 +69,7 @@ class UserLoginControllers extends Controller
             return redirect()->back()->withErrors('Mật khẩu xác nhận không chính xác!');
         } 
          $username = explode('@', $email)[0];
-        $this->user->create([
+         $this->userRepository->create([
             "user_email" =>$email,
             "user_name" =>$username,
             "user_password" => Hash::make($password),
@@ -131,13 +132,14 @@ public function handleGoogleCallback()
             // Tạo người dùng mới trong cơ sở dữ liệu
             $randomPassword = Str::random(12);
             $hashedPassword = bcrypt($randomPassword);
-            $newUser = User::create([
+            $data=[
                 'user_name' => $user->name,
                 'user_email' => $user->email,
                 'user_google_id' => $user->id,
                 'user_image_url' => $user->avatar,
                 'user_password' => $hashedPassword // Sử dụng bcrypt để mã hóa mật khẩu
-            ]);
+            ];
+            $newUser =  $this->userRepository->create($data);
 
             // Đăng nhập người dùng mới và chuyển hướng đến trang chính
             Auth::login($newUser);

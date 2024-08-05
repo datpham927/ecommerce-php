@@ -13,6 +13,7 @@ use App\Models\product;
 use App\Models\Size;
 use App\Models\User;
 use App\Classes\Momo;
+use App\Repository\Interfaces\OrderRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,9 +25,13 @@ use Illuminate\Support\Str;
 class UserOrderControllers extends Controller
 {
     protected $momo;
-     function __construct(Momo $momo)
+
+    protected $orderRepository;
+    
+     function __construct(Momo $momo,OrderRepositoryInterface $orderRepository)
 {
      $this->momo=$momo;
+     $this->orderRepository = $orderRepository;
 }
     public function viewCheckout(){
         $user = Auth::user();
@@ -159,7 +164,7 @@ public function handleOrder($request){
     public function isCanceled($oid){
         try {
             DB::beginTransaction(); 
-            $order = Order::find($oid);  
+            $order = $this->orderRepository->findById($oid);  
             foreach($order->OrderItem as $OrderItemItem){  
                 $foundProduct = Product::find($OrderItemItem->od_item_product_id); 
                 // Cập nhật số lượng sản phẩm đã bán và số lượng tồn kho
@@ -200,34 +205,14 @@ public function handleOrder($request){
     
     public function showOrder()
     {
-        // Lấy user_id từ session
+        if(!Auth::check())   return back()->with('error', 'Vui lòng đăng nhập!');
         $userId =Auth::user()->id;
         // Lấy phần cuối của URL
         $lastSegment = Str::afterLast(request()->url(), '/');
         // Xác định trạng thái đơn hàng
-        $statusFilters = [
-            'order' => [],
-            'confirm' => ['od_is_canceled' => false, 'od_is_confirm' => false],
-            'confirm-delivery' => ['od_is_canceled' => false, 'od_is_confirm' => true,
-                                  'od_is_confirm_delivery' => false],
-            'delivering' => ['od_is_canceled' => false, 'od_is_confirm' => true,
-                             'od_is_confirm_delivery' => true, 'od_is_delivering' => false],
-            'success' => ['od_is_canceled' => false, 'od_is_confirm' => true, 
-                          'od_is_confirm_delivery' => true, 'od_is_delivering' => true, 
-                          'od_is_success' => true],
-            'canceled' => ['od_is_canceled' => true],
-        ];
+       
         // Thiết lập điều kiện tìm kiếm đơn hàng
-        $query = Order::where('od_user_id', $userId)->orderBy('created_at', 'DESC');
-        if (array_key_exists($lastSegment, $statusFilters)) {
-            $query->where($statusFilters[$lastSegment]);
-        } else {
-            // Nếu phần cuối của URL không phù hợp với bất kỳ trạng thái nào, xử lý lỗi 404 hoặc chuyển hướng tùy ý
-            // Đây là một ví dụ:
-            abort(404);
-        }
-        // Lấy danh sách đơn hàng
-        $orders = $query->get();
+        $orders = $this->orderRepository->findOrdersByUserIdAndStatus($userId, $lastSegment);
         $active = $lastSegment;
         $user=Auth::user();
         // Trả về view 'pages.order.orderList' với dữ liệu đơn hàng và active

@@ -5,15 +5,26 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Notification;
 use App\Models\Order;
+use App\Models\setting;
 use App\Models\statistical;
+use App\Repository\Interfaces\OrderRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use PDF;
+use QrCode;
 class OrderControllers extends Controller
 {
+
+    protected $orderRepository;
+    public function __construct(OrderRepositoryInterface $orderRepository)
+    {
+        $this->orderRepository = $orderRepository;
+    }
+
     public function index(Request $request)
 {
     // Xác định trạng thái đơn hàng và lấy danh sách đơn hàng tương ứng
@@ -27,24 +38,15 @@ class OrderControllers extends Controller
     // tìm kiếm
     if (isset($code)) {
         $active = $lastSegment;
-        $query = Order::where('id', $code)
-                ->where($statusFilters[$lastSegment]);
-       if (isset($date)) {
-            $formattedDate = date('Y-m-d', strtotime($date));
-            $query->whereDate('created_at', $formattedDate);
-        }
-        $orders = $query->get();
+        $orders =$this->orderRepository
+             ->findByCodeAndStatus($code,$statusFilters[$lastSegment],$date);
         return view('admin.order.index', compact('orders', 'active', 'code', 'date'));
     }
     //
     if (array_key_exists($lastSegment, $statusFilters)) {
-        $query = Order::orderBy('created_at', 'DESC')->where($statusFilters[$lastSegment]);
-        if (isset($date)) {
-            $formattedDate = date('Y-m-d', strtotime($date));
-            $query->whereDate('created_at', $formattedDate);
-        }
-        $orders = $query->paginate(5);
-        $active = $lastSegment;
+            $active = $lastSegment;
+            $orders = $this->orderRepository
+            ->filterByStatusAndDate($statusFilters[$lastSegment], $date,5);
     } else {
         abort(404);
     }
@@ -56,7 +58,7 @@ public function confirmOrderStatus(Request $request,$oid){
         $currentUrl = $request->url();
         $segmentBeforeLast = Str::beforeLast($currentUrl, '/');
         $lastSegment = Str::afterLast($segmentBeforeLast, '/');
-        $order = Order::find($oid);
+        $order=$this->orderRepository->findById($oid);
         // Thêm định dạng ngày tháng năm
         $formattedDate = Carbon::now()->locale('vi')->isoFormat('dddd, DD/MM/YYYY');
         $updates=[
@@ -65,23 +67,17 @@ public function confirmOrderStatus(Request $request,$oid){
             'is-delivered' => ['od_is_delivering' => true,'od_is_success' => true,'od_is_pay'=>true],
         ];
         $orderNotification= config("constants.Order-notification");
-        $order = Order::find($oid);
         if ($lastSegment === "is-confirm") {
             $today = Carbon::now()->toDateString();
-            $profit = $order->OrderItem->sum(function($orderItem) {
-                return $orderItem->Product->product_origin_price * $orderItem->od_item_quantity;
-            });
-            $quantity = $order->OrderItem->sum(function($orderItem) {
-                return $orderItem->od_item_quantity;
-            });
+            $profitAndQuantity=$this->orderRepository->calculateProfitAndQuantity($order);
+         // thống kê
             $foundStatistical = statistical::firstOrNew(['order_date' => $today]);
-            $foundStatistical->profit += $profit;
+            $foundStatistical->profit += $profitAndQuantity["profit"];
             $foundStatistical->sales += $order->od_price_total;
             $foundStatistical->total_order += 1;
-            $foundStatistical->quantity+= $quantity ;
+            $foundStatistical->quantity+= $profitAndQuantity["quantity"] ;
             $foundStatistical->save();
         }
-        
         if (array_key_exists($lastSegment, $updates)) {
             $order->update($updates[$lastSegment]);
               Notification::create([
@@ -102,8 +98,26 @@ public function confirmOrderStatus(Request $request,$oid){
     }
 }
 public function getOrderItemByAdmin($oid){
-        $order=Order::find($oid);
+        $order=$this->orderRepository->findById($oid);
         return view('admin.order.detail',compact('order'));
+}
+
+public function generatePDF($oid)
+{
+    try { 
+        $setting = setting::first();
+        $order = Order::with('OrderItem.product')->find($oid);
+        if (!$order) {
+            throw new \Exception("Order not found");
+        }  
+        $qrCode = QrCode::size(50)->generate($oid);
+        return view('admin.invoicePDF', compact('order', 'setting','qrCode'));
+        $pdf = PDF::loadView('admin.invoicePDF', compact('order', 'setting','qrCode'));
+        return $pdf->download('MDH-'.$oid.'.pdf');
+    } catch (\Throwable $th) {
+        \Log::error($th);
+        return response()->json(['error' => 'Failed to generate PDF. Please try again later.'], 500);
+    }
 }
 
 }

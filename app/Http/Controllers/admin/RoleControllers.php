@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\permission;
 use App\Models\permission_role;
 use App\Models\role;
+use App\Repository\Interfaces\RoleRepositoryInterface;
 use App\Traits\AdminAuthenticationTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,9 +14,13 @@ use Illuminate\Support\Facades\Log;
 
 class RoleControllers extends Controller
 {
-   
+    protected $roleRepository;
+    public function __construct(RoleRepositoryInterface $roleRepository)
+    {
+        $this->roleRepository = $roleRepository;
+    }
     public function index() {
-        $roles=role::latest()->paginate(5);
+        $roles= $this->roleRepository->getAllWithPaginate(5);
          return view('admin.role.index',compact("roles"));
     }
 
@@ -39,11 +44,11 @@ class RoleControllers extends Controller
             ]);
             DB::beginTransaction();
             // Tạo vai trò mới
-            $role = Role::create([
+            $data=[
                 "role_name" => $request['role_name'],
                 "role_display_name" => $request['role_display_name']
-            ]);
-           
+            ];
+            $role =$this->roleRepository->create($data);
             $role->permissions()->attach( $request->input('permission_id'));
             DB::commit();
             // Gửi thông báo thành công
@@ -53,7 +58,7 @@ class RoleControllers extends Controller
     public function edit($id){
         
         $permissionParents=permission::where(["pms_parent_id"=>0])->get();
-        $role=role::where('role_id',$id)->first();  
+        $role=$this->roleRepository->findById($id);  
         $permissionChecked = $role->permissions;
         return view("admin.role.edit",compact("role",'permissionParents','permissionChecked'));
     }
@@ -61,13 +66,15 @@ class RoleControllers extends Controller
         try {
             
             DB::beginTransaction();
-            Role::where(["role_id"=>$id])->update([
+             $data=[
                 "role_name" => $request->input('role_name'),
                 "role_display_name" => $request->input('role_display_name')
-            ]);
-            $role = Role::where(["role_id"=>$id])->first(); 
-              $role->permissions()->sync( $request->input('permission_id'));
-              DB::commit();
+             ];
+
+            $this->roleRepository->findByIdAndUpdate($id, $data);
+            $role = $this->roleRepository->findById($id) ;
+            $role->permissions()->sync( $request->input('permission_id'));
+            DB::commit();
             session()->flash('success', 'Cập nhật vai trò thành công!');
             return redirect()->route('role.index'); 
         } catch (\Throwable $th) {
@@ -78,7 +85,7 @@ class RoleControllers extends Controller
     public function delete($id){
         try{
             
-            $role=  role::where('role_id',$id)->first();
+            $role= $this->roleRepository->findById($id) ;
             $role->permissions()->detach();
              $role->delete();
             return response()->json(['code' => 200, 'message' =>'Xóa vai trò thành công!']);

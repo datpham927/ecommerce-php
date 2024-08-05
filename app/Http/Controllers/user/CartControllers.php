@@ -49,6 +49,7 @@ class CartControllers extends Controller
     }
     public function viewListCart()
     {
+        if(!Auth::check())   return back()->with('error', 'Vui lòng đăng nhập!');
         $userId =Auth::user()->id;
         $carts = Cart::where('cart_user_id', $userId)->get();
         $breadcrumb = [

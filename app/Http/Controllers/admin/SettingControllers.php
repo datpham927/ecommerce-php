@@ -7,7 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\setting;
 use App\Traits\StoreImageTrait;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
+use QrCode;
 class SettingControllers extends Controller
 { 
 use StoreImageTrait;
@@ -22,7 +23,6 @@ use StoreImageTrait;
             return view('admin.setting.index',compact('config','setting'));
        }
 
-
        public function store(Request $request){
          try {
           // Kiểm tra xem có bản ghi nào tồn tại chưa
@@ -32,6 +32,10 @@ use StoreImageTrait;
           $image = $this->HandleTraitUploadMultiple($request->file('setting_logo'), 'image-storage');
           $data["setting_logo"] = $image["file_path"];
       }
+      if ($request->has("setting_phone")) {
+          $prcode=QrCode::size(150)->generate('https://zalo.me/'.$request->input("setting_phone"));
+          $data["setting_prcode"] = $prcode;
+    }
         if ($setting) {
             // Nếu đã có thì cập nhật
             $setting->update($data);

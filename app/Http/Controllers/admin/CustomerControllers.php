@@ -8,7 +8,9 @@ use App\Models\City;
 use App\Models\Province;
 use App\Models\User;
 use App\Models\Wards;
+use App\Repository\Interfaces\UserRepositoryInterface;
 use App\Traits\StoreImageTrait;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -16,18 +18,21 @@ use Illuminate\Support\Facades\Log;
 class CustomerControllers extends Controller
 {
     use StoreImageTrait;
-   
+    protected $userRepository;
+    public function __construct(UserRepositoryInterface $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
     public function index(Request $request)
 {
     $userName = $request->input('name');
     if (!empty($userName)) {
         // Retrieve users whose user_name matches the given name with pagination
-        $customers = User::where('user_name', 'like', "%{$userName}%")->paginate(5);
+        $customers = $this->userRepository->findUserByName($userName,5);
     } else {
         // Retrieve the latest users with pagination
-        $customers = User::where('user_type','customer')->paginate(5);
+        $customers =$this->userRepository->findCustomer(5);
     }
-
     return view('admin.customer.index', compact('customers','userName'));
 }
 
@@ -39,7 +44,7 @@ class CustomerControllers extends Controller
     {
        try {
         $image = $this->HandleTraitUploadMultiple($request->file('user_image_url'), 'image-storage');
-         User::create([
+        $data=[
             "user_email" => $request->user_email,
             "user_name" => $request->user_name,
             "user_mobile" => $request->user_mobile,
@@ -48,7 +53,8 @@ class CustomerControllers extends Controller
             "user_province_id" =>$request->province,
             "user_ward_id" =>$request->ward,
             "user_password" => bcrypt($request->user_password),
-        ]);
+        ];
+        $this->userRepository->create($data);
         DB::commit();
         return back()->with('success', 'Thêm khách hàng thành công!');
        } catch (\Throwable $th) {
@@ -59,7 +65,7 @@ class CustomerControllers extends Controller
        }
     }
     public function edit($id){
-        $customer=user::find($id); 
+        $customer=$this->userRepository->findById($id); 
         $cities= City::orderBy("matp",'asc')->get();
         $provinces= Province::orderBy("maqh",'asc')->get();
         $wards= Wards::orderBy("xaid",'asc')->get();
@@ -87,7 +93,7 @@ class CustomerControllers extends Controller
                     $data["user_password"] = bcrypt($request->user_password);
                 }
             }
-            User::find($id)->update($data);
+            $this->userRepository->findByIdAndUpdate($id,$data);
             session()->flash('success', 'Cập nhật khách hàng thành công!');
             return redirect()->back();
         } catch (\Throwable $th) {
@@ -98,8 +104,7 @@ class CustomerControllers extends Controller
     
     public function delete($id){
         try{
-            $customer= User::find($id);
-            $customer->delete();
+            $this->userRepository->findByIdAndDelete($id);
             return response()->json(['code' => 200, 'message' =>'Xóa khách hàng thành công!']);
             } catch (\Exception $e) {
                 // Log lỗi
@@ -111,7 +116,7 @@ class CustomerControllers extends Controller
 
     public function isBlock($id){
         try{
-            $customer= User::find($id);
+            $customer=$this->userRepository->findById($id);
             $customer->user_is_block=true;
             $customer->save();
             return response()->json(['code' => 200, 'message' =>'Chặn tài khoản thành công!']);
@@ -124,7 +129,7 @@ class CustomerControllers extends Controller
     }
     public function isActive($id){
         try{
-            $customer= User::find($id);
+            $customer=$this->userRepository->findById($id);
             $customer->user_is_block=false;
             $customer->save();
             return response()->json(['code' => 200, 'message' =>'Khách hàng đã được hoạt động trở lại!']);

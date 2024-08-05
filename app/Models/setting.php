@@ -14,7 +14,8 @@ class setting extends Model
         'setting_phone',
         'setting_email',
         'setting_address',
-        "setting_map"
+        "setting_map",
+        "setting_prcode"
     ];
     use HasFactory;
 }
