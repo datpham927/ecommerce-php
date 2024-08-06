@@ -2,7 +2,7 @@
 
 namespace App\Repository\Repositories;
 use App\Models\product;
-use App\Repository\Interfaces\ProductRepositoryInterface\ProductRepositoryInterface;
+use App\Repository\Interfaces\ProductRepositoryInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ProductRepository implements ProductRepositoryInterface
@@ -78,4 +78,28 @@ class ProductRepository implements ProductRepositoryInterface
         ->latest()
         ->paginate($limit);
     }
+
+    public function getProductsByCategoryId($cid,$currentProductId){
+      return  $this->product
+       ->where('product_isPublished', true)
+        ->where('product_category_id', $cid)
+        ->where('id', '!=', $currentProductId)
+        ->get();
+    }
+    public function searchProductByName($name,$limit){
+        return$this->product->where('product_name', 'like', '%' . $name . '%')
+        ->orWhere('product_description', 'like', '%' . $name . '%')
+        ->latest()->paginate($limit);
+      }
+
+      public function getPublishedProductsWithOrderBy(array $orderby, $limit)
+      {
+          $query = $this->product->where('product_isPublished', true);
+  
+          foreach ($orderby as $column => $direction) {
+              $query->orderBy($column, $direction);
+          }
+  
+          return $query->limit($limit)->get();
+      }
 }

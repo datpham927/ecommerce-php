@@ -6,5 +6,4 @@ use App\Repository\Interfaces\BaseRepositoryInterface;
 
 interface CategoryRepositoryInterface extends BaseRepositoryInterface
 {
-    
 }

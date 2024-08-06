@@ -3,6 +3,7 @@
 namespace App\Repository\Repositories;
 
 use App\Models\Category;
+use App\Models\user_interested_category;
 use App\Repository\Interfaces\CategoryRepositoryInterface;
 
 class CategoryRepository implements CategoryRepositoryInterface
@@ -47,4 +48,5 @@ class CategoryRepository implements CategoryRepositoryInterface
         $Category->delete();
         return $Category;
     }
-}
+   
+    }        

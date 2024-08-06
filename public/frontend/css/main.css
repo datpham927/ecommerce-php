@@ -1009,7 +1009,7 @@ h2.title {
     overflow: hidden;
 }
 
-#recommended-item-carousel .carousel-inner .item {
+.recommended-item-carousel .carousel-inner .item {
     padding-left: 0;
 }
 

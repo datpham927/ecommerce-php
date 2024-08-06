@@ -2,9 +2,9 @@
 
 namespace App\Repository\Repositories;
 use App\Models\Slider;
-use App\Repository\Interfaces\sliderRepositoryInterface;
+use App\Repository\Interfaces\SliderRepositoryInterface;
 
-class sliderRepository implements sliderRepositoryInterface
+class SliderRepository implements SliderRepositoryInterface
 {
     protected $role;
     public function __construct(Slider $role)

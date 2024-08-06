@@ -8,24 +8,36 @@ use App\Models\Category;
 use App\Models\product;
 use App\Models\Slider;
 use App\Models\visitor;
+use App\Repository\Interfaces\ProductRepositoryInterface;
+use App\Repository\Interfaces\UserInterestedCategoryRepositoryInterface;
+use App\Repository\Repositories\ProductRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeControllers extends Controller
 {
-    
+    protected $userInterestedCategoryRepository ,$productRepository;
+    public function __construct(
+        UserInterestedCategoryRepositoryInterface $userInterestedCategoryRepository,
+        ProductRepositoryInterface $productRepository
+    )
+    {
+        $this->userInterestedCategoryRepository = $userInterestedCategoryRepository;
+        $this->productRepository=$productRepository;
+    }
     function index(Request $request){
-           
          $foundVisitor=visitor::where(['visitor_id_address'=>$request->ip()])->get();
-         if($foundVisitor->count()==0){
-            visitor::create(['visitor_id_address'=>$request->ip()]);
-         } 
+         if($foundVisitor->count()==0){ visitor::create(['visitor_id_address'=>$request->ip()]); } 
         $categories =  Category::orderby('id','desc')->get();
         $brands = brand::orderby('id','desc')->get();
         $sliders = Slider::orderby('id','desc')->get();
-        $products=product::where("product_isPublished",true)->orderby('product_discount','desc')->limit(4)->get(); 
-        $newProducts=product::where("product_isPublished",true)->orderby('created_at','desc')->limit(16)->get();
-        $HotSellingProducts=product::where("product_isPublished",true)->orderby('product_sold','desc')->limit(8)->get();  
-        return view('client.pages.home',compact("categories",'brands','products','sliders' ,'newProducts','HotSellingProducts'));
+        $products=$this->productRepository->getPublishedProductsWithOrderBy(['product_discount'=>'desc'],4);
+        $newProducts= $this->productRepository->getPublishedProductsWithOrderBy(['created_at'=>'desc'],8) ;
+        $HotSellingProducts= $this->productRepository->getPublishedProductsWithOrderBy(['product_sold'=>'desc'],16) ;
+        $UserInterestedCategoryId =  $this->userInterestedCategoryRepository->getUserInterestedCategoryByUserId(Auth::user()->id);
+        $UserInterestedProducts= $this->productRepository->getProductsByCategoryId($UserInterestedCategoryId,8);
+         return view('client.pages.home',compact("categories",'brands','products','sliders',
+         'newProducts','HotSellingProducts','UserInterestedProducts'));
       }
       
     function showCategoryHome($product_slug,$id){ 

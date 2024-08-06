@@ -24,12 +24,12 @@ class SliderControllers extends Controller
     protected $sliderRepository;
     
     public function __construct(SliderRepositoryInterface $sliderRepository,product $product){ 
-        $this->sliderRepository = $sliderRepository;
+        $this->SliderRepository = $sliderRepository;
         $this->product = $product;
     }
     
     public function index(){   
-        $sliders=$this->sliderRepository->getAllWithPaginate(5);
+        $sliders=$this->SliderRepository->getAllWithPaginate(5);
         return view("admin.slider.index",compact("sliders"));
     }
     // với sự khác biệt là $this->model->where sử dụng một đối tượng model
@@ -55,13 +55,13 @@ class SliderControllers extends Controller
         if($slider_image){
           $sliderData['slider_image']=$slider_image["file_path"];
        } 
-       $this->sliderRepository->create($sliderData);
+       $this->SliderRepository->create($sliderData);
         // Gửi thông báo thành công
         return back()->with('success', 'Thêm slider thành công!');
     } 
     public function edit($id){
         $categories= Category::get();
-        $slider=$this->sliderRepository->findById($id);  
+        $slider=$this->SliderRepository->findById($id);  
         return view("admin.slider.edit",compact("slider",'categories'));
     }
     public function update(FormSliderRequest $request,$id){
@@ -76,7 +76,7 @@ class SliderControllers extends Controller
             $slider_image=$this->handleTraitUpdateImage($request,'slider_image',"slider");
               $sliderData['slider_image']=$slider_image["file_path"];
             // update slider 
-            $this->sliderRepository->findByIdAndUpdate($id,$sliderData); 
+            $this->SliderRepository->findByIdAndUpdate($id,$sliderData); 
 
             session()->flash('success', 'Cập nhật slider thành công!');
             return redirect()->route('slider.index'); 
@@ -85,7 +85,7 @@ class SliderControllers extends Controller
 {
     try {
         // Tìm slider bằng id
-        $slider = $this->sliderRepository->findById($id);
+        $slider = $this->SliderRepository->findById($id);
         // Kiểm tra nếu slider không tồn tại
         if (!$slider) {
             return response()->json(['code' => 404, 'message' => 'Slider không tồn tại']);
