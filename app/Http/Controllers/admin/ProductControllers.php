@@ -12,7 +12,7 @@ use App\Models\Images;
 use App\Models\Notification;
 use App\Models\Size;
 use App\Models\User;
-use App\Repository\Interfaces\ProductRepositoryInterface\ProductRepositoryInterface;
+use App\Repository\Interfaces\ProductRepositoryInterface;
 use App\Traits\StoreImageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

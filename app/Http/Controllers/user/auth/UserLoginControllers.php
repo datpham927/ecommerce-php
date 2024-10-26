@@ -127,7 +127,6 @@ public function handleGoogleCallback()
             }else{
                 return redirect()->route('user.login')->withErrors('Vui lòng đăng nhập bằng mật khẩu!');
             }
-           
         } else {
             // Tạo người dùng mới trong cơ sở dữ liệu
             $randomPassword = Str::random(12);

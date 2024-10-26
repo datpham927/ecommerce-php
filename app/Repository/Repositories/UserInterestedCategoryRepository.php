@@ -24,12 +24,10 @@ class UserInterestedCategoryRepository implements UserInterestedCategoryReposito
     public function getUserInterestedCategoryByUserId($uid)
     {
         // Kiểm tra nếu $uid có giá trị hợp lệ
-        if (!$uid) {
-            return null;
-        }
+        if (!$uid) { return null; }
         // Truy vấn và lấy category_id có số lượt xem cao nhất
         return user_interested_category::where('user_id', $uid)
-            ->orderBy('views', 'desc')
+        ->orderBy('views', 'desc')
             ->value('category_id'); // Lấy giá trị của cột category_id trực tiếp
 }        
 }

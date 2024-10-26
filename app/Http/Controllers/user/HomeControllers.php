@@ -33,7 +33,7 @@ class HomeControllers extends Controller
         $sliders = Slider::orderby('id','desc')->get();
         $products=$this->productRepository->getPublishedProductsWithOrderBy(['product_discount'=>'desc'],4);
         $newProducts= $this->productRepository->getPublishedProductsWithOrderBy(['created_at'=>'desc'],8) ;
-        $HotSellingProducts= $this->productRepository->getPublishedProductsWithOrderBy(['product_sold'=>'desc'],16) ;
+        $HotSellingProducts= $this->productRepository->getPublishedProductsWithOrderBy(['product_sold'=>'desc'],8) ;
         $UserInterestedCategoryId =  $this->userInterestedCategoryRepository->getUserInterestedCategoryByUserId(Auth::user()->id);
         $UserInterestedProducts= $this->productRepository->getProductsByCategoryId($UserInterestedCategoryId,8);
          return view('client.pages.home',compact("categories",'brands','products','sliders',
