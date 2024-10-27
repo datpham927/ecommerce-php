@@ -4,19 +4,31 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
-use App\Models\product;
+use App\Repository\Interfaces\ProductRepositoryInterface;
+use App\Repository\Interfaces\UserInterestedCategoryRepositoryInterface;
+use App\Repository\Interfaces\ViewsRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserProductControllers extends Controller
 {
-   
+    protected $productRepository,$userInterestedCategory;
+    public function __construct(ProductRepositoryInterface $productRepository,UserInterestedCategoryRepositoryInterface $userInterestedCategory)
+    {
+        $this->productRepository = $productRepository;
+        $this->userInterestedCategory = $userInterestedCategory;
+    }
     public function detailProduct($slug,$id)
     {
-           
-       $detailProduct =product::find($id);
+       $detailProduct = $this->productRepository->findById($id);
        //update lượt xem
-       $detailProduct->product_views+=1;
+       $detailProduct->product_views+=1; 
        $detailProduct->save();
+       $categoryId=$detailProduct['product_category_id'];
+       if(Auth::check()){
+        $userId=Auth::user()->id;
+        $this->userInterestedCategory->createOrUpdateViews($categoryId,$userId);
+       }
        // cập nhật rating product
        $comments= Comment::where("comment_parent_id",0)->get();
        $countComment=$comments->count();
@@ -31,11 +43,8 @@ class UserProductControllers extends Controller
        }
      
        $title_page=$detailProduct->product_name;
-       $relatedProducts =product::
-       where('product_isPublished', true)
-       ->where('product_category_id', $detailProduct['product_category_id'])
-       ->where('id', '!=', $id)
-       ->get();
+       $relatedProducts =  $this->productRepository
+                  ->getProductsByCategoryId($detailProduct['product_category_id'],$id);
        $comments=Comment::where([
         'comment_product_id'=>$id,
         'comment_parent_id'=>0,
@@ -52,10 +61,8 @@ class UserProductControllers extends Controller
    //  tìm kiếm sản phẩm
    public function searchResult(Request $request)
    {
-       $query = $request->input('text');
-       $products = product::where('product_name', 'like', '%' . $query . '%')
-                           ->orWhere('product_description', 'like', '%' . $query . '%')
-                           ->latest()->paginate(18);
+       $name = $request->input('text');
+       $products = $this->productRepository->searchProductByName( $name ,18);
             $breadcrumb = [
             ['label' => 'Tìm kiếm', 'link' => null],
         ];
