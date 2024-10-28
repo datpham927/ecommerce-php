@@ -34,8 +34,12 @@ class HomeControllers extends Controller
         $products=$this->productRepository->getPublishedProductsWithOrderBy(['product_discount'=>'desc'],4);
         $newProducts= $this->productRepository->getPublishedProductsWithOrderBy(['created_at'=>'desc'],8) ;
         $HotSellingProducts= $this->productRepository->getPublishedProductsWithOrderBy(['product_sold'=>'desc'],8) ;
-        $UserInterestedCategoryId = Auth::user()->id? $this->userInterestedCategoryRepository->getUserInterestedCategoryByUserId(Auth::user()->id):[];
-        $UserInterestedProducts= $this->productRepository->getProductsByCategoryId($UserInterestedCategoryId,8);
+        $UserInterestedProducts=  []; 
+        if(auth()->check()){
+            $UserInterestedCategoryId =$this->userInterestedCategoryRepository->getUserInterestedCategoryByUserId(Auth::user()->id);
+            $UserInterestedProducts= $this->productRepository->getProductsByCategoryId($UserInterestedCategoryId,8);
+       
+        }
          return view('client.pages.home',compact("categories",'brands','products','sliders',
          'newProducts','HotSellingProducts','UserInterestedProducts'));
       }

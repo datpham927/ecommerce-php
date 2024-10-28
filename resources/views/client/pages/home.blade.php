@@ -35,7 +35,6 @@
                         <h2 class="title" style="margin: 0;">Sản phẩm bạn quan tâm</h2>
                     </div>
 
-                @if(count($UserInterestedProducts)>0)
                     <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
                             @foreach($UserInterestedProducts->chunk(4) as $itemProducts)
@@ -57,7 +56,6 @@
                         </a>
                           @endif
                     </div>
-                    @endif
                 </div>
                 @endif
                 <!--features_items-->
