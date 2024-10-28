@@ -2,6 +2,7 @@
 
 echo "Running composer"
 composer install --no-dev --working-dir=/var/www/html
+php artisan optimize: clear
 
 echo "Caching config..."
 php artisan config:cache
@@ -10,7 +11,7 @@ echo "Caching routes..."
 php artisan route:cache
 echo "generate"
 php artisan key:generate
-php artisan optimize: clear
+
 echo "Checking database connection..."
 # Kiểm tra kết nối cơ sở dữ liệu và lưu lỗi vào biến
 if php artisan migrate --pretend; then
