@@ -2,8 +2,7 @@
 
 echo "Running composer"
 composer install --no-dev --working-dir=/var/www/html
-php artisan optimize: clear
-
+npm run build
 echo "Caching config..."
 php artisan config:cache
 
