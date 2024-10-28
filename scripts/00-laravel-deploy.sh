@@ -10,7 +10,7 @@ echo "Caching routes..."
 php artisan route:cache
 echo "generate"
 php artisan key:generate
-
+php artisan optimize: clear
 echo "Checking database connection..."
 # Kiểm tra kết nối cơ sở dữ liệu và lưu lỗi vào biến
 if php artisan migrate --pretend; then
