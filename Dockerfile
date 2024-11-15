@@ -3,7 +3,6 @@ FROM richarvey/nginx-php-fpm:latest
 COPY . .
 
 # Image config
-ENV SKIP_COMPOSER 1
 ENV WEBROOT /var/www/html/public
 ENV PHP_ERRORS_STDERR 1
 ENV RUN_SCRIPTS 1
@@ -16,5 +15,17 @@ ENV LOG_CHANNEL stderr
 
 # Allow composer to run as root
 ENV COMPOSER_ALLOW_SUPERUSER 1
+
+# Expose the expected HTTP port
+EXPOSE 80
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Install PHP dependencies
+RUN composer install --optimize-autoloader --no-dev
+
+# Set permissions for Laravel
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 CMD ["/start.sh"]

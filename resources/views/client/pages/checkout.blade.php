@@ -116,11 +116,16 @@
                                 src="https://developers.momo.vn/v3/vi/img/logo2.svg" />
                             <span style="font-size: 13px;font-weight: 400;">MOMO</span>
                         </label>
-                        <label style="display: flex;align-items: center; cursor:pointer">
+                        <!-- <label style="display: flex;align-items: center; cursor:pointer">
                             <input type="radio" name="od_paymentMethod" value="PAYPAL" />
                             <img style="width:80px;margin: 0 6px;"
                                 src="https://dpshopvn.vercel.app/assets/paypal-036f5ec2.svg" />
                         </label>
+                        <label style="display: flex;align-items: center; cursor:pointer">
+                            <input type="radio" name="od_paymentMethod" value="VNPAY" />
+                            <img style="width:80px;margin: 0 6px;"
+                                src="https://sandbox.vnpayment.vn/paymentv2/Images/brands/logo.svg" />
+                        </label> -->
                     </div>
                     <div style="width: 100%; display: flex; justify-content: end" ;>
                         <button class="btn btn-primary profile-button btn-order"
