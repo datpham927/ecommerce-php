@@ -1,34 +1,36 @@
 FROM richarvey/nginx-php-fpm:latest
 
-COPY . .
+# Copy your application
+COPY . /var/www/html
 
-# Image config
+# Set environment variables
 ENV WEBROOT /var/www/html/public
 ENV PHP_ERRORS_STDERR 1
 ENV RUN_SCRIPTS 1
 ENV REAL_IP_HEADER 1
-
-# Laravel config
 ENV APP_ENV production
 ENV APP_DEBUG false
 ENV LOG_CHANNEL stderr
-
-# Allow composer to run as root
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
-# Expose the expected HTTP port
+# Expose the HTTP port
 EXPOSE 80
 
-# Set working directory
+# Set the working directory
 WORKDIR /var/www/html
 
 # Install PHP dependencies
+RUN apt-get update && apt-get install -y \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd pdo pdo_mysql mbstring zip
+
 RUN composer install --optimize-autoloader --no-dev
 
-# Cấp quyền cho các thư mục cần thiết
+# Set directory permissions
 RUN chmod -R 775 storage bootstrap/cache
-
-# Set permissions for Laravel
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Start Nginx and PHP-FPM
