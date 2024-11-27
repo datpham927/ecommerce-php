@@ -16,6 +16,11 @@ ENV LOG_CHANNEL stderr
 
 # Allow composer to run as root
 ENV COMPOSER_ALLOW_SUPERUSER 1
+
+# Permissions setup
 RUN chmod -R 775 storage bootstrap/cache
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN mkdir -p storage/logs && chown -R www-data:www-data storage/logs
+RUN echo "memory_limit=512M" > /usr/local/etc/php/conf.d/custom.ini
+
 CMD ["/start.sh"]
