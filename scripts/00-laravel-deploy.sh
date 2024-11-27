@@ -4,11 +4,12 @@ echo "Running composer"
 composer install --no-dev --working-dir=/var/www/html 
 echo "Caching config..."
 php artisan config:cache
-
+php artisan view:clear
 echo "Caching routes..."
 php artisan route:cache
 echo "generate"
 php artisan key:generate
+npm run build
 
 echo "Checking database connection..."
 # Kiểm tra kết nối cơ sở dữ liệu và lưu lỗi vào biến
@@ -20,6 +21,8 @@ else
     echo "Error: $(php artisan migrate --pretend 2>&1)"
     exit 1
 fi
+npm run dev
+
 echo "Running migrations..."
 php artisan migrate --force
 
