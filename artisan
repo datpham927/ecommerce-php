@@ -51,3 +51,9 @@ $status = $kernel->handle(
 $kernel->terminate($input, $status);
 
 exit($status);
+// CONNECTION=mysql
+// DB_HOST=db9461.public.databaseasp.net
+// DB_PORT=3306
+// DB_DATABASE=db9461
+// DB_USERNAME=db9461
+// DB_PASSWORD=11111111

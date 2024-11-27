@@ -24,11 +24,12 @@ WORKDIR /var/www/html
 
 # Install PHP dependencies
 RUN composer install --optimize-autoloader --no-dev
+
 # Cấp quyền cho các thư mục cần thiết
 RUN chmod -R 775 storage bootstrap/cache
+
 # Set permissions for Laravel
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-
-
+# Start Nginx and PHP-FPM
 CMD ["/start.sh"]
