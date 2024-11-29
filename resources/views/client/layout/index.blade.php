@@ -15,6 +15,7 @@
     <link href="{{asset('frontend/css/main.css')}}" rel="stylesheet">
     <link href="{{asset('frontend/css/responsive.css')}}" rel="stylesheet"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -41,6 +42,7 @@
     <link href="{{asset('frontend/css/responsive.css')}}" rel="stylesheet"> 
     
     @vite('resources/css/app.css')
+    @vite('resources/js/app.js')
 </head>
 <!--/head-->
 
