@@ -22,3 +22,4 @@ php artisan migrate --force
 
 echo "Seeding the database..."
  php artisan db:seed
+ npm run build
