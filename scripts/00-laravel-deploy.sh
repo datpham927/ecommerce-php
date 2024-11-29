@@ -6,7 +6,7 @@ php artisan config:cache
 php artisan view:clear
 echo "Caching routes..."
 php artisan route:cache
-
+npm run build
 echo "Checking database connection..."
 # Kiểm tra kết nối cơ sở dữ liệu và lưu lỗi vào biến
 if php artisan migrate --pretend; then
@@ -22,4 +22,4 @@ php artisan migrate --force
 
 echo "Seeding the database..."
  php artisan db:seed
- npm run build
+ 
