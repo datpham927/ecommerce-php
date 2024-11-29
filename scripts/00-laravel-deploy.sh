@@ -3,7 +3,7 @@ composer install --no-dev --working-dir=/var/www/html
 echo  "Create app key"
 echo "Caching config..."
 php artisan config:cache
-
+php artisan view:clear
 echo "Caching routes..."
 php artisan route:cache
 
