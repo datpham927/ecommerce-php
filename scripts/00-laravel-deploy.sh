@@ -28,7 +28,7 @@ fi
 # Cache cấu hình và routes
 php artisan config:cache
 php artisan route:cache
-
+php artisan view:clear
 # Chạy migrations
 if ! php artisan migrate --force; then
     echo "Database migration failed!"
