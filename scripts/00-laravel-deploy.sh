@@ -1,30 +1,41 @@
+#!/usr/bin/env bash
 
-# Copy source code vào container
-COPY . /var/www/html
-# Cài đặt quyền cho storage và cache
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+# Thiết lập quyền cho storage và cache
+chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Cài đặt dependencies Composer
-RUN composer install --no-dev --optimize-autoloader --working-dir=/var/www/html
+if ! composer install --no-dev --optimize-autoloader --working-dir=/var/www/html; then
+    echo "Composer install failed!"
+    exit 1
+fi
 
-# Cài đặt Node.js và npm (tuỳ chọn, nếu cần)
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - \
-    && apt-get install -y nodejs
+# Cài đặt dependencies npm
+if ! npm install --prefix /var/www/html; then
+    echo "NPM install failed!"
+    exit 1
+fi
 
-# Cài đặt dependencies npm và build assets
-RUN npm install --prefix /var/www/html
-RUN npm run build --prefix /var/www/html
+# Build assets cho production
+if ! npm run build --prefix /var/www/html; then
+    echo "NPM build failed!"
+    exit 1
+fi
 
 # Cache cấu hình và routes
-RUN php /var/www/html/artisan config:cache
-RUN php /var/www/html/artisan route:cache
+php artisan config:cache
+php artisan route:cache
 
-# Chạy migrations (cần kiểm tra DB connection)
-RUN php /var/www/html/artisan migrate --force
+# Chạy migrations
+if ! php artisan migrate --force; then
+    echo "Database migration failed!"
+    exit 1
+fi
 
-# Expose cổng cho Apache
-EXPOSE 80
+# (Tuỳ chọn) Seed database nếu cần
+if ! php artisan db:seed --force; then
+    echo "Database seeding failed!"
+    exit 1
+fi
 
-# Khởi động Apache
-CMD ["apache2-foreground"]
+echo "Deployment completed successfully!"
