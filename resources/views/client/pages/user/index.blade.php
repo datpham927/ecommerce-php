@@ -5,7 +5,7 @@
 @endsection
 
 @section("body")
-<div class="container " style="padding-top: 20px;">
+<div class="container " >
 <div class="flex mt-5 w-full h-full gap-4">
             <div class="tablet:hidden flex w-[20%] shrink-0">
                 @include("client.pages.user.sidebar")
