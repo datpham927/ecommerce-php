@@ -41,8 +41,7 @@
     @yield('css')
     <link href="{{asset('frontend/css/responsive.css')}}" rel="stylesheet"> 
     
-    <!-- @vite('resources/css/app.css')
-    @vite('resources/js/app.js') -->
+  
 </head>
 <!--/head-->
 

@@ -67,9 +67,7 @@
             language: 'vi' // Thêm dòng này để thiết lập ngôn ngữ là tiếng Việt
         });
     });
-    </script>
-   <!-- @vite('resources/css/app.css')
-   @vite('resources/js/app.js') -->
+    </script> 
 </head>
 
 <body>

@@ -10,6 +10,9 @@ if ! composer install --no-dev --optimize-autoloader --working-dir=/var/www/html
     exit 1
 fi
 
+# Xóa cache npm trước khi cài đặt
+npm cache clean --force
+
 # Cài đặt dependencies npm
 if ! npm install --prefix /var/www/html; then
     echo "NPM install failed!"
