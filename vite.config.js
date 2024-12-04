@@ -3,16 +3,22 @@ import laravel from 'laravel-vite-plugin';
 
 export default defineConfig({
     plugins: [
-        laravel([
-            'resources/css/app.css',
-            'resources/js/app.js',
-        ]),
+        laravel({
+            input: [
+                'resources/css/app.css',
+                'resources/js/app.js',
+            ],
+            refresh: true, // Đặt đúng vị trí, đây là tùy chọn của `laravel()`
+        }),
     ],
     build: {
-        outDir: 'public/build', // Ensure the output directory is correct
-        manifest: true, // Ensure manifest is enabled
+        outDir: 'public/build', // Thư mục build phải trùng với Laravel
+        manifest: true, // Đảm bảo tạo manifest.json
         rollupOptions: {
-            input: ['resources/css/app.css', 'resources/js/app.js'],
+            input: [
+                'resources/css/app.css',
+                'resources/js/app.js',
+            ],
         },
     },
 });
