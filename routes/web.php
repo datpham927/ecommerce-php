@@ -35,8 +35,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::get('/crawler', [CrawlerControllers::class, 'crawler'])->name('crawler.index');
-
+Route::get('/crawler', [CrawlerControllers::class, 'crawler'])->name('crawler.index');
 // admin
 Route::get('/admin', [AdminLoginControllers::class, 'login'])->name('admin.login');
 Route::post('/admin/store-login', [AdminLoginControllers::class, 'storeLogin'])->name('admin.storeLogin');

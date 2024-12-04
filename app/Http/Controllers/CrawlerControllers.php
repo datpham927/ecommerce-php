@@ -66,6 +66,7 @@ class CrawlerControllers extends Controller
     
    
     public function crawler(){
+        set_time_limit(20000);
         foreach ($this->categoryLinks as $categoryLink) {
             $category = Category::create([
                 'category_name' => $categoryLink["name"],
