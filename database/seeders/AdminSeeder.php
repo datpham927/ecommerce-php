@@ -18,6 +18,7 @@ class AdminSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
+            'id'=>1,
             'user_name' => "admin", 
             'user_email' => "admin@gmail.com", 
             'user_mobile' => "0917442948",
