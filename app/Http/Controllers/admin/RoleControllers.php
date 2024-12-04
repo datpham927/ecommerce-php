@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\permission;
-use App\Models\permission_role;
-use App\Models\role;
-use App\Repository\Interfaces\RoleRepositoryInterface;
-use App\Traits\AdminAuthenticationTrait;
+use App\Models\permission; 
+use App\Repository\Interfaces\RoleRepositoryInterface; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
