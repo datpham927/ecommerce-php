@@ -1,31 +1,22 @@
 #!/usr/bin/env bash
 
-# Cài đặt Composer
-echo "Running composer..."
-composer install --no-dev --working-dir=/var/www/html
+# Cài đặt dependencies Composer
+composer install --no-dev --optimize-autoloader --working-dir=/var/www/html
 
-# Cài đặt npm dependencies
-echo "Installing npm dependencies..."
-npm install --prefix /var/www/html 
+# Cài đặt dependencies npm
+npm install --prefix /var/www/html
 
-# Build assets với Vite hoặc Laravel Mix
-echo "Building assets..."
-npm run build --prefix /var/www/html  # Sửa 'buil' thành 'build'
+# Build assets cho production
+npm run build --prefix /var/www/html
 
-# Cache cấu hình
-echo "Caching config..."
+# Cache cấu hình và routes
 php artisan config:cache
-
-# Cache routes
-echo "Caching routes..."
 php artisan route:cache
 
-# Thực hiện migrations
-echo "Running migrations..."
+# Chạy migrations
 php artisan migrate --force
 
-# Seed database
-echo "Seeding the database..."
-php artisan db:seed
+# (Tuỳ chọn) Seed database nếu cần
+php artisan db:seed --force
 
 echo "Deployment completed successfully!"
