@@ -35,7 +35,6 @@
     <!-- calendar -->
     <link rel="stylesheet" href="{{asset('backend/css/monthly.css')}}">
     <link rel="stylesheet" href="{{asset('backend/css/multi-select.css')}}">
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <!-- //font-awesome icons -->
     <script src="{{asset('backend/js/jquery2.0.3.min.js')}}"></script>
     <script src="{{asset('backend/js/raphael-min.js')}}"></script>
