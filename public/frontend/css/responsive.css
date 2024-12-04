@@ -37,6 +37,9 @@
     .shop-menu ul li a span {
         display: none;
     }
+    .product-title{
+font-size: 20px;
+    }
     .logo span{
         display: none;
     }
@@ -111,7 +114,9 @@
     .header_top .col-sm-6:first-child {
         display: inline-block;
         float: left;
-    }
+    }   .product-title{
+        font-size: 20px;
+            }
     .logo-min {
         display: none;
     }
