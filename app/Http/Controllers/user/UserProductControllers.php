@@ -61,11 +61,11 @@ class UserProductControllers extends Controller
    //  tìm kiếm sản phẩm
    public function searchResult(Request $request)
    {
-       $name = $request->input('text');
-       $products = $this->productRepository->searchProductByName( $name ,18);
+       $query = $request->input('text');
+       $products = $this->productRepository->searchProductByName( $query ,18);
             $breadcrumb = [
             ['label' => 'Tìm kiếm', 'link' => null],
         ];
-       return view('client.pages.searchResult',  compact("products","query",'breadcrumb'));
+       return view('client.pages.searchResult',  compact("products", "query" ,'breadcrumb'));
    }
 }
