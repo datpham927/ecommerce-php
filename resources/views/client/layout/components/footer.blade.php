@@ -2,8 +2,8 @@
 use App\Models\setting;
 $setting = setting::first();
 @endphp
-<div class="footer-widget">
-    <div class="container">
+<div class="footer-widget" style="overflow: hidden;">
+    <div class="container" style="width: 100%;">
         <div class="row">
             <div class="col-sm-4">
                 <div class="single-widget">
@@ -59,7 +59,7 @@ $setting = setting::first();
 </div>
 
 <div class="footer-bottom">
-    <div class="container">
+    <div class="container" style="width: 100%;" >
         <div class="row">
             <p class="pull-left">Copyright © 2013 E-SHOPPER Inc. All rights reserved.</p>
             <p class="pull-right">Designed by <span><a target="_blank" href="http://www.themeum.com">Themeum</a></span>

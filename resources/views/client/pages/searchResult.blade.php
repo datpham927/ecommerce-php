@@ -8,7 +8,7 @@
 
 @section("body")
 <section>
-    <div class="container">
+    <div class="container" style="width: 100%;">
     @include("client.components.breadcrumb")
 
         <div class="row">

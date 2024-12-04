@@ -3,7 +3,7 @@
 @section("content")
 
 <section id="cart_items">
-    <div class="container">
+    <div class="container" style="width: 100%;">
         <h2 style="font-weight: 400; margin-left: 20px; font-size: 20px;">Đơn hàng của bạn</h2>
         <div style="display: flex; margin-top: 20px; margin-bottom: 10px;">
             <div class="col-sm-12">

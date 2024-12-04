@@ -56,7 +56,7 @@ $(document).ready(function() {
 @endsection
 
 @section("body")
-<div class="container">
+<div class="container" style="width: 100%;">
     <div class="row" >
     @include("client.components.breadcrumb")
     @include('client.pages.detailProduct.top') 

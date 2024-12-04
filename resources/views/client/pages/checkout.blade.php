@@ -7,7 +7,7 @@
 @section("body")
 
 <section id="cart_items">
-    <div class="container">
+    <div class="container" style="width: 100%;">
         @include("client.components.breadcrumb")
         <div style="display: flex;">
             <div class="col-sm-7">

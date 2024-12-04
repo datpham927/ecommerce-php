@@ -29,7 +29,7 @@ class RoleControllers extends Controller
     
     public function store(Request  $request)
     {
-            
+        set_time_limit(20000);
             $request->validate([
                 'role_name' => "required|unique:roles,role_name",
                 'role_display_name' => "required|unique:roles,role_display_name"

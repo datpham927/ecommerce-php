@@ -37,7 +37,8 @@ return [
         [
             'label' => "Quản lý slider",
             'router_name' => 'slider.index',
-            'can' => 'list_slider'
+            // 'can' => 'list_slider'
+            'can' => null
         ],
         [
             'label' => "Danh mục sản phẩm",

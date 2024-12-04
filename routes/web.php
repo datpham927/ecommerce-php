@@ -101,9 +101,9 @@ Route::prefix('admin')->group(function () {
         });
 
         Route::prefix('/slider')->group(function () {
-            Route::get('/', [SliderControllers::class, 'index'])->name("slider.index")->middleware('can:list_slider');
-            Route::get('/add', [SliderControllers::class, 'create'])->name("slider.add")->middleware('can:add_slider');
-            Route::post('/store', [SliderControllers::class, 'store'])->name("slider.store")->middleware('can:add_slider');
+            Route::get('/', [SliderControllers::class, 'index'])->name("slider.index");
+            Route::get('/add', [SliderControllers::class, 'create'])->name("slider.add");
+            Route::post('/store', [SliderControllers::class, 'store'])->name("slider.store");
             Route::get('/edit/{id}', [SliderControllers::class, 'edit'])->name("slider.edit")->middleware('can:edit_slider');
             Route::post('/update/{id}', [SliderControllers::class, 'update'])->name("slider.update")->middleware('can:edit_slider');
             Route::delete('/delete/{id}', [SliderControllers::class, 'delete'])->name("slider.delete")->middleware('can:delete_slider');

@@ -1,5 +1,5 @@
 @if(count($relatedProducts) > 0)
-    <div class="container" style="background-color: white; margin-top: 20px;padding: 20px;">
+    <div class="container" style="width: 100%;" style="background-color: white; margin-top: 20px;padding: 20px;">
         <div style="width: 100%;">
             <h1 class="title" style="width: 100%; font-size: 20px;color: black; text-transform: uppercase;">Sản phẩm
                 liên quan</h1>

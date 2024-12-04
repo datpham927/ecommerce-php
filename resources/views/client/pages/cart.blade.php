@@ -3,7 +3,7 @@
 @section("body")
 <section id="cart_items">
     @if(count($carts)>0)
-    <div class="container">
+    <div class="container" style="width: 100%;">
         @include("client.components.breadcrumb")
         <div class="table-responsive cart_info" style="border: none;">
             <table class='table table-condensed'>
