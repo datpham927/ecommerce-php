@@ -26,13 +26,13 @@ class HomeControllers extends Controller
         $this->productRepository=$productRepository;
     }
     function index(Request $request){
-        if($request->ip()){
-            $foundVisitor=visitor::where(['visitor_id_address'=>$request->ip()])->get();
-            if($foundVisitor->count()==0){
-                visitor::create(['visitor_id_address'=>$request->ip()]); 
+        // if($request->ip()){
+        //     $foundVisitor=visitor::where(['visitor_id_address'=>$request->ip()])->get();
+        //     if($foundVisitor->count()==0){
+        //         visitor::create(['visitor_id_address'=>$request->ip()]); 
                
-               } 
-        }
+        //        } 
+        // }
         
         $categories =  Category::orderby('id','desc')->get();
         $brands = brand::orderby('id','desc')->get();
