@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-md-3 border-right " style="background-color: white;">
             <div
-                style="background-color: white;padding: 20px; height:inherit; display: flex; flex-direction: column;align-items: center;">
+                style="width: 100%;background-color: white;padding: 20px; height:inherit; display: flex; flex-direction: column;align-items: center;">
                 <img class="rounded-circle mt-5" width="150px"style="border-radius:100%"
                     src="{{$user->user_image_url??"https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"}}">
                 <span style="font-weight: 600;margin-top: 10px;">{{$user->user_name}}</span>

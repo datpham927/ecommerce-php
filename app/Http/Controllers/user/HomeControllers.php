@@ -26,8 +26,14 @@ class HomeControllers extends Controller
         $this->productRepository=$productRepository;
     }
     function index(Request $request){
-         $foundVisitor=visitor::where(['visitor_id_address'=>$request->ip()])->get();
-         if($foundVisitor->count()==0){ visitor::create(['visitor_id_address'=>$request->ip()]); } 
+        if($request->ip()){
+            $foundVisitor=visitor::where(['visitor_id_address'=>$request->ip()])->get();
+            if($foundVisitor->count()==0){
+                visitor::create(['visitor_id_address'=>$request->ip()]); 
+               
+               } 
+        }
+        
         $categories =  Category::orderby('id','desc')->get();
         $brands = brand::orderby('id','desc')->get();
         $sliders = Slider::orderby('id','desc')->get();
@@ -38,7 +44,6 @@ class HomeControllers extends Controller
         if(auth()->check()){
             $UserInterestedCategoryId =$this->userInterestedCategoryRepository->getUserInterestedCategoryByUserId(Auth::user()->id);
             $UserInterestedProducts= $this->productRepository->getProductsByCategoryId($UserInterestedCategoryId,8);
-       
         }
          return view('client.pages.home',compact("categories",'brands','products','sliders',
          'newProducts','HotSellingProducts','UserInterestedProducts'));

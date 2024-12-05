@@ -1,4 +1,4 @@
-<div class='container' style="background-color: white;padding: 20px;">
+<div class='container' style="width: 100%;background-color: white;padding: 20px;">
     <div>
         <h1 class="title" style="width: 100%; display:flex; font-size: 20px;color: black; text-transform: uppercase;">
             Chi tiết sản

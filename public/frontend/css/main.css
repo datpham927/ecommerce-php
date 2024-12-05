@@ -2475,6 +2475,7 @@ textarea {
 }
 
 .product-rating {
+    display: flex;
     color: gold;
     font-size: 10px;
 }
